@@ -1,0 +1,364 @@
+\chapter{Appendix}
+\label{sec:appendix}
+
+For convenience of the reader, in this part we collect the graphics
+cited in Section \ref{sec:numerical-example} Chapter \ref{chapter:estimates}.
+
+%--------------------------------------------------------------------------------------%
+% Example 1
+%--------------------------------------------------------------------------------------%
+
+%--------------------------------------------------------------------------------------%
+% error & majorant distribution on the different meshes
+%--------------------------------------------------------------------------------------%
+\begin{figure}[!ht]
+	\centering
+	\subfloat[$Q^{10}$: 128 EL, $\mathcal{T}_{9 \times 9}$]{
+	\includegraphics[scale=0.85]{pics/example-incr-2d-t/ex-5-no-ref-e-m-hist-elements-128-time-10}
+	\label{fig:example-incr-unit-2d-e-maj-distr-128-a}}
+	%
+	\subfloat[$Q^{10}$: 128 EL, $\mathcal{T}_{9 \times 9}$]{
+	\includegraphics[scale=0.85]{pics/example-incr-2d-t/ex-5-no-ref-e-m-hist-sorted-elements-128-time-10}
+	\label{fig:example-incr-unit-2d-e-maj-distr-128-b}}\\
+	\subfloat[$Q^{10}$: 512 EL, $\mathcal{T}_{17 \times 17}$]{
+	\includegraphics[scale=0.85]{pics/example-incr-2d-t/ex-5-no-ref-e-m-hist-elements-512-time-10}
+	\label{fig:example-incr-unit-2d-e-maj-distr-512-a}}
+	%
+	\subfloat[$Q^{10}$: 512 EL, $\mathcal{T}_{17 \times 17}$]{
+	\includegraphics[scale=0.85]{pics/example-incr-2d-t/ex-5-no-ref-e-m-hist-sorted-elements-512-time-10}
+	\label{fig:example-incr-unit-2d-e-maj-distr-512-b}}
+	\caption{Example \ref{ex:incr-unit-2d-t}. The true error $\incred{10}$ and 
+	indicator $\incrmdI{10}$ distribution over the $Q^{10}$.}
+	%\label{fig:example-incr-unit-2d-e-maj-distr}
+\end{figure}
+
+\clearpage
+
+%--------------------------------------------------------------------------------------%
+% optimal convergence
+%--------------------------------------------------------------------------------------%
+\begin{figure}[!ht]
+	\centering
+	\subfloat[$\error$ and $\majone$]{
+	\includegraphics[scale=0.85]{pics/example-incr-2d-t/ex-5-no-ref-opt-conv-total-error-maj}
+	\label{fig:example-incr-unit-2d-uniform-convergence-a}}\quad
+	%
+	\subfloat[$\ed$ and $\mdI$]{
+	\includegraphics[scale=0.85]{pics/example-incr-2d-t/ex-5-no-ref-opt-conv-ed-md}
+	\label{fig:example-incr-unit-2d-uniform-convergence-b}}
+	%
+	\caption{Example \ref{ex:incr-unit-2d-t}. Optimal convergence.}
+	\label{fig:example-incr-unit-2d-uniform-convergence}
+\end{figure}
+
+%%--------------------------------------------------------------------------------------%
+%% initial mesh
+%%--------------------------------------------------------------------------------------%
+%\begin{figure}[!ht]
+	%\centering
+	%\subfloat[\; 200 EL]{\includegraphics[scale=0.35]{pics/example-incr-2d-t/u-1-121-verteces-3d}
+	%\label{fig:example-incr-unit-2d-approximation-1}}
+	%\subfloat[\; 1195 EL]{\includegraphics[scale=0.35]{pics/example-incr-2d-t/u-4-1195-verteces-3d}
+	%\label{fig:example-incr-unit-2d--approximation-2}}		
+	%\caption{Example \ref{ex:incr-unit-2d-t}. 
+	%Approximate solution on (a) initial mesh $\mathcal{T}_{11 \times 11}$ on $Q^1$ and 
+	%on (b) mesh obtained with adaptive bulk refinement $\theta = 0.3$ on $Q^4$.}
+	%\label{fig:example-incr-unit-2d-bulk-meshes}
+%\end{figure}
+%
+%--------------------------------------------------------------------------------------%
+% error & majorant distribution based on different refiniment criterious
+%--------------------------------------------------------------------------------------%
+\begin{figure}[!ht]
+	\centering
+	\subfloat[$Q^1$: 200 EL, \newline $\incred{1}$ = 6.5183e-05, $\incrmdI{1}$ = 6.5634e-05]{
+	\includegraphics[scale=0.83]{pics/example-incr-2d-t/ex-5-error-bulk-30-e-m-hist-sorted-elements-200-time-1}
+	%\label{fig:example-incr-unit-2d-e-maj-distr-theta-30-time-1}
+	}
+	\subfloat[$Q^3$: 1024 EL, \newline $\incred{3}$ = 2.5017e-05, $\incrmdI{3}$ = 2.4730e-05]{
+	\includegraphics[scale=0.83]{pics/example-incr-2d-t/ex-5-error-bulk-30-e-m-hist-sorted-elements-1024-time-3}
+	%\label{fig:example-incr-unit-2d-e-maj-distr-theta-30-time-3}
+	}\\
+	%
+	\subfloat[$Q^5$: 5194 EL, \newline $\incred{5}$ =  7.4896e-06, $\incrmdI{5}$ = 7.4871e-06]{
+	\includegraphics[scale=0.83]{pics/example-incr-2d-t/ex-5-error-bulk-30-e-m-hist-sorted-elements-5194-time-5}
+	%\label{fig:example-incr-unit-2d-e-maj-distr-theta-30-time-5}
+	}
+	\subfloat[$Q^7$: 27372 EL, \newline $\incred{7}$ =  2.2442e-06, $\incrmdI{7}$ = 2.2160e-06]{
+	\includegraphics[scale=0.83]{pics/example-incr-2d-t/ex-5-error-bulk-30-e-m-hist-sorted-elements-27388-time-7}
+	%\label{fig:example-incr-unit-2d-e-maj-distr-theta-30-time-7}
+	}\\
+	%
+	\caption{Example \ref{ex:incr-unit-2d-t}. The true error and indicator distribution 
+	on different time slices $Q^k$, $k = 1, 3, 5, 7$, 
+	with refinement bulk marking $\Marker_{0.3}$.}
+	\label{fig:example-incr-unit-2d-e-maj-distr-bulk}
+\end{figure}
+
+\clearpage
+%--------------------------------------------------------------------------------------%
+% mesh generated by based on error and majorant distribution, bulk marking theta = 30%
+% k = 1, 3, 5
+%--------------------------------------------------------------------------------------%
+\begin{figure}[!ht]
+	\centering
+	\subfloat[$Q^1$: \; 200 EL \newline $\incred{1}$ = 6.5183e-05, $\incrmdI{1}$ = 6.5634e-05]{
+	\includegraphics[scale=0.35]{pics/example-incr-2d-t/mesh-error-bulk-marking-theta-30-test-num-5-nt-10-10-10-10-num-cells-200-num-vertices-121-time-1}
+	\label{fig:example-incr-unit-2d-error-bulk-meshes-time-1}}\!
+	\subfloat[$Q^1$: \; 200 EL \newline $\incred{1}$ = 6.5183e-05, $\incrmdI{1}$ = 6.5634e-05]{
+	\includegraphics[scale=0.35]{pics/example-incr-2d-t/mesh-majorant-bulk-marking-theta-30-test-num-5-nt-10-10-10-10-num-cells-200-num-vertices-121-time-1}
+	\label{fig:example-incr-unit-2d-majorant-bulk-meshes-time-1}}\\
+	\subfloat[$Q^3$: \; 1036 EL \newline $\incred{3}$ = 2.4678e-05, $\incrmdI{3}$ = 2.4389e-05]{
+	\includegraphics[scale=0.35]{pics/example-incr-2d-t/mesh-error-bulk-marking-theta-30-test-num-5-nt-10-10-10-10-num-cells-1036-num-vertices-563-time-3}
+	\label{fig:example-incr-unit-2d-error-bulk-meshes-time-3}}\!
+	\subfloat[$Q^3$: \; 1024 EL \newline $\incred{3}$ = 2.5017e-05, $\incrmdI{3}$ = 2.473e-05]{
+	\includegraphics[scale=0.35]{pics/example-incr-2d-t/mesh-majorant-bulk-marking-theta-30-test-num-5-nt-10-10-10-10-num-cells-1024-num-vertices-557-time-3}
+	\label{fig:example-incr-unit-2d-majorant-bulk-meshes-time-3}}\\
+	%
+	\subfloat[$Q^5$: \; 5198 EL \newline $\incred{5}$ = 7.481e-06, $\incrmdI{5}$ = 7.4786e-06]{
+	\includegraphics[scale=0.35]{pics/example-incr-2d-t/mesh-error-bulk-marking-theta-30-test-num-5-nt-10-10-10-10-num-cells-5198-num-vertices-2692-time-5}
+	\label{fig:example-incr-unit-2d-error-bulk-meshes-time-5}}\!
+	\subfloat[$Q^5$: \; 5194 EL \newline $\incred{5}$ = 7.4896e-06 $\incrmdI{5}$ = 7.4871e-06]{
+	\includegraphics[scale=0.35]{pics/example-incr-2d-t/mesh-majorant-bulk-marking-theta-30-test-num-5-nt-10-10-10-10-num-cells-5194-num-vertices-2692-time-5}
+	\label{fig:example-incr-unit-2d-majorant-bulk-meshes-time-5}}
+	%
+	\caption{Example \ref{ex:incr-unit-2d-t}. 
+	Evolution of meshes on time slices $Q^k$, $k = 1, 3, 5$, refinement 
+	based on $\incred{k}$ (a), (c), (e) 
+	and on $\incrmdI{k}$ (b), (d), (f) 
+	using bulk marker $\Marker_{0.3}$.}
+	\label{fig:example-incr-unit-2d-bulk-meshes}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[!ht]
+	\centering
+	\subfloat[$Q^1$: \; 200 EL \newline $\incred{1}$ = 6.5183e-05, $\incrmdI{1}$ = 6.5634e-05]{
+	\includegraphics[scale=0.35]{pics/example-incr-2d-t/mesh-error-average-marking-theta-30-test-num-5-nt-10-10-10-10-num-cells-200-num-vertices-121-time-1}
+	%\label{fig:example-incr-unit-2d-error-average-meshes-time-1}
+	}\!
+	\subfloat[$Q^1$: \; 200 EL \newline $\incred{1}$ = 6.5183e-05, $\incrmdI{1}$ = 6.5634e-05]{
+	\includegraphics[scale=0.35]{pics/example-incr-2d-t/mesh-majorant-average-marking-test-num-5-nt-10-10-10-10-num-cells-200-num-vertices-121-time-1}
+	%\label{fig:example-incr-unit-2d-majorant-average-meshes-time-1}
+	}\\
+	%
+	\subfloat[$Q^3$: \; 1144 EL \newline $\incred{3}$ = 2.2982e-05, $\incrmdI{3}$ = 2.2693e-05]{
+	\includegraphics[scale=0.35]{pics/example-incr-2d-t/mesh-error-average-marking-theta-30-test-num-5-nt-10-10-10-10-num-cells-1144-num-vertices-623-time-3}
+	%\label{fig:example-incr-unit-2d-error-average-meshes-time-3}
+	}\!
+	\subfloat[$Q^3$: \; 1144 EL \newline $\incred{3}$ = 2.2982e-05, $\incrmdI{3}$ = 2.2693e-05]{
+	\includegraphics[scale=0.35]{pics/example-incr-2d-t/mesh-majorant-average-marking-test-num-5-nt-10-10-10-10-num-cells-1144-num-vertices-623-time-3}
+	%\label{fig:example-incr-unit-2d-majorant-average-meshes-time-3}
+	}\\
+	%
+	\subfloat[$Q^5$: \; 7748 EL \newline $\incred{5}$ = 5.1237e-06, $\incrmdI{5}$ = 5.1238e-06]{
+	\includegraphics[scale=0.35]{pics/example-incr-2d-t/mesh-error-average-marking-theta-30-test-num-5-nt-10-10-10-10-num-cells-7748-num-vertices-3985-time-5}
+	%\label{fig:example-incr-unit-2d-error-average-meshes-time-5}
+	}\!
+	\subfloat[$Q^5$: \; 7660 EL \newline $\incred{5}$ = 5.1660e-06, $\incrmdI{5}$ = 5.1662e-06]{
+	\includegraphics[scale=0.35]{pics/example-incr-2d-t/mesh-majorant-average-marking-test-num-5-nt-10-10-10-10-num-cells-7660-num-vertices-3933-time-5}
+	%\label{fig:example-incr-unit-2d-majorant-average-meshes-time-5}
+	}
+	%
+	\caption{Example \ref{ex:incr-unit-2d-t}. 
+	Evolution of meshes on time slices $Q^k$, $k = 1, 3, 5$, refinement 
+	based on $\incred{k}$ (a), (c), (e) 
+	and on $\incrmdI{k}$ (b), (d), (f) using marker $\Marker_{\rm AVR}$.}
+	\label{fig:example-incr-unit-2d-average-meshes}
+\end{figure}
+
+\clearpage
+
+%--------------------------------------------------------------------------------------%
+% Example 2
+%--------------------------------------------------------------------------------------%
+
+\begin{figure}[!ht]
+	\centering
+	\subfloat[$\error$, $\majone (y)$, $y \in {RT}_0$]{\includegraphics[scale=0.7]{pics/example-incr-3d-t/ex-1-no-ref-opt-conv-total-error-maj-v-P1-y-RT1}
+	\label{fig:example-incr-unit-3d-uniform-convergence-a}}\quad
+	%
+	\subfloat[$\error$, $\majone (y)$, $y \in {RT}_1$]{\includegraphics[scale=0.7]{pics/example-incr-3d-t/ex-1-no-ref-opt-conv-total-error-maj-v-P1-y-RT2}
+	\label{fig:example-incr-unit-3d-uniform-convergence-b}}
+	%
+	\caption{Example \ref{ex:incr-unit-3d-t}. 
+	Optimal convergence of $[e]^2$ and $\maj{}$, (a) $y \in {RT}_0$ and (b) $y \in {RT}_1$.}
+	\label{fig:example-incr-unit-3d-uniform-convergence}
+\end{figure}
+
+\begin{figure}[!ht]
+	\centering
+	\subfloat[$Q^{10}$: 24576 EL \newline $\incred{10}$ = 9.1316e-05, $\incrmdI{10}$ = 1.1578e-04]{\includegraphics[scale=0.83]{pics/example-incr-3d-t/ex-1-no-ref-v-P1-y-RT1e-m-hist-sorted-elements-24576-time-10}
+	\label{fig:example-incr-unit-3d-e-maj-distr-a}}
+	%
+	\subfloat[$Q^{10}$: 24576 EL \newline $\incred{10}$ = 9.1316e-05, $\incrmdI{10}$ =  9.1473e-05]{\includegraphics[scale=0.83]{pics/example-incr-3d-t/ex-1-no-ref-v-P1-y-RT2e-m-hist-sorted-elements-24576-time-10}
+	\label{fig:example-incr-unit-3d-e-maj-distr-b}}\\
+	%
+	\caption{$\incred{10}$ and $\incrmdI{10}$ distribution on $Q^{10}$ based on 
+	(a) $y \in {RT}_0$ and (b) $y \in {RT}_1$.}
+	\label{fig:example-incr-unit-3d-e-maj-distr}
+\end{figure}
+
+\begin{figure}[!ht]
+	\centering
+	\subfloat[$Q^3$: 1662 EL, 
+	\newline $\incred{3}$ = 6.3442e-04, $\incrmdI{3}$ = 4.6519e-04]{
+	\includegraphics[scale=0.8]{pics/example-incr-3d-t/ex-1-bulk-ref-theta-20-e-m-hist-sorted-elements-1662-time-3}
+	\label{fig:example-incr-unit-3d-e-maj-distr-bulk-marking-theta-20-a}}
+	%
+	\subfloat[$Q^5$: 35838 EL, 
+	\newline  $\incred{5}$ = 2.0557e-04, $\incrmdI{5}$ = 1.9924e-04]{
+	\includegraphics[scale=0.8]{pics/example-incr-3d-t/ex-1-bulk-ref-theta-20-e-m-hist-sorted-elements-35838-time-5}
+	\label{fig:example-incr-unit-3d-e-maj-distr-bulk-marking-theta-20-b}}
+	\caption{The error and indicator distribution for time-slices $Q^3$ and $Q^5$ (
+	$y \in {RT}_1$).}
+	%\label{fig:example-incr-unit-3d-e-maj-distr-bulk-theta-20}
+\end{figure}
+
+\clearpage
+%--------------------------------------------------------------------------------------%
+% Example 3
+%--------------------------------------------------------------------------------------%
+
+%--------------------------------------------------------------------------------------%
+% approximation and initial mesh
+%--------------------------------------------------------------------------------------%
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.33]{pics/example-incr-l-shape-2d-t/u-1-417-verteces-3d}
+	\caption{Example \ref{ex:incr-l-shape-2d-t}. 
+	Approximate solution on the mesh (417 ND).}	
+	\label{fig:example-incr-l-shape-approx}	
+\end{figure}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.68]{pics/example-incr-l-shape-2d-t/ex-6-no-ref-opt-conv-ed-md}
+	\caption{Example \ref{ex:incr-l-shape-2d-t}. 
+	Optimal convergence of the error $\error$ and majorant $\majone$.}	
+	\label{fig:example-incr-l-shape-uniform-convergence-ed-md}
+\end{figure}
+
+%--------------------------------------------------------------------------------------%
+% error distribution
+%--------------------------------------------------------------------------------------%
+\begin{figure}[!ht]
+	\centering
+	\subfloat[$Q^{10}$: 192 EL \newline $\incred{10}$ = 4.9373e-02, $\incrmdI{10}$ = 5.7479e-02]{\includegraphics[scale=0.83]{pics/example-incr-l-shape-2d-t/ex-6-no-ref-e-m-hist-sorted-elements-192-time-10}
+	\label{fig:example-incr-l-shape-2d-e-maj-distr-a}}
+	%
+	\subfloat[$Q^{10}$: 768 EL \newline $\incred{10}$ = 2.0393e-02, $\incrmdI{10}$ = 2.3559e-02]{\includegraphics[scale=0.83]{pics/example-incr-l-shape-2d-t/ex-6-no-ref-e-m-hist-sorted-elements-768-time-10}
+	\label{fig:example-incr-l-shape-2d-e-maj-distr-b}}
+	%
+	\caption{Example \ref{ex:incr-l-shape-2d-t}. 
+	The error and indicator distribution on $Q^{10}$, discretizated by a  
+	mesh with (a) 192 EL and (b) 768 EL.}
+	\label{fig:example-incr-l-shape-2d-e-maj-distr}
+\end{figure}
+
+\begin{figure}[!ht]
+	\centering
+	\subfloat[$Q^3$: \; 188 EL \newline $\incred{3}$ = 3.00738e-03, $\incrmdI{3}$ =  3.2841e-03]{\includegraphics[scale=0.35]{pics/example-incr-l-shape-2d-t/mesh-error-average-marking-test-num-4-nt-10-0-0-0-num-cells-188-num-vertices-105-time-3}
+	%\label{fig:example-incr-l-shape-error-average-meshes-time-1}
+	}\!
+	\subfloat[$Q^3$: \; 176 EL  \newline $\incred{3}$ =  3.0391e-03, $\incrmdI{3}$ = 3.3192e-03]{\includegraphics[scale=0.35]{pics/example-incr-l-shape-2d-t/mesh-majorant-average-marking-test-num-4-nt-10-0-0-0-num-cells-188-num-vertices-105-time-3}
+	%\label{fig:example-incr-l-shape-majorant-average-meshes-time-1}
+	}\\
+	%
+	\subfloat[$Q^5$: \; 698 EL \newline $\incred{5}$ = 1.1376e-03, $\incrmdI{5}$ = 1.2736e-03]{\includegraphics[scale=0.35]{pics/example-incr-l-shape-2d-t/mesh-error-average-marking-test-num-4-nt-10-0-0-0-num-cells-710-num-vertices-379-time-5}
+	%\label{fig:example-incr-l-shape-error-average-meshes-time-3}
+	}\!
+	\subfloat[$Q^5$: \; 706 EL \newline $\incred{5}$ =  1.1653e-03, $\incrmdI{5}$ = 1.2981e-03]{\includegraphics[scale=0.35]{pics/example-incr-l-shape-2d-t/mesh-majorant-average-marking-test-num-4-nt-10-0-0-0-num-cells-686-num-vertices-366-time-5}
+	%\label{fig:example-incr-l-shape-majorant-average-meshes-time-3}
+	}\\
+	%
+	\subfloat[$Q^7$: \; 2731 EL \newline $\incred{10}$ = 4.9373e-02, $\incrmdI{10}$ = 5.7479e-02]{\includegraphics[scale=0.35]{pics/example-incr-l-shape-2d-t/mesh-error-average-marking-test-num-4-nt-10-0-0-0-num-cells-2790-num-vertices-1445-time-7}
+	%\label{fig:example-incr-l-shape-error-average-meshes-time-5}
+	}\!
+	\subfloat[$Q^7$: \; 2703 EL \newline $\incred{10}$ =  5.0477e-04, $\incrmdI{10}$ = 5.1600e-04]{\includegraphics[scale=0.35]{pics/example-incr-l-shape-2d-t/mesh-majorant-average-marking-test-num-4-nt-10-0-0-0-num-cells-2500-num-vertices-1296-time-7}
+	%\label{fig:example-incr-l-shape-majorant-average-meshes-time-5}
+	}
+	%
+	\caption{Example \ref{ex:incr-l-shape-2d-t}. 
+	Evolution of meshes on time slices $Q^k$, $k = 3, 5, 7$, after refinement
+	based on $\incred{k}$ (a), (c), (e) and on $\incrmdI{k}$ (b), (d), (f), 
+	using marking $\Marker_{\rm AVR}$.}
+	\label{fig:example-incr-l-shape-average-meshes}
+\end{figure}
+
+
+\begin{figure}[!ht]
+	\centering
+  \subfloat[$Q^3$: \; 281 EL \newline $\incred{3}$ = 2.6805e-03, $\incrmdI{3}$ =  2.9591e-03]{\includegraphics[scale=0.35]{pics/example-incr-l-shape-2d-t/mesh-majorant-bulk-marking-theta-30-test-num-4-nt-10-0-0-0-num-cells-281-num-vertices-156-time-3}
+	%\label{fig:example-incr-l-shape-error-bulk-meshes-time-1}
+	}\!
+	\subfloat[$Q^3$: \; 293 EL \newline $\incred{3}$ = 2.6876e-03, $\incrmdI{3}$ = 2.9662e-03]{\includegraphics[scale=0.35]{pics/example-incr-l-shape-2d-t/mesh-error-bulk-marking-theta-30-test-num-4-nt-10-0-0-0-num-cells-293-num-vertices-162-time-3}
+	%\label{fig:example-incr-l-shape-majorant-bulk-meshes-time-1}
+	}\\
+	%
+	\subfloat[$Q^5$: \; 1569 EL \newline $\incred{5}$ = 8.3188e-04, $\incrmdI{5}$ = 9.6882e-04]{\includegraphics[scale=0.35]{pics/example-incr-l-shape-2d-t/mesh-error-bulk-marking-theta-30-test-num-4-nt-10-0-0-0-num-cells-1569-num-vertices-823-time-5}
+	%\label{fig:example-incr-l-shape-error-bulk-meshes-time-3}
+	}\!
+	\subfloat[$Q^5$: \; 1504 EL \newline $\incred{5}$ = 8.4416e-04, $\incrmdI{5}$ = 9.8012e-04]{\includegraphics[scale=0.35]{pics/example-incr-l-shape-2d-t/mesh-majorant-bulk-marking-theta-30-test-num-4-nt-10-0-0-0-num-cells-1504-num-vertices-788-time-5}
+	%\label{fig:example-incr-l-shape-majorant-bulk-meshes-time-3}
+	}\\
+	%
+	\subfloat[$Q^7$: \; 8762 EL \newline $\incred{7}$ = 2.7680e-04, $\incrmdI{7}$ = 2.8537e-04]{\includegraphics[scale=0.35]{pics/example-incr-l-shape-2d-t/mesh-majorant-bulk-marking-theta-30-test-num-4-nt-10-0-0-0-num-cells-8762-num-vertices-4465-time-7}
+	%\label{fig:example-incr-l-shape-error-bulk-meshes-time-5}
+	}\!
+	\subfloat[$Q^7$: \; 9529 EL \newline $\incred{7}$ =  2.8075e-04, $\incrmdI{7}$ = 2.8923e-04]{\includegraphics[scale=0.35]{pics/example-incr-l-shape-2d-t/mesh-error-bulk-marking-theta-30-test-num-4-nt-10-0-0-0-num-cells-9529-num-vertices-4855-time-7}
+	%\label{fig:example-incr-l-shape-majorant-bulk-meshes-time-5}
+	}
+	%
+	\caption{Example \ref{ex:incr-l-shape-2d-t}. 
+	Evolution of meshes on time slices $Q^k$, $k = 3, 5, 7$, after refinement
+	based on $\incred{k}$ (a), (c), (e) and on $\incrmdI{k}$ (b), (d), (f), 
+	using bulk marking $\Marker_{0.3}$.}
+	\label{fig:example-incr-l-shape-bulk-30-meshes}
+\end{figure}
+
+%--------------------------------------------------------------------------------------%
+% Example 4
+%--------------------------------------------------------------------------------------%
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=1]{pics/example-space-time-1d-t/ex-3-uniform-ref-opt-conv-total-error-maj}
+	\caption{Example \ref{ex:space-time-unit-1d-t}.
+	Optimal convergence of total error and majorant.}
+	\label{fig:example-space-time-1d-t-unit-uniform-convergence-total-error-majorant}
+\end{figure}
+
+\begin{figure}[!ht]
+	\centering
+	\subfloat[2 REF: 32 EL, \newline $\ed$ = 9.1111e-02, $\mdI$ = 9.1577e-01]{
+	\includegraphics[scale=0.85]{pics/example-space-time-1d-t/ex-3-ref-iter-e-m-hist-elements-32-time-2}\label{fig:example-space-time-1d-t-unit-e-maj-ref-2}}	
+	\subfloat[3 REF: 128 EL, \newline $\ed$ = 2.2969e-02, $\mdI$ = 2.2999e-02]{
+	\includegraphics[scale=0.85]{pics/example-space-time-1d-t/ex-3-ref-iter-e-m-hist-elements-128-time-3}\label{fig:example-space-time-1d-t-unit-e-maj-ref-3}}\\
+	\subfloat[4 REF: 512 EL, \newline $\ed$ = 1.4393e-03, $\mdI$ = 1.4395e-03]{
+	\includegraphics[scale=0.85]{pics/example-space-time-1d-t/ex-3-ref-iter-e-m-hist-elements-512-time-4} \label{fig:example-space-time-1d-t-unit-e-maj-ref-4}}\;
+	\subfloat[5 REF: 2048 EL, \newline $\ed$ = 3.5987e-04, $\mdI$ = 3.599e-04]{
+	\includegraphics[scale=0.85]{pics/example-space-time-1d-t/ex-3-no-ref-e-m-hist-elements-2048-time-4} \label{fig:example-space-time-1d-t-unit-e-maj-ref-5}}
+	\caption{Example \ref{ex:space-time-unit-1d-t}. 
+	$\ed$ and $\mdI$ distributions after REF $\# = 2, 3, 4, 5$.}
+	\label{fig:example-space-time-1d-t-unit-e-maj-distr}
+\end{figure}
+
+
+%--------------------------------------------------------------------------------------%
+% Example 5
+%--------------------------------------------------------------------------------------%
+\clearpage
+
+\begin{figure}[!ht]
+	\centering
+	\subfloat[1 REF: 48 EL \newline $\ed$ = 4.7719e-02, $\majone$ = 5.6030e-02]{\includegraphics[scale=0.84]{pics/example-space-time-2d-t/ex-4-ed-maj-y-RT2-no-ref-ed-maj-hist-elements-48-time-1}	\label{fig:example-space-time-2d-t-y-RT2-e-m-hist-ref-1}}
+	%
+	\subfloat[2 REF: 384 EL \newline $\ed$ = 1.7268e-02, $\majone$ = 1.9175e-02]{\includegraphics[scale=0.84]{pics/example-space-time-2d-t/ex-4-ed-maj-y-RT2-no-ref-ed-maj-hist-elements-384-time-2}\label{fig:example-space-time-2d-t-y-RT2-e-m-hist-ref-2}}\\
+	%
+	\subfloat[3 REF: 3072 EL \newline $\ed$ = 8.4558e-03, $\majone$ = 9.4992e-03]{\includegraphics[scale=0.84]{pics/example-space-time-2d-t/ex-4-ed-maj-y-RT2-no-ref-ed-maj-hist-elements-3072-time-3}\label{fig:example-space-time-2d-t-y-RT2-e-m-hist-ref-3}}
+	\subfloat[4 REF: 24576 EL \newline $\ed$ = 6.1427e-03, $\majone$ = 6.9789e-03]{\includegraphics[scale=0.84]{pics/example-space-time-2d-t/ex-4-ed-maj-y-RT2-no-ref-ed-maj-hist-elements-24576-time-4}\label{fig:example-space-time-2d-t-y-RT2-e-m-hist-ref-4}}	
+	\caption{Example \ref{ex:space-time-unit-2d-t}. 
+	$\ed$ and $\majone$ distributions after REF $\# = 1, 2, 3, 4$.}
+\end{figure}

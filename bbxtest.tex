@@ -1,0 +1,68 @@
+\documentclass[english,utf8]{jydiss}
+
+\title{jydiss.bbx test}
+\entitle{}
+\setauthor{Charles}{Darwin}
+
+\people{
+  \item[Author] Charles Darwin \\
+    Department of Mathematical Information Technology\\
+    University of Jyväskylä\\
+    Finland
+  \item[Supervisor] Professor Jean Baptiste Lamarck\\
+    Department of Mathematical Information Technology\\
+    University of Jyväskylä\\
+    Finland
+  \item[Reviewers] XXX
+
+    XXX
+  \item[Opponent] XXX
+}
+
+\usepackage[backend=biber,style=jydiss]{biblatex}
+\addbibresource{bbxtest.bib}
+
+\begin{document}
+
+\mainmatter
+
+\chapter{foo}
+
+% monografiat
+\parencite{isaacson65:_psych}
+\parencite{niiniluoto80:_johdat_tieten_filos}
+\parencite{vaisala67:_keskik_geomet}
+
+% kokoomateokset
+\parencite{jaakkola70:_huumaus_suomes}
+\parencite{pulkkinen82:_self_contr_and_contin_from}
+
+% aikakauslehdet
+\parencite{morgan83:_learn_and_studen_life_qualit}
+\parencite{ekorre79:_nuoris_luvun_tavoit}
+\parencite{haavio-mannila82:_laatu_ja}
+
+% sarjajulkaisut
+\parencite{hurme78:_life_event_resear}
+\parencite{karvonen70:_opett_asent_odotuk_ja_oppim_jatkok_i}
+\parencite{nummenmaa64:_languag_of_face}
+
+% opinnäytteet ja julkaisemattomat tutkimukset
+\parencite{beijer69:_huumausaineiden}
+\parencite{kivinen71:_huumaus_nuort_ja_sosiaal}
+\parencite{olkinuora71:_kansa_ja_kansal_opetus_ja}
+
+% muut testit
+\parencite{bib:Glover1989a,bib:Glover1989b}
+\parencite{bib:Apolloni2008}
+\parencite{bib:DeFalco2007,bib:DeFalco2007b,bib:DeFalco2007c}
+
+\textcite{bib:Garcia2008a,bib:Garcia2008}
+
+\textcite{inoue05:_commun}
+\textcite{alasmaa03:_aikam_amats}
+\textcite{bergin97:_hopl_ii}
+
+\printbibliography
+
+\end{document}

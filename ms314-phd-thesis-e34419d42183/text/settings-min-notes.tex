@@ -1,0 +1,50 @@
+\documentclass[12 pt]{article}
+\renewcommand{\baselinestretch}{1}
+%\usepackage{geometry}
+\usepackage{graphicx} % NOT !! \usepackage{graphics}
+% \geometry{verbose,letterpaper,tmargin=0.5 cm,bmargin=0.8 cm,lmargin=2.5cm,rmargin=2.5cm,headsep=1cm}
+\usepackage[margin=0.8in]{geometry}
+%
+\renewcommand{\thesection}{\Roman{section}} 
+\renewcommand{\thesubsection}{\thesection.\Roman{subsection}}
+%
+\usepackage{amsthm}
+\newtheorem{mydef}{Definition}
+%
+\setlength{\parskip}{\smallskipamount}
+\setlength{\parindent}{10 pt}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{setspace}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+
+% Date, time into the footer
+\usepackage{fancyhdr}
+\usepackage{datetime}
+\fancyhf{}
+\fancyfoot[L]{\today\ \currenttime}
+\pagestyle{fancy}
+% End Date, time into the footer
+
+% Start definitions
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+% End definitions
+
+\title{Thesis notes}
+% \author{author\\~\href{mailto:me@gmail.com}{\small{\textit{me@gmail.com}}}}
+\author{}
+\date{}
+
+\newcommand{\BoxAround}[1]{
+  \begin{center}
+	  \fbox{
+			\begin{minipage}{0.8\textwidth}			
+				{#1}
+			\end{minipage}
+		}
+  \end{center}
+} 

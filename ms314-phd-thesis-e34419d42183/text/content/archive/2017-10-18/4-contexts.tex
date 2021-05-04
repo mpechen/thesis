@@ -1,0 +1,24 @@
+\chapter{Contexts}
+\begin{definition}
+Context is an additional information which describes current situation and helps improve performance of the predictive or decision making model.
+\end{definition}
+
+%% PGM lectures
+Let's consider a robot whose state is a location denote as $L^{t+1}$.
+Under Markovian assumption $L^{t+1} \perp L^{t-1} | L^{t}$.
+If we enrich the state notion by the velocity the prediction will be more accurate.
+In that case velocity is a contextual variable.
+However we may include into the state description more recent locations and calculate velocity using the series of the most recent locations (feature extraction).
+
+% HMM
+Contextual information may be viewed as latent unobserved variable  as in HMM model~\cite{RabinerHMM}
+%%%... HMM NOTATIONS
+\begin{itemize}
+    \item $N$ distinct states $\{S_i\}_{i=1}^N$
+    \item The actual state at time $t$ is $q_t$.
+    \item Markov property $P(q_t=S_j|q_{t-1}=S_i, q_{t-2}=S_k, \dots) = P(q_t=S_j|q_{t-1}=S_i)$
+    %\item Markov property $(q_t \perp q_{t-2},q_{t-3},\dots \: | \: q_{t-1})$
+    \item Transition probabilities $a_{ij} = P(q_t = S_j \: | \: q_{t-1} = S_i), \: a_{ij}>0, \: \sum_{j=1}^N a_{ij} = 1$
+    \item Observation sequence
+\end{itemize}
+%%%... END HMM NOTATIONS

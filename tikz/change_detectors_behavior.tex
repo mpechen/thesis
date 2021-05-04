@@ -1,0 +1,101 @@
+\documentclass{standalone}
+%\documentclass{minimal}
+\usepackage{graphicx}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{tikz}
+\begin{document}
+    \def \r {0.07}
+    \def \s {4}
+    \begin{tikzpicture}[scale = 1]
+        % --- I
+        
+        \node at (2.5, 3.8) {Lag $\sim 0.5$ sec.};
+        
+        \draw[fill=blue] (0.20, 0.90) circle (\r);
+        \draw[fill=blue] (0.70, 1.10) circle (\r);
+        \draw[fill=blue] (1.20, 1.00) circle (\r);
+        %
+        \draw[fill=blue] (1.45, 2.00) circle (\r);
+        \draw[fill=blue] (1.95, 1.90) circle (\r);
+        \draw[fill=blue] (2.45, 2.00) circle (\r);
+        % outlier
+        \draw[fill=red]  (2.65, 2.70) circle (\r);
+        %
+        \draw[fill=blue] (2.95, 2.20) circle (\r);
+        \draw[fill=blue] (3.35, 2.15) circle (\r);
+        %
+        \draw[fill=blue] (3.65, 1.25) circle (\r);
+        \draw[fill=blue] (4.10, 1.15) circle (\r);
+        \draw[fill=blue] (4.60, 1.25) circle (\r);
+        \draw[fill=blue] (5.10, 1.25) circle (\r);
+        \draw[fill=blue] (5.60, 1.10) circle (\r);
+        %       
+        \draw[line width=1pt] (0.20, 0.90) -- (0.70, 1.10) -- (1.20, 1.00) -- 
+              (1.45, 2.00) -- (1.95, 1.90) -- (2.45, 2.00) -- 
+              (2.65, 2.70) -- (2.95, 2.20) -- (3.35, 2.15) -- 
+              (3.65, 1.25) -- (4.10, 1.15) -- (4.60, 1.25) -- 
+              (5.10, 1.25) -- (5.60, 1.10);
+        % Changes 
+        \draw[color=red, line width=1.0pt] (1.32, 0.70)-- (1.32, 2.8);
+        \draw[color=red, line width=1.0pt] (3.51, 0.70)-- (3.51, 2.8);
+        % CDEs
+        \draw[dashed, color=red, line width=1.5pt] (1.45, 0.70)-- (1.45, 2.85);
+        \draw[dashed, color=red, line width=1.5pt] (3.65, 0.70)-- (3.65, 2.8);
+        %% Connect text to delay marks 
+        \draw[->,color=black!40] (2.5, 4 - 0.5) -- (1.35, 2.6+0.1);
+        \draw[->,color=black!40] (2.5, 4 - 0.5) -- (3.6, 2.6+0.1);
+        % Outlier 
+        \draw[dashed, color=red, line width=0.9pt] (2.65, 0.90)-- (2.65, 3.1);
+        \node[color=red] at (2.35, 1.0) {\small FP};
+        % --- END I
+        
+%        \draw[dashed, line width = 0.1pt] (0.0, 0.4) -- (5.8, 0.4);
+           
+        %--- II
+        \node at (2.65, 4 -\s - 0.2) {Lag $\sim 1$ sec.};
+                
+        \draw[fill=blue] (0.20, 0.90 - \s) circle (\r);
+        \draw[fill=blue] (0.70, 1.10 - \s) circle (\r);
+        \draw[fill=blue] (1.20, 1.00 - \s) circle (\r);
+        %
+        \draw[fill=blue] (1.45, 2.00 - \s) circle (\r);
+        \draw[fill=blue] (1.95, 1.90 - \s) circle (\r);
+        \draw[fill=blue] (2.45, 2.00 - \s) circle (\r);
+        % outlier
+        \draw[fill=red]  (2.65, 2.70 - \s) circle (\r);
+        %
+        \draw[fill=blue] (2.95, 2.20 - \s) circle (\r);
+        \draw[fill=blue] (3.35, 2.15 - \s) circle (\r);
+        %
+        \draw[fill=blue] (3.65, 1.25 - \s) circle (\r);
+        \draw[fill=blue] (4.10, 1.15 - \s) circle (\r);
+        \draw[fill=blue] (4.60, 1.25 - \s) circle (\r);
+        \draw[fill=blue] (5.10, 1.25 - \s) circle (\r);
+        \draw[fill=blue] (5.60, 1.10 - \s) circle (\r);
+        %       
+        \draw[line width=1pt] (0.20, 0.90 - \s) -- (0.70, 1.10 - \s) -- (1.20, 1.00 - \s) -- 
+              (1.45, 2.00 - \s) -- (1.95, 1.90 - \s) -- (2.45, 2.00 - \s) -- 
+              (2.65, 2.70 - \s) -- (2.95, 2.20 - \s) -- (3.35, 2.15 - \s) -- 
+              (3.65, 1.25 - \s) -- (4.10, 1.15 - \s) -- (4.60, 1.25 - \s) -- 
+              (5.10, 1.25 - \s) -- (5.60, 1.10 - \s);
+        % Changes
+        \draw[color=red, line width=1.0pt] (1.32, 0.70 - \s)-- (1.32, 2.8 - \s);
+        \draw[color=red, line width=1.0pt] (3.51, 0.70 - \s)-- (3.51, 2.8 - \s);
+        % CDEs
+        \draw[dashed, color=red, line width=1.5pt] (1.7, 0.70 - \s )-- (1.7, 2.85 - \s);
+        \draw[dashed, color=red, line width=1.5pt] (3.9, 0.70 - \s )-- (3.9, 2.8 - \s);
+        % Mark delays
+        \draw[<->,line width=1pt] (1.32, 2.6 - \s) -- (1.7, 2.6 - \s);
+        \draw[<->,line width=1pt] (3.51, 2.6 - \s) -- (3.9, 2.6 - \s);
+        %% Connect text to delay marks 
+        \draw[->,color=black!40] (2.6, 4 -\s - 0.5) -- (1.53, 2.6-\s+0.1);
+        \draw[->,color=black!40] (2.6, 4 -\s - 0.5) -- (3.7, 2.6-\s+0.1);
+        % Outlier  NOT DETECTED
+%        \draw[dashed, color=red, line width=0.8pt] (2.85, 0.90 - \s)-- (2.85, 3.1 - \s);
+        \node[color=red] at (2.7, 1.0 -\s) {\small FP};
+        \draw[line width=1pt, color=red!50, rotate around={45:(2.4/2+3/2,1.0-\s)}] (2.4,1.0-\s) -- (3,1.0-\s);
+        \draw[line width=1pt, color=red!50, rotate around={135:(2.4/2+3/2,1.0-\s)}] (2.4,1.0-\s) -- (3,1.0-\s);
+        % --- END II
+    \end{tikzpicture}
+\end{document}
+
