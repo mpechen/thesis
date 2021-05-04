@@ -1,4 +1,4 @@
 \begin {thelistofarticles}{XVIII}
-\bibitem [PI]{sha1} Charles Darwin. About Gnus and Gnats. {\itshape XLII conference on digital zoology}, 2004.
-\bibitem [PII]{sha2} Charles Darwin. Coding habits of Auks and Penguins. {\itshape XLIII conference on digital zoology}, 2005.
+\bibitem [PI]{sha1} Alexandr Maslov, Mykola Pechenizkiy, Indr{\.e} {\v {Z}}liobait{\.e}, and Tommi K\"{a}rkk\"{a}inen. Modelling Recurrent Events for Improving Online Change Detection. {\itshape Proceedings of the 2016 SIAM International Conference on Data Mining}, 2016.
+\bibitem [PII]{sha2} Alexandr Maslov, Mykola Pechenizkiy, Yulong Pei, Indre {\v {Z}}liobait{\.e}, Alexander Shklyaev, Tommi Karkk{\"a}inen, and Hollm{\'e}n, Jaakko. BLPA: Bayesian learn-predict-adjust method for online detection of recurrent changepoints. {\itshape 2017 International Joint Conference on Neural Networks (IJCNN)}, 2017.
 \end {thelistofarticles}
