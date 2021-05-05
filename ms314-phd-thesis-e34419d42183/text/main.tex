@@ -1,0 +1,45 @@
+%\documentclass[latin,lgof,lot,loar,index]{jydiss}
+% lof will include the list of figures into the document.
+% lot will include the list of tables into the document
+% loa will include the list of algorithms into the document (to be used with the algorithm package).
+% loar will include the list of included articles into the document.
+\documentclass[latin,lot,lof,index]{jydiss}
+
+%----------------------------------------------------------------------------------%
+% configuration data and information
+%----------------------------------------------------------------------------------%
+\input{thesis-config}
+\input{thesis-metadata}
+\begin{document}
+%----------------------------------------------------------------------------------%
+% front matter
+%----------------------------------------------------------------------------------%
+%\input{frontback-matter/acknowledgements}	
+%\input{frontback-matter/notations}
+%\input{frontback-matter/acronyms}
+
+%----------------------------------------------------------------------------------%
+% main matter
+%----------------------------------------------------------------------------------%
+\mainmatter	
+\input{content/introduction}
+%\input{content/notations}
+%\input{content/related-work}
+%%\input{content/recurrency}
+%\input{chapters/multi-sensor}
+%\input{chapters/conclusion}
+%----------------------------------------------------------------------------------%
+% tail matter
+%----------------------------------------------------------------------------------%
+%\tailmatter	
+%\input{frontback-matter/finnish-summary}
+%----------------------------------------------------------------------------------%
+% bibliography
+\bibliographystyle{plain}
+\bibliography{bib/references}
+%----------------------------------------------------------------------------------%
+% back matter
+%----------------------------------------------------------------------------------%
+%\backmatter
+%\input{frontback-matter/articles}
+\end{document}

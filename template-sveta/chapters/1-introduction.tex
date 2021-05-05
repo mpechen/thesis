@@ -1,0 +1,430 @@
+\chapter{Introduction}
+%\label{chapter:introduction}
+
+Nowadays, {\em mathematical models} are widely used to describe processes in 
+different branches of natural sciences, medicine, engineering, and economics. 
+Evolutionary problems, in particular, are fundamental components in simulations of 
+real-life processes such as heat conduction and thermal radiation models in 
+thermodynamics, global climate prediction, forecasting and understanding the 
+weather, and estimation of forest growth, among others. Later examples basically 
+testify the fact
+that questions arising in mathematical modeling originate from and are 
+highly motivated 
+by the phenomena surrounding us.
+
+%----------------------------------------------------------------------------------%
+Most of the models mentioned above are governed by time-dependent {\em partial 
+differential equations} (PDEs) or systems of PDEs, which in combination with initial 
+(IC) and boundary conditions (BCs) produce so-called {\em initial-boundary value 
+problems} (I-BVPs). 
+%----------------------------------------------------------------------------------%
+The current study is focused on evolutionary problems of {\em parabolic type}, the 
+systematic mathematical analysis of which is presented in monographs 
+\cite{Ladyzhenskaya1985, Ladyzhenskayaetall1967, Wloka1987, Zeidler1990A,Zeidler1990B}.
+The numerical analysis and study of the practical application are exposed in works 
+\cite{Thomee2006,Lang2001} and partially in classical books on finite element method 
+(FEM) on PDEs and saddle problems (see, e.g., \cite{Braess2001,GrossmannRoosStynes2007,
+Johnson2009,Glowinski1984,Glowinskietall1976}). 
+The multiharmonic analysis of a distributed parabolic and optimal control problem 
+in a time-periodic BVPs setting has been studied in
+\cite{KollmannKolmbauerLangerWolfmayrZulehner2013,LangerWolfmayr2013}.
+
+%----------------------------------------------------------------------------------%
+Let $Q_T := \Omega \times ]0, T[$ denote the space-time cylinder, where 
+$\Omega \subset \Rd$, \linebreak $d \in \{1, 2, 3\}$, is a bounded 
+domain with Lipschitz boundary $\partial \Omega$, and $]0, T[$ is a given time 
+interval, $0 < T < +\infty$. The cylindrical surface is denoted by $S_T$, i.e., 
+$S_T := \partial \Omega \times [0, T]$. 
+A general form of a {\em linear parabolic I-BVP problem} reads as follows:
+%
+\begin{alignat}{2}
+\partial_t u + \mathcal{L} u & = f \;\qquad {\rm in} \quad Q_T , 
+\label{eq:equation}\\[-2pt]
+u & = u_D \;\;\quad {\rm on} \quad S_T, 
+%\label{eq:Dirichlet-boundary-condition}
+\\[-2pt]
+u(x, 0) & = u_0 \qquad {\rm on} \quad \Omega.
+\label{eq:initial-condition}
+\end{alignat}
+%
+%----------------------------------------------------------------------------------%
+Here, depending on the application, $u$ might describe the temperature alteration 
+in heat conduction or the 
+concentration of certain substance in chemical diffusion. The given data includes 
+the source term $f$, Dirichlet BC $u_D$ (Neumann or Robin can be considered instead), 
+and IC $u_0$. The elliptic operator $\mathcal{L}$ has the general form
+%
+$$\mathcal{L} u := 
+	-\dvrg (A(x, t) \nabla u(x, t)) + b(x) \cdot \nabla u(x, t) + c(x)\, u(x, t),
+	\quad (x, t) \in Q_T,
+$$
+%
+where $A$ is the material characteristics matrix, and 
+$b$ and $c$ stand for convection and reaction, 
+respectively. If any of the latter forms depend on $u$ (or $\nabla u$), we arrive at 
+a nonlinear problem. 
+%----------------------------------------------------------------------------------%
+
+For $b \equiv 0$, $c \equiv 0$, and $A = \nu I$, we obtain a heat equation which governs 
+diffusion processes. For instance, in heat conduction applications the parameter 
+$\nu = \tfrac{k}{c_p \varrho}$ stands for thermal 
+diffusivity \cite{Fourier1952, CarslowJaeger1948, Widder1975, Cannon1984}, 
+in electromagnetics it illustrates resistivity $\nu = \tfrac{1}{\sigma}$, which is 
+inversely related to the electric conductivity of material $\sigma$.
+%, a material-specific 
+%quantity depending on the thermal $k$, specific heat capacity $c_p$ , and mass 
+%density of the material $\varrho$ 
+%reserve 
+%of electric conductivity constant $\sigma$, which is very low in the air 
+%(an excellent insulator), and very high in metals (in plasma is treated as infinite).
+Moreover, the heat equation is used in propagation of action potential in nerve 
+cells, phenomena arising in finance, e.g., the Black--Scholes 
+\cite{BlackScholes2012} or Ornstein-Uhlenbeck processes, probability, and description of random walks 
+\cite{Pearson1905}. The nonlinear analogs of the heat equation have also been 
+used in image processing and modeling of porous media \cite{Vazquez2007}.
+%Some models 
+%of nonlinear heat conduction (which are also parabolic equations) have solutions 
+%with finite heat transmission speed, e.g., porous medium equation and the other 
+%related models have solutions with finite wave propagation speed \cite{Vazquez2007}. 
+
+%----------------------------------------------------------------------------------%
+%The heat equation is, technically, in violation of special relativity, because its 
+%solutions involve instantaneous propagation of a disturbance. The part of the 
+%disturbance outside the forward light cone can usually be safely neglected, but if 
+%it is necessary to develop a reasonable speed for the transmission of heat, 
+%a hyperbolic partial differential equation should be considered instead. 
+
+%----------------------------------------------------------------------------------%
+The subject of our interest, i.e., evolutionary systems of PDEs, in majority of 
+cases can only be solved in the generalized sense by one of two discretization 
+techniques described below. In the first, the so-called {\em incremental time-stepping 
+method}, the time is discretized by ordinary differentiation (OD) and the obtained 
+reduced problem (in space coordinates) is approximated by FEM 
+(\cite{Courant1943, Hrennikoff1941, 
+Zlamal1968, Ciarlet1978,Johnson2009}) or the finite difference method (FDM 
+\cite{Lax1948, RouleauOsterle1955, MortonMayers1994,GrossmannRoosStynes2007,
+Crank1975}) on successive time sub-intervals (the detailed study of such an 
+approach
+can be found in the monographs 
+\cite{Thomee2006, Braess2001, Johnson2009}). In the second 
+method the time is considered as an additional spatial 
+variable \cite{Hackbusch1984,Womble1990,VandewallePiessens1992,HortonVandewalle1995}.
+It is usually referred to as the {\em space-time discretization} technique. 
+%application 
+%of numerical method, e.g., finite element method (FEM) 
+%\cite{Courant1943, Hrennikoff1941, Zlamal1968, Ciarlet1978,, Johnson2009}, 
+%finite volume method (FVM) 
+%\cite{Toro1999,EymardGalloutHerbin2000, LeVeque2002}, 
+%finite difference method (FDM) 
+%\cite{Lax1948, RouleauOsterle1955,MortonMayers1994,GrossmannRoosStynes2007,Crank1975},
+%the boundary element method (BEM) \cite{BanerjeeButterfield1981, Brebbia1978}.
+Regardless of the method used, the obtained approximation contains an 
+{\em error}. Therefore, it is of high importance to construct a proper numerical tool
+to analyze the obtained results and to provide reliable information 
+on the {\em approximation error} encompassed in it 
+in order to avoid the risk of 
+drawing the wrong conclusion form obtained numerical information.
+
+%----------------------------------------------------------------------------------%
+There exist two approaches for evaluating the approximation error. The 
+\emph{a priori} approach is used for the qualitative verification of 
+theoretical properties of the numerical method, e.g., rate of convergence and 
+asymptotic behavior of the approximation with respect to mesh size parameters 
+(see, 
+e.g., \cite{BrennerScott1994,Ciarlet1978,StrangFix1973} 
+and references cited therein). However, the high regularity requirements, which must 
+be satisfied in order to apply estimates from the latter group, are quite unrealistic. 
+
+%----------------------------------------------------------------------------------%
+In the second, the so-called {\em a posteriori} approach, the error is measured after 
+computation of the approximation. Unlike in a priori error analysis, the alternative 
+estimates exploit only the given data, e.g., domain characteristics, source 
+function together with IC and BC, and the approximation itself. The upper bound of 
+the gap between the approximate and 
+exact solution measured in terms of relevant energy norm is 
+called an {\em error estimate} or {\em majorant}. The quantity replicating the 
+distribution of the true error over the domain is called an \emph{error indicator}. 
+%----------------------------------------------------------------------------------%
+There are three principal ways classifying existing error indicators.  
+The first, the so-called {\em residual method}, is based on the estimation of the 
+residual 
+functional introduced in \cite{BabushkaRheinboldt1978, BabushkaRheinboldtSIAM1978} 
+and various modifications of them covered in a wealth of publications 
+\cite{ErikssonJohnson1988, JohnsonHansbo1992, 
+AinsworthOden1992, AinsworthOden1993, Verfurth1996, DorflerRumpf1998, 
+Carstensen1999, CarstensenVerfurth1999,AinsworthOden2000,CarstensenFunken2000,
+BabushkaStrouboulis2001, BabushkaWhitemanStrouboulis2011}).
+%----------------------------------------------------------------------------------%
+The second approach is based on the approximation of latter functional or so-called 
+{\em post-processing}, e.g., gradient averaging 
+\cite{ZienkiewiczZhu1987, ZienkiewiczZhu1988} and expanded in various works 
+\cite{AinsworthOden1992,BabushkaRodriguez1993,Verfurth1996, Zienkiewiczetall1998,
+Wang2000,BabushkaStrouboulis2001,BartelsCarstensen2002, WangYe2002, 
+Heimsundetall2002, ZhangNaga2005}). Its mathematical justification relies 
+on the {\em superconvergence} phenomenon 
+\cite{OganesjanRuhovec1969, Zlamal1977} and actively studied in 
+\cite{KrizekNeittaanmaki1984, 
+KrizekNeittaanmaki1987,Krizeketall1998, Krizeketall1998,Wahlbin1995}. Other 
+techniques from the second group are based on partial 
+equilibration \cite{LadevezeLeguillon1983, AinsworthOden2000, Braess2001}, global 
+averaging \cite{CarstensenFunken2000, BartelsCarstensen2002,Heimsundetall2002}, and 
+solution of local sub-problems \cite{Ainsworth1998, AinsworthOden2000, 
+AinsworthRankin2010}.
+%----------------------------------------------------------------------------------%
+Finally, the third method is dependent on the solution of the auxiliary problem, e.g., 
+{\em hierarchically} based error indicators \cite{Deuflhardetall1989,
+Agouzal2001,Duranetall1991,DorflerNochetto2002} and {\em goal-oriented} error 
+\cite{BeckerRannacher1996,SteinOhnimus1997,PerairePatera1998,
+Houstonetall2000,Rannacher2000,OdenPrudhomme2001,Steinetall2007, Meidneretall2009,
+RannacherVexler2010,BesierRannacher2012}. The concept of a posteriori error estimation jointly with mesh-adaptive methods, which are focused on the optimization of 
+computing resources, have become a well-established approach in the numerical 
+analysis of PDEs. 
+
+%, and highly overestimate
+%the error. Moreover, it is very costly from the computational point of view due to 
+%the fact that it is based on the local interpolation constants of the FE in the mesh.
+
+The guaranteed error bounds for evolutionary models considered in this thesis are based 
+on two different mathematical approaches. One of these follows from the theory of 
+contraction mappings and the Banach fixed point theorem. The other approach pursues
+the theory of functional a posteriori estimates.
+
+%----------------------------------------------------------------------------------%
+The first part of the study, in particular, is dedicated to the investigation of 
+numerical treatment of the Cauchy problem with non-linearity  (see, e.g., 
+\cite{CoddingtonLevinson1972, Haireretall1993, Teschl2012}), 
+which can be obtained from 
+\eqref{eq:equation}--\eqref{eq:initial-condition} by assuming that $\Omega$ 
+coincides with $\Rd$. The so-called \PL method suggests 
+one possible way to treat nonlinear ordinary differentiation 
+equations (ODEs). 
+It belongs to a class of iteration method and can 
+be found in \cite{Liouville1838, Peano1888, Bendixson1893, Lindelof1894, 
+Picard1890}. A similar idea is used for PDEs in \cite{Picard1890} and analyzed 
+thoroughly in \cite[Vol.II]{Picard18911996}. 
+%In \PL method transforms the 
+%differential problem to the form of an integral equation, and once the contractivity 
+%of integral operator is proved, the Banach theorem provide the convergence of 
+%iterative procedure to the exact solution. 
+The combination of the \PL method with Ostrowski a posteriori estimates provides a
+fully guaranteed Adaptive \PL (APL) algorithm for solving ODEs. 
+Moreover, the algorithm takes into account information about
+discretization errors related to the numerical integration and interpolation.
+The results obtained during the investigation of the APL method 
+confirmed that it can be applied for the treatment of nonlinear 
+evolutionary models, which belong to my main research topics for the future. 
+Nonlinear PDEs exhibit multiple properties which do not 
+appear in linear theory but are often related to important features of the real
+world phenomena. In this work, we concentrate only on the linear 
+models. The application of Ostrowski 
+estimates is also extended to classical iteration schemes, the obtained results 
+are exposed in \cite[Section 6.7]{Malietall2014}.
+
+%----------------------------------------------------------------------------------%
+Generally, the \PL method can be used not only for ODEs but also for time-dependent 
+algebraic and functional equations (see, e.g., 
+\cite{NevanlinnaPI1989, NevanlinnaPII1989}, where it is shown that the speed of
+convergence is independent of the step sizes). Numerical methods based on \PL 
+iterations for dynamical processes (the so-called waveform relaxation in the context 
+of electrical networks) are discussed in \cite{Erolaetall1995}. 
+A posteriori estimates and nodal superconvergence for time
+stepping methods are studied in \cite{Akrivisetall2011,MakridakisNochetto2006} for
+linear and nonlinear problems.
+
+%----------------------------------------------------------------------------------%
+The second and main part of this work is devoted to the \emph{functional type} a 
+posteriori error estimates and indicators initially introduced by Repin in 
+\cite{Repin1997, RepinPowerFunc1997, Repin1999, Repin2000} and thoroughly studied 
+for various classes of problems (see, e.g., \cite{NeittaanmakiRepin2004, 
+RepinDeGruyter2008, Malietall2014} and references therein). Unlike the above-listed 
+error indicators, functional type error estimates are guaranteed, they do not contain 
+mesh-dependent local interpolation constants (contrary to residual estimates), and 
+they are valid for any function from the class of conforming approximations (not 
+restricted by the Galerkin orthogonality assumption). The detailed comparison of the
+above-described approaches can be found in monograph by Mali, 
+Neittaanm{\"a}ki, and Repin \cite{Malietall2014}.
+
+%----------------------------------------------------------------------------------%
+Our main goal is to develop a fully reliable tool to quantitatively control the error 
+in approximate solutions of evolutionary problems. The numerical treatment of this 
+class of I-BVPs produces approximations, which alongside with the progress of 
+simulations accumulate the error. This error may eventually `blow up' if it is 
+not controlled. Therefore, the appropriate error estimates are crucial for 
+monitoring its possible dramatic growth. Once the error in 
+the approximation has been controlled reliably, it is possible to detect areas with 
+excessively high local errors and calculate an essentially more accurate 
+approximation.
+
+%----------------------------------------------------------------------------------%
+In the framework of the a posteriori error estimates studied in this work, we highlight 
+the paper \cite{Repin2002}, where a method of deriving functional error 
+estimates for parabolic I-BVPs is suggested. The first attempt on their numerical analysis 
+is presented in \cite{GaevskayaRepin2005}. In \cite{RepinTomar2010}, the authors 
+study the extension of error estimates for evolutionary convection-diffusion 
+problems with 
+possible discontinuity of approximations in time. A posteriori error analysis of 
+parabolic time-periodic BVPs in connection with their multiharmonic FE 
+discretization is presented in \cite{LangerRepinWolfmayr2014}. The residual 
+estimates are also extended to evolutionary PDEs in  
+\cite{Verfurth2003, BangerthRannacher2003, Vexler2008, Meidneretall2011, 
+BesierRannacher2012, RichterSpringerVexler2013} and the reference cited therein.
+Lastly, $hp$-Galerkin time-stepping for the same 
+class of problems is addressed in \cite{Johnson1988,SchotzauSchwab2000,
+SchotzauWihler2010} and references cited therein. 
+
+
+
+%----------------------------------------------------------------------------------%
+In order to make functional estimates applicable to a wider class of problems with 
+$\Omega$ of complicated geometry, the domain decomposition (DD) technique in 
+combination with local Poincar\'{e} inequalities is discussed in 
+\cite[Section 3.5.3]{RepinDeGruyter2008}
+for elliptic PDEs. The current work extends the latter 
+estimates to time-dependent PDEs and suggests a method to omit both Friedrichs' and 
+trace global constants, which are included into the basic form of the majorant. 
+%----------------------------------------------------------------------------------% 
+
+Suggested in \cite{RefMatculevichNeitaanmakiRepin2015} and
+\cite{RefMatculevichRepinPoincare2014} method applies Poincar\'{e}-type inequalities
+that in addition to quantitative analysis of PDEs is also used in various problems 
+of numerical analysis, e.g., discontinuous Galerkin, mortar and DD methods. 
+%----------------------------------------------------------------------------------% 
+The exact values of respective constants (or sharp and guaranteed 
+bounds of them) are interesting from both analytical and computational points of 
+view. 
+Results related to constants in extension and projection type estimates related to 
+FE approximations can be found in, e.g., \cite{Mikhlin1986,Ciarlet1978}. Constants 
+in the trace inequalities associated with polygonal domains are discussed in 
+\cite{CarstensenSauter2004}; in FETI, FETI-DP DD methods the application of 
+constants is highlighted in \cite{Klawonnatall2008,Dohrmann2008} and 
+\cite{ToselliWidlund2005}. Functional inequalities and respective constants play an important role in analysis of problems described in terms of vector-valued functions 
+(see, e.g., \cite{Fuchs2011, Pauly2015}). 
+In \cite{KikuchiLiu2007,XuefengOishi2013}, the analysis of error constants for 
+piecewise constant and linear interpolations over triangular finite elements can be 
+found. And finally, \cite{CarstensenGedicke2014} introduces fully computable 
+two-sided bounds on the eigenvalues of the Laplace operator based on the 
+approximation of the corresponding 
+eigenfunction in the nonconforming Crouzeix-Raviart FE space.
+
+
+%----------------------------------------------------------------------------------%
+The last part of this study is dedicated to sharp bounds of the constants in 
+classical Poincar\'{e} and 
+Poincar\'{e}-type inequalities for arbitrary non-degenerate triangles and tetrahedrons, which 
+are typical objects in various discretization methods. These computable estimates 
+are based on the mapping of the reference simplices to arbitrary one using the 
+exact values of the respective constants derived in 
+\cite{Pinsky1980, HoshikawaUrakawa2010,KikuchiLiu2007} for some triangles and 
+\cite{NazarovRepin2014} for parallelepipeds, rectangles, and right triangles. 
+Knowledge about the sharp upper bounds for the above-mentioned constants is particularly 
+useful for quantitative analysis of problems generated by differential equations 
+and implementation of the functional error majorants applied for the problems with decomposed domain.
+
+Below, we sketch the structure of the thesis. 
+%----------------------------------------------------------------------------------%
+Chapter \ref{chapter:mathematical-background} is dedicated to the overview of the  
+mathematical framework, including definitions and theorems in the field of functional 
+analysis as well as results on solvability parabolic I-BVPs, which provide 
+fundamental results required in the subsequent chapters.
+%----------------------------------------------------------------------------------%
+Chapter \ref{chapter:estimates} is focused on the main results achieved in this study, 
+i.e., a fully guaranteed APL method for ODEs, functional a posteriori error estimates 
+for the distance to the exact solution of parabolic I-BVPs, and sharp bounds of the 
+constants in classical Poincar\'{e} and Poincar\'{e}-type inequalities for functions 
+with zero mean traces on the faces of arbitrary simplexes in $\Rtwo$ and $\Rthree$. 
+%----------------------------------------------------------------------------------%
+In Chapter \ref{chapter:conclusion}, we draw some conclusions and give an outlook 
+on future work in connection to efficient and fully guaranteed solvers for 
+nonlinear evolutionary problems. The results presented in the included papers, 
+or in other publications, will be highlighted accordingly. The connections between 
+the topics are presented in Figure \ref{fig:structure}.
+%----------------------------------------------------------------------------------%
+\vskip 10pt
+\noindent
+{\bf Author's contribution to the included articles}
+\vskip 10pt
+
+\noindent
+\cite{RefMatculevichNeittaanmakiRepin2013}: The estimates studied in this paper were 
+discussed originally in monograph of Neittaanm{\"a}ki and Repin 
+\cite[Section 3.1]{NeittaanmakiRepin2004}. The goal of this 
+work is to implement the adaptive iterative \PL method and combine it with Ostrowski estimates. 
+The computations of the numerical part are carried out in \verb+MATLAB+ \cite{Matlab}
+by the author. 
+Application of 
+Ostrowski estimates to classical iteration schemes is also presented in 
+\cite[Section 6.7.6]{Malietall2014} together with a guaranteed APL method.
+
+%----------------------------------------------------------------------------------%
+\vskip+1em
+\noindent
+\cite{RefMatculevichRepin2014}: This article studies functional type a 
+posteriori error estimates for evolutionary reaction-diffusion I-BVP with a reaction 
+function, which drastically \linebreak 
+changes its values on different parts of the domain. 
+The method suggested for derivation of the majorant combines ideas presented in 
+original work of Repin \cite{Repin2002} on bounds of the distance to the 
+exact solution of heat equation and join paper of Repin and Sauter 
+\cite{RepinSauter2006}, which is concerned with state reaction-diffusion BVP. 
+The minorant of the error in the 
+approximate solution for the evolutionary class of problems derived in the paper is 
+the original result. Its efficiency is confirmed by numerical tests. 
+All experiments presented in the paper 
+are implemented by the author in \verb+MATLAB+. 
+
+%----------------------------------------------------------------------------------%
+\vskip+1em
+\noindent
+\cite{RefMatculevichNeitaanmakiRepin2015}: 
+The focus of this paper is on error estimates for an approximate solution of 
+the evolutionary reaction-diffusion problem in case of decomposed domains. The 
+method suggested in the paper is based on the idea originally introduced for the 
+elliptic problems in \cite{RepinDeGruyter2008} and \cite{RepinSauter2006}. The main 
+goal of the work is to overcome the complications arising with the calculation of 
+Friedrichs' constant included in the majorant presented in 
+\cite{RefMatculevichRepin2014} once 
+it is applied to problems with a domain of a complicated shape. By exploiting the idea
+of DD and classical Poincar\'{e} inequalities \cite{Poincare1890, Poincare1894}, 
+we exclude global constants from the majorant. The proofs and technicalities 
+in the paper are the work of the author.
+%----------------------------------------------------------------------------------%
+\vskip+1em
+\noindent
+\cite{RefMatculevichRepinPoincare2014}: This work is another generalization of the 
+error estimates presented in \cite{RefMatculevichRepin2014} to the problems 
+formulated on complicated domains with nontrivial mixed Dirichlet--Robin BC. 
+Again, by using the method of domain decomposition and application of local 
+Poincar\'{e}-type inequalities 
+for functions with zero mean trace, we omit global trace and Friedrichs' constants 
+included into the basic majorant. Besides that, we demonstrate the equivalence of 
+errors measured in primal and combined norms to advanced and basic forms of majorants, 
+respectively.
+
+%----------------------------------------------------------------------------------%
+\vskip+1em
+\noindent
+\cite{RefArxivMatculevichRepin2015}: The technique suggested in 
+\cite{RefMatculevichRepinPoincare2014} and \cite{RefMatculevichNeitaanmakiRepin2015} 
+is based on local Poincar\'{e} and Poincar\'{e}-type 
+inequalities for functions with zero mean trace on the whole boundary or measurable 
+part of it. We suggest explicit relations (based on exact constants from 
+\cite{Pinsky1980,HoshikawaUrakawa2010,KikuchiLiu2007,NazarovRepin2014}) that 
+serve as sharp and easily computable (independent of any discretization parameters) 
+bounds of the respective constants. Moreover, we compare obtained bounds of the 
+constants in the classical Poincar\'{e} inequalities with known analytical estimates
+and investigate, numerically, the behavior of minimizers of Rayleigh quotients, corresponding the constants. The numerical experiments in the 
+paper are carried out by the author, using both \verb+MATLAB+ 
+and \verb+The FEniCS Project+ \cite{Fenicsproject,LoggMardalWells2012}.
+
+%----------------------------------------------------------------------------------%
+% tikz picture
+%----------------------------------------------------------------------------------%
+\vskip 30pt
+\begin{figure}[h]
+\centering
+\input{pics/structure}
+\vspace{20pt}
+\caption{Structure of the thesis.}
+\label{fig:structure}
+\end{figure}
+

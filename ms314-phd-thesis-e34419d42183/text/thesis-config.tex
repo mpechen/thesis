@@ -1,0 +1,146 @@
+%\usepackage{hyperref}
+%%\usepackage{tabularx}
+%\usepackage{amsmath, amssymb}
+%%\usepackage{glossaries}
+%\usepackage{tikz}
+%%\usepackage{array}
+%%%\usepackage{standalone}
+%%\usepackage{cite}
+%%%\usepackage{url}
+%%\usepackage{graphicx}
+%%
+%\newtheorem{theorem}{Theorem}
+%\newtheorem{definition}{Definition}
+%\input{Preamble/preamble}
+\usepackage{hyperref}
+%%\usepackage{tabularx}
+\usepackage{amsmath, amssymb}
+%%\usepackage{glossaries}
+\usepackage{tikz}
+%%\usepackage{array}
+%%%\usepackage{standalone}
+%%\usepackage{cite}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{listings} 
+\usepackage{standalone}
+
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{remark}{Remark}[chapter]
+\newtheorem{corollary}{Corollary}[chapter]
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{proposition}{Proposition}[chapter]
+%\theoremstyle{definition}
+\newtheorem{data}{Data}
+\newtheorem{example}{Example}
+
+\newcommand{\mnote}[1]{\!^\textrm{\scriptsize\color{Gray}#1}}
+\newcommand{\note}[1]{\textrm{\scriptsize\color{Gray}#1}}
+\newcommand{\tnote}[1]{\color{Grayy}#1}
+
+% Custom colors
+\definecolor{Gray}{rgb}{0.6,0.6,0.6}
+\definecolor{Grayy}{rgb}{0.5,0.5,0.5}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+%\lstset{emph={trueIndex,root},emphstyle=\color{BlueViolet}}%\underbar} 
+% for special keywords
+\lstset{language=[LaTeX]Tex,%C++,
+    keywordstyle=\color{blue!50!black},%\bfseries,
+    basicstyle=\small\ttfamily,
+    %identifierstyle=\color{NavyBlue},
+    commentstyle=\color{green!50!black}\ttfamily,
+    stringstyle=\rmfamily,
+    numbers=none,%left,%
+    numberstyle=\scriptsize,%\tiny
+    stepnumber=5,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frameround=ftff,
+    frame=single,
+    belowcaptionskip=.75\baselineskip
+    %frame=L
+} 
+
+%------------------ Python style for highlighting ------------------%
+\newcommand\pythonstyle{
+\lstset{
+		language=Python,
+		basicstyle=\footnotesize\ttfamily,
+		otherkeywords={self},             % Add keywords here
+		keywordstyle=\bfseries\color{deepblue}\bfseries,
+		commentstyle=\itshape\color{purple!40!black},
+		%emph={MyClass,__init__},          % Custom highlighting
+		%emphstyle=\ttb\color{deepred},    % Custom highlighting style
+		stringstyle=\color{deepgreen},
+		frame=single,                         % Any extra options here
+		showstringspaces=false,            % 
+		belowcaptionskip=.75\baselineskip
+}}
+% Python environment
+\lstnewenvironment{python}[1][]
+{
+\pythonstyle
+\lstset{#1}
+}
+{}
+% Python for external files
+\newcommand\pythonexternal[2][]{{
+\pythonstyle
+\lstinputlisting[#1]{#2}}}
+% Python for inline
+\newcommand\pythoninline[1]{{\pythonstyle\lstinline!#1!}}
+%------------------ END Python style for highlighting ------------------%
+
+\setlength{\tabcolsep}{9pt}
+\newcommand{\comment}[1]{}
+
+\numberwithin{equation}{chapter}
+\def\proof{\noindent\textit{\textbf{Proof}. }}
+\def\proofend{\hfill$\square$\vskip+0.5em}
+
+%--------------------------------- MY ---------------------------------%
+% https://www.sharelatex.com/learn/Environments
+\newenvironment{boxed1}[1]
+{\begin{center}
+        #1\\[1ex]
+        \begin{tabular}{|p{0.9\textwidth}|}
+            \hline\\
+        }
+        { 
+            \\\\\hline
+        \end{tabular} 
+    \end{center}
+}
+% \begin{boxed}{Title of the Box}
+% This is the text formatted by the boxed environment
+% \end{boxed}
+
+%---------------------- Gaussian Distribution ----------------------%
+\def \GaussDist {\mathcal{N}(x | \mu, \sigma)  =\frac{1}{(2 \pi \sigma^2)^{1/2}} \exp \Big \{- \frac{(x-\mu)^2}{2 \sigma^2} \Big \}}
+
+%% Right side of the distribution
+%\def \GaussDistP {\frac{1}{(2 \pi \sigma^2)^{1/2}} \exp \Big \{- \frac{(x-\mu)^2}{2 \sigma^2} \Big \}}
+%\def \GaussDistP {\frac{1}{\sigma \sqrt{2 \pi}} \exp \Big \{- \frac{(x-\mu)^2}{2 \sigma^2} \Big \}}
+\def \GaussDistP {\frac{1}{\sigma \sqrt{2 \pi}} e^{ -\frac{(x-\mu)^2}{2 \sigma^2}}}
+%Usage:  $p(x|\mu,\sigma) = \GaussDistP$
+%---------------------- END Gaussian Distribution ----------------------%
+
+\def \online {on-line }
+\def \Online {On-line }
+
+\def \changepoint {change point }
+\def \Changepoint {Change point }
+
+\def \cd {changedetection }
+
+%% Make a vector notation
+\newcommand {\mvec}[1] {\pmb{#1}}
+%\newcommand {\mvec}[1] {\mathbf{#1}}
+
+\newcommand {\lr}[1] {\langle #1 \rangle}
+%------------------------------- END MY -------------------------------%

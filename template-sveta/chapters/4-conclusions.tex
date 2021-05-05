@@ -1,0 +1,57 @@
+\chapter{Conclusions and outlook}
+\label{chapter:conclusion}
+
+In this chapter, we summarize the results presented in the study and give an outlook 
+on some future research.
+%--------------------------------------------------------------------------------------%
+The first part of the thesis presents a new version of the \PL method for nonlinear 
+ODEs supplied with guaranteed and explicitly computable upper bounds of approximation 
+errors. The estimates derived take into account interpolation and integration errors 
+and, therefore, provide objective on the accuracy of computed approximations 
+(see \cite{RefMatculevichNeittaanmakiRepin2013}). 
+
+In the second (major) part of the work, guaranteed bounds of distance to the exact 
+solution of the evolutionary reaction-diffusion problem with mixed BC are discussed. We 
+show that two-sided error estimates are directly computable and equivalent to the error. 
+Numerical experiments have confirmed that the estimates provide accurate two-sided 
+bounds of the overall error and generate efficient indicators of local error 
+distribution (see \cite{RefMatculevichRepin2014} and Section \ref{sec:numerical-example} 
+of the current work). 
+
+Earlier, we have generalized two-sided bounds to evolutionary reaction-diffusion 
+problems and adapted them to domains of complicated structure with mixed 
+Dirichlet--Robin BC. The estimates are also valid for problems with complicated 
+nonlinear source functions. To overcome computational difficulties, the domain 
+decomposition method was used. To obtain the error estimate, we have exploited the 
+classical Poincar\'{e} and Poincar\'{e}-type inequalities for functions with zero mean 
+boundary traces. Therefore, the new corresponding bounds of the distance to the exact 
+solution contain only constants in local Poincar\'e-type inequalities associated with 
+subdomains, which quantitatively improves the majorant value. Moreover, it has been 
+proved that the bounds are equivalent to the primal and primal-dual energy norms of 
+the error (see 
+\cite{RefMatculevichNeitaanmakiRepin2015, RefMatculevichRepinPoincare2014}).
+
+%--------------------------------------------------------------------------------------%
+The above-introduced estimates require exact values of guaranteed and realistic bounds 
+of constants in respective functional inequalities. Therefore, in the last part of the 
+thesis, we present sharp estimates of constants in Poincar\'{e} and 
+Poincar\'{e}-type inequalities for functions having zero mean value on the boundary of 
+a Lipschitz domain or on a measurable part of it. These estimates are particularly used 
+in a posteriori error estimation methods for I-BVPs introduced in 
+\cite{RefMatculevichNeitaanmakiRepin2015} and \cite{RefMatculevichRepinPoincare2014}. 
+Our focus was on computable relations that provide sharp bounds of the constants in the 
+above-mentioned inequalities on simplexes in 2D and 3D, which, based on numerical 
+simulations, have confirmed to provide efficient numerical results. Also, we have 
+numerically studied the behavior of the constants in the classical  Poincar\'{e} 
+inequalities and compared these results with known analytical estimates.
+
+In the context of partial differential equations, we have studied only linear models. 
+Thus, extension of these methods to nonlinear I-BVPs is a matter of future work. 
+Moreover, it would be interesting to extend the application of majorant for 
+nonconforming approximations. The estimates based on the domain decomposition technique 
+and local classical Poincar\'{e} and Poincar\'{e}-type inequalities for functions with 
+zero mean trace obtained in \cite{RefMatculevichRepinPoincare2014} can be further 
+developed. Finally, one of the most important directions for the future work is to 
+improve the speed of majorant reconstruction, e.g., to implement a highly parallel 
+algorithm for its minimization. 
+
