@@ -1,5 +1,6 @@
 *.bbx
 *.loar
+docs/
 
 
 ## Core latex/pdflatex auxiliary files:
