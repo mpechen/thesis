@@ -1,4 +1,4 @@
-"
+" No packages
 " vim -u essential.vim
 "
 set nocompatible
@@ -7,6 +7,7 @@ set wrap
 set linebreak
 set relativenumber
 set number
+set spell
 nnoremap <silent> <C-l> :nohl<CR><C-l>
 set mouse=a " Enable mouse usage (all modes) in terminals
 
@@ -18,4 +19,8 @@ inoremap <c-s> <Esc>:update<CR>
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
 
-colorscheme zellner
+"colorscheme zellner
+colorscheme industry
+
+au Filetype tex set colorcolumn=80
+au Filetype tex set textwidth=80

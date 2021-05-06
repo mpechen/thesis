@@ -7,31 +7,55 @@
 \preface
 \index{aaaaa} aaaaa
 \acknowledgements
-aaaaa
 
 \mainmatter
 
+%===============================================================================%
+%                              INTRODUCTION 
+%===============================================================================%
 \chapter{Introduction}
-\section{Relation between concept drift in multidimensional data streams and change detection in time series}\
-%\chapter{Concept drift}
-\textit{Concept drift}~\cite{schlimmer1986incremental,gama2014survey}  is a phenomenon when relation between the input data and the target variable changes over time~\cite{gama2014survey}.
-\textit{Adaptive learning} refers to updating model online to react to concept drifts~\cite{gama2014survey}.
+\section{Concept drift and change detection in time series problems}
+%===============================================================================%
+Concept drift~\cite{schlimmer1986incremental,gama2014survey} is a
+phenomenon when relation between the input data and the target variable changes
+over time~\cite{gama2014survey}.
+Adaptive learning refers to updating model online to react to concept
+drifts~\cite{gama2014survey}.
+%===============================================================================%
+Machine Learning models learn the relation between input data $X$ and target
+variable $y$ by approximating a joint distribution $P(X,y)$.  Model performance
+degrades when learned underlying data distribution changes.  Therefore concept
+drift can be detected by monitoring change points in model's output performance
+statistics.
+%===============================================================================%
+On-line change detection in time series data is an old practical problem with
+the roots in the problem of statistical quality
+control~\cite{basseville1993detection}, ~\cite{NISTbook}.  Walter A. Shewhart
+invented control charts in 1924 while working on the problem of statistical
+quality control to improve reliability of telephone transmission systems.
+%===============================================================================%
+Quality control
+$X$ is a set of sensor readings and $y=good$ is a quality of the produced item.
+%===============================================================================%
+Offline and online.
+In offline learning all training data is available during training.
+In online learning the data is processed sequentially from data streams.
+Model is being updated as more data arrives.
+Data evolve over time in dynamically changing environments.
 
-Machine Learning models learn the relation between input data $X$ and target variable $y$ by approximating a joint distribution $P(X,y)$. 
-Model performance degrades when learned underlying data distribution changes.
-Therefore concept drift can be detected by monitoring change points in model's output performance statistics.
 
-
-\section{Change detection}
-\begin{definition}
-	Change points is
-\end{definition}
-
-\section{Recurrency}
+%===============================================================================%
+%                               RECURRENCY
+%===============================================================================%
+\chapter{Recurrency and predictability}
 ~\cite{feller2008introduction}
+Recurrency is a form of predictability.
 
 
-\section{Main results}
+\chapter{Main results}
+~\cite{MaslovSDM2016, MaslovIJCNN2017}
+\subsection{Pccf}
+\subsection{Integration with detectors}
 
 \section{MISC}
 
@@ -40,8 +64,6 @@ Included article~\cite{sha1}.
 
 Concept drift and change detection problem.
 Concept drift can be reduced to change detection in univariate time series?
-
-
 
 
 \begin{itemize}
