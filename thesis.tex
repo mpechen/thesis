@@ -1,0 +1,126 @@
+\documentclass[licentiate,utf8,lot,loar,lof,shortloft,index]{jydiss}
+%\documentclass[licentiate,latin9,loa,lot,lof,shortloft,captiondot]{jydiss}
+%\documentclass[licentiate,finnish,latin9,loa,lot,lof]{jydiss}
+
+
+%\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+%\usepackage[utf8]{inputenc}
+
+%\usepackage{natbib}
+\usepackage{algorithm}% http://ctan.org/pkg/algorithms
+\usepackage{algpseudocode}% http://ctan.org/pkg/algorithmicx
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usepackage{graphics}
+\usepackage{standalone}
+\usepackage{amsthm}
+\newtheorem{definition}{Definition}
+
+
+\title{Predictive analytics with online changedetection in data streams}
+\entitle{foo}
+\setauthor{Alexandr}{Maslov}
+\abstract{
+  This is an English abstract.
+}
+
+\people{
+  \item[Author] Alexandr Maslov \\
+    Department of Mathematics and Computer Science\\
+    Eindhoven University of Technology (TU/e) \\
+    and\\
+  	Faculty of Information Technology ,\\
+    University of Jyv\"{a}skyl\"{a} (JYU)\\
+    Finland
+
+  \item[Supervisors] \textit{Prof. Dr. Mykola Pechenizkiy}\\[0.3em]
+  Department of Computer Science\\
+  Eindhoven University of Technology (TU/e)\\
+  The Netherlands\\
+
+  \textit{Prof. Dr. Tommi K\"{a}rkk\"{a}inen}\\[0.3em]
+  Faculty of Information Technology ,\\
+  University of Jyv\"{a}skyl\"{a}\\
+  Finland
+
+  \item[Reviewers] XXX
+
+    XXX
+  \item[Opponent] XXX
+}
+\isbn[nid.]{123-456-78-9012-3}
+\isbn[PDF]{345-678-90-1234-5}
+
+\makeindex
+\begin{document}
+\preface
+\index{aaaaa} aaaaa
+\acknowledgements
+aaaaa
+\mainmatter
+
+\chapter{Introduction}
+External~\cite{shewhart1931economic}
+Included article~\cite{sha1}.
+
+Concept drift and change detection problem.
+Concept drift can be reduced to change detection in univariate time series?
+
+\begin{definition}
+  Concept drift is
+\end{definition}
+
+\begin{definition}
+  Change points is
+\end{definition}
+
+\begin{itemize}
+  \item Change detection:~\cite{basseville1993detection}
+  
+  \item Sequential change detection problem is a well studied problem, see for example in~\cite{tartakovsky2014sequential}, ~\cite{plasse2021streaming}. But in this work we approach sequential change detection in a rather straigtforward approach by means of re-estimating new mean level after each detection.
+  
+  \item Optimality of the change detection procedure was investigated in~\cite{Page1954},~\cite{Shiryaev2010,Shiryaev1961,Shiryaev1963}.
+  Asymptotic and nonasymptotic optimality of cumulative sum algorithms was provedin~\cite{lorden1971procedures},~\cite{moustakides1986optimal},~\cite{moustakides2004optimality},~\cite{ritov1990decision}. In~\cite{Shiryaev1963,shiryaev2007optimal} the change point is modelled as a random variable with a known geometric distribution~\cite{veeravalli2014quickest} and optimal algorithm minimizing the average detection delay given constraint on the probability of false alarm is proposed. In our work we minimize the detection delay given a constraint on the maximum delay imposed by the prediction interval width. In~\cite{lorden1971procedures} asymptotic optimality of Cusum~\cite{Page1954} is proved according to the minimax criterion for delay with the mean time between false alarms going to infinity.
+  
+  \item Concept drift:
+\end{itemize}
+
+\chapter{Conclusion}
+
+\tailmatter
+\finnishsummary
+Foo bar
+%\inputencoding{utf8}
+\bibliographystyle{plain}
+\bibliography{references}
+\appendices
+\appendix{A}
+\section{foobar}
+
+\backmatter
+
+\includedarticles
+\begin{article}{sha1}
+\arttitle{Modelling Recurrent Events for Improving Online Change Detection}
+\artauthor{Alexandr Maslov, Mykola Pechenizkiy, Indr{\.e} {\v{Z}}liobait{\.e}, and Tommi K\"{a}rkk\"{a}inen}
+\artpublish{Proceedings of the 2016 SIAM International Conference on Data Mining}
+\artyear{2016}
+\artcopyright{XX}
+\artpages{1}
+\end{article}
+
+\begin{article}{sha2}
+\arthide
+\arttitle{BLPA: Bayesian learn-predict-adjust method for online detection of recurrent changepoints}
+\artauthor{Alexandr  Maslov, Mykola Pechenizkiy, Yulong  Pei, Indre {\v{Z}}liobait{\.e},  Alexander Shklyaev, Tommi Karkk{\"a}inen, and Hollm{\'e}n, Jaakko}
+\artpublish{2017 International Joint Conference on Neural Networks (IJCNN)}
+\artyear{2017}
+\artcopyright{XXX}
+\end{article}
+\printindex
+\end{document}
