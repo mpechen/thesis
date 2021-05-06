@@ -1,0 +1,41 @@
+\documentclass[latin,lgof,lot,loar]{jydiss}
+%----------------------------------------------------------------------------------%
+% configuration data and information
+%----------------------------------------------------------------------------------%
+\input{thesis-config}
+\input{thesis-metadata}
+
+\begin{document}
+
+%----------------------------------------------------------------------------------%
+% front matter
+%----------------------------------------------------------------------------------%
+\input{frontback-matter/acknowledgments}	
+\input{frontback-matter/notation}
+\input{frontback-matter/acronyms}
+	
+%----------------------------------------------------------------------------------%
+% main matter
+%----------------------------------------------------------------------------------%
+\mainmatter	
+\input{chapters/1-introduction}
+\input{chapters/2-mathematical-background}
+\input{chapters/3-estimates}
+\input{chapters/4-conclusions}
+%----------------------------------------------------------------------------------%
+% tail matter
+%----------------------------------------------------------------------------------%
+\tailmatter	
+\input{frontback-matter/finnish-summary}
+%----------------------------------------------------------------------------------%
+% bibliography
+	
+\bibliographystyle{plain}
+\bibliography{bib/lib,bib/my_lib}
+%----------------------------------------------------------------------------------%
+% back matter
+%----------------------------------------------------------------------------------%
+\backmatter
+\input{frontback-matter/articles}
+
+\end{document}
