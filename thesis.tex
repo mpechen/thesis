@@ -16,7 +16,7 @@
 %                              INTRODUCTION 
 %===============================================================================%
 \chapter{Introduction}
-\chapter{Concept drift and change detection problems}
+\chapter{Concept drift problem}
 %===============================================================================%
 Concept drift~\cite{schlimmer1986incremental,gama2014survey} is a
 phenomenon when relation between the input data and the target variable changes
@@ -28,6 +28,7 @@ Formally can be defined~\cite{gama2014survey} as Equation\ref{eq:concept_drift}
 Adaptive learning refers to updating model online to react to concept
 drifts~\cite{gama2014survey}.
 %===============================================================================%
+\chapter{Change detection problem}
 Machine Learning models learn the relation between input data $X$ and target
 variable $y$ by approximating a joint distribution $P(X,y)$.  Model performance
 degrades when learned underlying data distribution changes.  Therefore concept
@@ -48,38 +49,43 @@ In offline learning all training data is available during training.
 In online learning the data is processed sequentially from data streams.
 Model is being updated as more data arrives.
 Data evolve over time in dynamically changing environments.
+\section{PELT method}
+Offline detector used in online settings in ~\cite{marrero2013aclac}.
 
+\section{Bayesian detector}
+\cite{adams2007bayesian}
+
+\section{CUSUM detector}
 
 %===============================================================================%
 %                               RECURRENCY
 %===============================================================================%
-\chapter{Recurrency}
+\chapter{Predictability And Recurrency}
+Adaptive learning in concept drift.
+Predictability of events in the data stream.
 ~\cite{feller2008introduction}
 Sums of independent random variables.
 Recurrency is a form of predictability.
 
-\subsection{Inter-arrival times modelling}
+\section{Inter-arrival times modeling}
 Commonly used probability distributions for modelling inter-arrival times.
 
 
 \chapter{Main results}
 ~\cite{MaslovSDM2016, MaslovIJCNN2017}
-\subsection{Pccf}
-\subsection{Integration with Bayesian detector}
-\subsection{Integration with CuSum}
+\section{Pccf}
+\section{Integration with Bayesian detector}
+\section{Integration with CuSum}
 
 \chapter{MISC}
-
 External~\cite{shewhart1931economic}
 Included article~\cite{sha1}.
-
 Concept drift and change detection problem.
 Concept drift can be reduced to change detection in univariate time series?
 
 
 \begin{itemize}
   \item Change detection:~\cite{basseville1993detection}
-
   \item Sequential change detection problem is a well studied problem, see for example in~\cite{tartakovsky2014sequential}, ~\cite{plasse2021streaming}. 
 
   \item Optimality of the change detection procedure was investigated in~\cite{Page1954},~\cite{Shiryaev2010,Shiryaev1961,Shiryaev1963}.
@@ -102,6 +108,6 @@ Foo bar
 
 \backmatter
 
-\include{includedarticles}
+\include{includedarticles, my_articles}
 \printindex
 \end{document}
