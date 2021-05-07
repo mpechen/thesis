@@ -7,7 +7,9 @@
 \preface
 \index{aaaaa} aaaaa
 \acknowledgements
-
+\begin{notations}
+\notation{$:=$}{equals by definition}
+\end{notations}
 \mainmatter
 
 %===============================================================================%
@@ -19,6 +21,10 @@
 Concept drift~\cite{schlimmer1986incremental,gama2014survey} is a
 phenomenon when relation between the input data and the target variable changes
 over time~\cite{gama2014survey}.
+Formally can be defined~\cite{gama2014survey} as Equation\ref{eq:concept_drift} 
+\begin{equation}\label{eq:concept_drift}
+\exists X: p_{t_0}(X,y) \neq  p_{t_1}(X,y)
+\end{equation}
 Adaptive learning refers to updating model online to react to concept
 drifts~\cite{gama2014survey}.
 %===============================================================================%
@@ -34,8 +40,8 @@ control~\cite{basseville1993detection}, ~\cite{NISTbook}.  Walter A. Shewhart
 invented control charts in 1924 while working on the problem of statistical
 quality control to improve reliability of telephone transmission systems.
 %===============================================================================%
-Quality control
-$X$ is a set of sensor readings and $y=good$ is a quality of the produced item.
+Quality control example: $X$ is a set of sensor readings and $y=good$ is a
+quality of the produced item.
 %===============================================================================%
 Offline and online.
 In offline learning all training data is available during training.
@@ -91,23 +97,6 @@ Foo bar
 
 \backmatter
 
-\includedarticles
-\begin{article}{sha1}
-\arttitle{Modelling Recurrent Events for Improving Online Change Detection}
-\artauthor{Alexandr Maslov, Mykola Pechenizkiy, Indr{\.e} {\v{Z}}liobait{\.e}, and Tommi K\"{a}rkk\"{a}inen}
-\artpublish{Proceedings of the 2016 SIAM International Conference on Data Mining}
-\artyear{2016}
-\artcopyright{XX}
-\artpages{1}
-\end{article}
-
-\begin{article}{sha2}
-\arthide
-\arttitle{BLPA: Bayesian learn-predict-adjust method for online detection of recurrent changepoints}
-\artauthor{Alexandr  Maslov, Mykola Pechenizkiy, Yulong  Pei, Indre {\v{Z}}liobait{\.e},  Alexander Shklyaev, Tommi Karkk{\"a}inen, and Hollm{\'e}n, Jaakko}
-\artpublish{2017 International Joint Conference on Neural Networks (IJCNN)}
-\artyear{2017}
-\artcopyright{XXX}
-\end{article}
+\include{includedarticles}
 \printindex
 \end{document}

@@ -22,5 +22,5 @@ nmap <leader>q :q<CR>
 "colorscheme zellner
 colorscheme industry
 
-au Filetype tex set colorcolumn=80
+"au Filetype tex set colorcolumn=80
 au Filetype tex set textwidth=80

@@ -1015,6 +1015,19 @@ summary!}
                           \end{itemize}}
 \newcommand{\acronym}[2]{\item[#1]#2}
 
+
+\def\diss@notations{Notation}
+\newcommand{\setnotations}[1]{\gdef\diss@notations{#1}}
+
+\newenvironment{notations}{\chapter*{\diss@notations}%
+                          \begin{itemize}%
+                          \setlength{\itemsep}{0ex}
+                          \renewcommand{\makelabel}[1]{\makebox[3cm][l]{ ##1}}
+                          }%
+                         {\thispagestyle{empty}%
+                          \end{itemize}}
+\newcommand{\notation}[2]{\item[#1]#2}
+
 %%%% Common special chapters
 \newcommand{\preface}{\chapter*{\prefacename}}
 
@@ -1321,18 +1334,4 @@ Reproduced with kind permission of \diss@art@copyright.\par
                  {\endlist}
 
 \endinput
-
-% from sveta 
-%%%% Notation
-%\def\diss@notations{Notation}
-%\newcommand{\setnotations}[1]{\gdef\diss@notations{#1}}
-%
-%\newenvironment{notations}{\chapter*{\diss@notations}%
-%                          \begin{itemize}%
-%                          \setlength{\itemsep}{0ex}
-%                          \renewcommand{\makelabel}[1]{\makebox[3cm][l]{ ##1}}
-%                          }%
-%                         {\thispagestyle{empty}%
-%                          \end{itemize}}
-%\newcommand{\notation}[2]{\item[#1]#2}
 
