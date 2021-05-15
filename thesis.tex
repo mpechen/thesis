@@ -4,18 +4,26 @@
 
 \makeindex
 \begin{document}
+
 \preface
+
 \index{aaaaa} aaaaa
+
 \acknowledgements
+
 \begin{notations}
 \notation{$:=$}{equals by definition}
 \end{notations}
+
 \mainmatter
 
 %===============================================================================%
 %                              INTRODUCTION 
 %===============================================================================%
 \chapter{Introduction}
+In the real world, data distributions are almost never static.
+
+
 \chapter{Concept drift problem}
 %===============================================================================%
 Concept drift~\cite{schlimmer1986incremental,gama2014survey} is a
@@ -49,14 +57,118 @@ In offline learning all training data is available during training.
 In online learning the data is processed sequentially from data streams.
 Model is being updated as more data arrives.
 Data evolve over time in dynamically changing environments.
+
+
 \section{PELT method}
 Offline detector used in online settings in ~\cite{marrero2013aclac}.
 ~\cite{killick2012optimal}
+Pelt method is based on a common approach of  minimising a cost function over possible numbers and locations of change points.
+Pelt is based on~\cite{jackson2005algorithm}, but involves a pruning step reducing the computational cost but not affecting exactness of the resulting segmentation.
+Dynamic programming~\cite{bellman1966dynamic}.
+
+Time interval $I$.
+Ordered sequence of data $y_{1:n}=(x_1,\dots,y_n)$.
+A partition $P$ of an interval $I$ is a set of blocks is defined  by change points $\tau_{1:m}=(\tau_1, \dots, \tau_m)$.
+Each change point is an integer between 1 and $n-1$.
+We define $\tau_0=0$ and $\tau_{m+1}=n$.
+$m$ change points split the data into $m+1$ segments, $i$-th segment is $y_{\tau_{i-1} : \tau_i}$.
+For example, if there is one changepoint $\tau_1$ the segments are $B_1=y_{\tau_0:\tau_1}$ and $B_2=y_{\tau_1:\tau_2}$ where $\tau_2 \equiv n$.
+The goal is to find an optimal partition by minimising the cost function defined by Equation\ref{eq:cost_function}
+\begin{equation}\label{eq:cost_function}
+	\sum_{i=1}^{m+1} [ C(B_i) ] + \beta f(m),\: \text{where } B_i \equiv y_{\tau_{i-1} : \tau_i}
+\end{equation}
+where $\beta f(m)$ is a regularization term to prevent overfitting.
+Commonly used cost functions are twice the negative log likelihood~\cite{guyon1999underfitting,chen2011parametric},
+quadratic loss and cumulative sums~\cite{inclan1994use, rigaill2010pruned}. 
+The most common choices for the regularization term are usually $\beta f(m) = \beta m$.
+Examples are Akaike's Information Criterion (AIC\cite{akaike1974new}) $\beta=2p$ and Schwartz Information Criterion (BIC\cite{schwarz1978estimating}) ($\beta = p \log{n}$) where $p$ is the number of additional parameters introduced by adding a new changepoint.
+Dynamic programming optimal segmentation is based on the next principle of optimality
+\begin{theorem}
+Let $P^{\text{max}}$ be an optimal optimal partition of $I$
+\end{theorem}	
+
+\begin{algorithm}[!h]
+	\begin{algorithmic}
+		\Function{pelt}{$Y$, $\sigma$, $C(s,t)$}
+		\State n = length($Y$)
+		\State $F$ = zeros(n)\Comment{Optimal segmentation costs till $t$}
+		\State $F[0] = - \log(n)$
+		\State previous\_changes\_opt = zeros[n]\Comment{Optimal previous change location}
+		\For{t $\in$ [2, n]}
+		    \State previous\_changes\_possible = $1,\dots,t-1$
+		    \State i = 0
+		    \For{s $\in$ previous\_changes\_possible}
+		         \State i += 1
+		        \State segmentation\_costs[i] = $C(s, t)$
+		    \EndFor
+		    \State costs = $F[\text{previous\_changes\_possible}]$ + segmentation\_costs + $\log(n)$
+		    \State $F[t+1] = min(\text{costs})$
+		    \State $\text{previous\_changes\_opt}[t] = \text{previous\_changes\_possible}[argmin(\text{costs})]$
+		\EndFor
+		\State detections = $\text{fn\_extract\_detections(previous\_changes\_opt)}$
+		\EndFunction
+	\end{algorithmic}
+\end{algorithm}
+
 
 \section{Bayesian detector}
 \cite{adams2007bayesian}
+BD detector works by recursively estimating posterior probability distribution $P(r_t | \pmb{x}_{1:t}, \theta)$ of the \textit{run length} variable $r_t$ which is a time since the last changepoint.
+Changepoint is an event when
+\begin{equation}
+	\operatorname*{arg\,max}_{r_t} P(r_t | \pmb{x}_{1:t}, \theta) = 0
+\end{equation}
+%\[\]
+%$r_t = 0$
+Every time a new measurement $x_t$ is observed the \textit{posterior} distribution is recalculated using the Bayes` theorem to update parameters of the distributions used to model data
+\[
+(r_t | \pmb{x}_{1:t}) = \frac{P(r_t, \pmb{x}_{1:t})}{P(\pmb{x}_{1:t})}
+\]
+and the law of total probability
+%$P(x) = \sum_{y} P(x|y) p(y)$
+\begin{equation}
+	P(r_t|\:\LargeCdot) = \sum_{r_{t-1}} P(r_{t} | \: r_{t-1},\:\LargeCdot) \: P(r_{t-1}|\:\LargeCdot)
+\end{equation}
+to take into account values from all the runs in the past.
+The \textit{prior} probability of the change $P(r_t=0|t)$ in BD detector is specified using the constant-value hazard rate $h$ which is a prior probability to observe a change and which is supposed to be known before the change detection process starts.
+
 
 \section{CUSUM detector}
+In this section, we describe the CuSum~\cite{Page1954} detector and its output statistic properties important for measuring performance metrics in static and dynamic settings.
+Changes in the stream of measurements reflect dynamics of observed phenomenon happening in time.
+Therefore, strictly speaking, any change is a gradual process.
+In this paper, for simplicity, we refer to change points and to detections as individual time moments as if change would have happen instantly. If change is gradual and spans time interval then it can be reduced to a single time moment by considering the start or end of the change event~\footnote{Gradual change may become represented as an abrupt change in the time series also due to the sampling rate of measurements}. 
+Change points in the signal are characterized by the time moment when they happened and by the corresponding mean shift value in the signal.
+\begin{definition}
+	Change point is a time moment $t^c$ when statistical properties of the data stream change significantly accordingly to a predefined criteria.
+\end{definition}
+\begin{definition}
+	Detection is a time moment $t^d$ when a detector alarms a change.
+\end{definition}
+For example, if $x_i \sim \mathbb{N}(\mu_1, \sigma)$ for $i < k$ and $x_i \sim \mathbb{N}(\mu_2, \sigma)$ for $i \geq k$,
+then we say that a change point occurred at time moment $t_k$, i.e. $t^{\text{c}}_{k} \equiv t_k$.
+In general, detection can usually be alarmed before or after a change point.
+If $t^{\text{d}}_k > t^{\text{c}}_k$, then change is detected with the delay $t^{\text{d}}_k - t^{\text{c}}_k$.
+%TOMMI: Can we give definition like below? I.e. to say that ALL too-early alarms are false alarms?
+If $t^{\text{d}}_k < t^{\text{c}}_k$ then detection $t^{\text{d}}_k$ is a false alarm (FA).
+
+As an input, CuSum detector receives time series of observations~\ref{eq:input_ts} usually taken at constant sampling rate.
+\begin{equation}\label{eq:input_ts}
+	(x_i)_{i=1}^{N} \equiv (x_1, x_2, \dots, x_N)
+\end{equation}
+taken at corresponding time moments $(t_i)_{i=1}^N$.
+Observations and time moments are enumerated by index $i$ mapping $t_i$ to observations $x_i$ and vice versa.
+CuSum works through a sequential calculation of the output statistic as follows
+% Cusum rule: https://www.itl.nist.gov/div898/handbook/pmc/section3/pmc323.htm
+\begin{align}
+	S_0 &= 0 \nonumber \\
+	S_{n} &= \max (0, S_{n-1} + x_n - \mu_0 - k )\label{eq:cusum_scheme}.
+\end{align}
+% Detections are alarmed at time moments when Cusum's output statistic exceeds a threshold value $h$.
+Detections are alarmed at time moments when $S_{t+1} > h$, i.e. when output statistic exceeds a threshold value $h$.
+In \eqref{eq:cusum_scheme}, $\mu_0$ is the estimate of the in-control state signals' mean value.
+The parameter $k$ is called allowance value and it depends on the level of mean shift $\delta=\mu_2-\mu_1$ that we aim to detect.
+
 
 %===============================================================================%
 %                               RECURRENCY
@@ -109,6 +221,6 @@ Foo bar
 
 \backmatter
 
-\include{includedarticles, my_articles}
+\include{includedarticles}
 \printindex
 \end{document}
