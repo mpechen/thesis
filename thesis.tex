@@ -58,6 +58,13 @@ In online learning the data is processed sequentially from data streams.
 Model is being updated as more data arrives.
 Data evolve over time in dynamically changing environments.
 
+\section{Adwin}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.9\textwidth]{images/example_output_adwin.eps}
+	\caption{ADWIN}\label{fig:adwin_output_example}
+\end{figure}
 
 \section{PELT method}
 Offline detector used in online settings in ~\cite{marrero2013aclac}.
@@ -110,6 +117,12 @@ Let $P^{\text{max}}$ be an optimal optimal partition of $I$
 	\end{algorithmic}
 \end{algorithm}
 
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.9\textwidth]{images/example_output_pelt.eps}
+	\caption{PELT}\label{fig:pelt_output_example}
+\end{figure}
+
 
 \section{Bayesian detector}
 \cite{adams2007bayesian}
@@ -131,7 +144,11 @@ and the law of total probability
 \end{equation}
 to take into account values from all the runs in the past.
 The \textit{prior} probability of the change $P(r_t=0|t)$ in BD detector is specified using the constant-value hazard rate $h$ which is a prior probability to observe a change and which is supposed to be known before the change detection process starts.
-
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.9\textwidth]{images/example_output_bayes.eps}
+	\caption{Bayes}\label{fig:bayes_output_example}
+\end{figure}
 
 \section{CUSUM detector}
 In this section, we describe the CuSum~\cite{Page1954} detector and its output statistic properties important for measuring performance metrics in static and dynamic settings.
@@ -168,7 +185,11 @@ CuSum works through a sequential calculation of the output statistic as follows
 Detections are alarmed at time moments when $S_{t+1} > h$, i.e. when output statistic exceeds a threshold value $h$.
 In \eqref{eq:cusum_scheme}, $\mu_0$ is the estimate of the in-control state signals' mean value.
 The parameter $k$ is called allowance value and it depends on the level of mean shift $\delta=\mu_2-\mu_1$ that we aim to detect.
-
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.9\textwidth]{images/example_output_cusum.eps}
+	\caption{CuSum}\label{fig:cusum_output_example}
+\end{figure}
 
 %===============================================================================%
 %                               RECURRENCY
