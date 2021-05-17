@@ -13,6 +13,7 @@ set shiftwidth=2
 set softtabstop=2
 set expandtab
 set mouse=a " Enable mouse usage (all modes) in terminals
+set autochdir
 
 
 " Key mappings
