@@ -1,0 +1,15 @@
+
+\begin{algorithm}[!h]
+	\begin{algorithmic}[1]
+		\Function{Adwin}{}
+		\State Initialize window $W$
+		\For{t $\in$ [1, n]}
+		\State $W=W \cup x_t$\Comment{Add $x_t$ to the head of $W$} 
+		\Repeat
+		\State Drop elements from the tail of $W$
+		\Until{$|\mu_{W_0} - \mu_{W_1}|\geq \epsilon_{\text{cut}}$ holds for every split of $W=W_0\cdot W_1$}
+		\EndFor
+		\EndFunction
+	\end{algorithmic}
+	\caption{Adwin pseudocode \cite{bifet2007learning}}\label{alg:adwin}
+\end{algorithm}

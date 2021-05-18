@@ -1,4 +1,5 @@
-\documentclass[licentiate,utf8,lot,loar,lof,shortloft,index]{jydiss}
+%\documentclass[licentiate,utf8,lot,loar,lof,shortloft,index]{jydiss}
+\documentclass[doctoral,utf8,lot,loar,lof,shortloft,index]{jydiss}
 \input{thesis-config}
 \input{thesis-metadata}
 
@@ -18,45 +19,68 @@
 \mainmatter
 
 %===============================================================================%
-%                              INTRODUCTION 
+%                              INTRODUCTION
 %===============================================================================%
 \chapter{Introduction}
-In the real world, data distributions are almost never static.
 
 
 \chapter{Concept drift problem}
+%https://www.elen.ucl.ac.be/Proceedings/esann/esannpdf/es2014-69.pdf
+%
+%*** EXPERIMENTS NEEDED - BUT NOT NOW
+%*** COPY FROM SURVEYS  - NOW
+%
+%Meeting
+%
+%informed methods in CD
+%surveys papers - take figures
+%how informed methods can work
+%- more experiments
+%- state: focus only on uni-variate data, or show that it also works for multivariate
+%** SHOW concept drift
+%- ML model concept drift example to make a link
+%- classifier , distribution change
+%- WHAT types of changes should be handled - gradual, abrupt etc.
 
-https://www.elen.ucl.ac.be/Proceedings/esann/esannpdf/es2014-69.pdf
-
-*** EXPERIMENTS NEEDED - BUT NOT NOW
-*** COPY FROM SURVEYS  - NOW
-
-Meeting 
-
-informed methods in CD
-surveys papers - take figures
-how informed methods can work
-- more experiments 
-- state: focus only on uni-variate data, or show that it also works for multivariate
-** SHOW concept drift 
-- ML model concept drift example to make a link 
-- classifier , distribution change
-- WHAT types of changes should be handled - gradual, abrupt etc.
-- 
-
-
-
-%===============================================================================%
-Concept drift~\cite{schlimmer1986incremental,gama2014survey} is a
-phenomenon when relation between the input data and the target variable changes
-over time~\cite{gama2014survey}.
-Formally can be defined~\cite{gama2014survey} as Equation\ref{eq:concept_drift} 
-\begin{equation}\label{eq:concept_drift}
-\exists X: p_{t_0}(X,y) \neq  p_{t_1}(X,y)
+The aim of the machine learning (ML) model in supervised learning task is to predict a target variable $Y \equiv (y_1, \dots, y_n)$ given a set of input features $X \equiv (x_1, \dots, x_n)$.
+For example, in the production process $X$ can be sensor readings and $Y$ is a quality measure.
+ML model is trained on the training data set where both $X$ and $Y$ are known.
+On the inference step $X$ is known and ML model is used to predict $Y$ for new data samples.
+Product rule, Equation\ref{eq:product_rule}, Equation\ref{eq:bayes}.
+\begin{equation}\label{eq:product_rule}
+  P(X,Y) \equiv P(Y|X)P(X) = P(X|Y)P(Y)
 \end{equation}
-Adaptive learning refers to updating model online to react to concept
-drifts~\cite{gama2014survey}.
-%===============================================================================%
+\begin{equation}\label{eq:bayes}
+  p(Y | X) = \frac{p(Y) p(X|Y)}{P(X)}
+\end{equation}
+,where $P(X)=\sum_{Y} p(Y) P(X|Y)$.
+In the real world, data distributions are almost never static.
+Concept drift~\cite{schlimmer1986incremental,gama2014survey} is a phenomenon when relation between the input data and the target variable changes over time~\cite{gama2014survey}.
+Formally concept drift (CD) can be defined as follows~\cite{gama2014survey} by Equation\ref{eq:concept_drift}
+\begin{equation}\label{eq:concept_drift}
+    \exists X: p_{t_0}(X,Y) \neq  p_{t_1}(X,Y)
+\end{equation}
+Adaptive learning refers to updating model online to react to concept drifts~\cite{gama2014survey}.
+\begin{itemize}
+  \item \textit{Real concept drift}\cite{gama2014survey,gao2007general, salganicoff1997tolerating} is a change in $p(Y|X)$
+  \item \textit{Virtual drift}\cite{delany2004case,tsymbal2004problem,widmer1993effective} is a change $P(X)$ which doesn't affect $p(Y|X)$
+\end{itemize}
+Concepts of real and virtual drifts are illustrated by the Figure\ref{fig:fig1_gama_survey_cd}.
+Transition from one concept to another can happen in different forms over time as illustrated on Figure\ref{fig:fig2_gama_survey_cd} for one dimensional data stream.
+
+\cite{karkkainen2014region}
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[height=0.15\textheight]{images_cropped/gama_survey_cd_fig1}
+	\caption{Illustration from~\cite{gama2014survey} depicting real and virtual concept drift phenomena.}\label{fig:fig1_gama_survey_cd}
+\end{figure}
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=0.9\textwidth]{images_cropped/gama_survey_cd_fig2}
+	\caption{~\cite{gama2014survey}}\label{fig:fig2_gama_survey_cd}
+\end{figure}
+
 \chapter{Change detection problem}
 Machine Learning models learn the relation between input data $X$ and target
 variable $y$ by approximating a joint distribution $P(X,y)$.  Model performance
@@ -81,17 +105,28 @@ Data evolve over time in dynamically changing environments.
 
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[height=0.9\textwidth]{images_gnu/detectors_output_stats}
+	\includegraphics[height=0.9\textwidth]{images/detectors_output_stats}
 	\caption{All}\label{fig:all_detectors_stats}
 \end{figure}
 
+
 \section{Adwin}
+Adwin was proposed in~\cite{bifet2007learning}.
+Confidence value $\delta \in (0,1)$
+Equation\ref{eq:adwin_ecut}.
+\begin{equation}\label{eq:adwin_ecut}
+	\epsilon_{\text{cut}} = \sqrt{\frac{2}{m} \cdot \sigma_W^2 \cdot \ln{\frac{2}{\delta^\prime}}} + \frac{2}{3m} \ln{\frac{2}{\delta^\prime}}
+\end{equation}
+Algorithm\ref{alg:adwin}
+
+\input{pseudo_code_adwin}
 
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/example_output_adwin.eps}
 	\caption{ADWIN}\label{fig:adwin_output_example}
 \end{figure}
+
 
 \section{PELT method}
 Offline detector used in online settings in ~\cite{marrero2013aclac}.
@@ -113,43 +148,20 @@ The goal is to find an optimal partition by minimising the cost function defined
 \end{equation}
 where $\beta f(m)$ is a regularization term to prevent overfitting.
 Commonly used cost functions are twice the negative log likelihood~\cite{guyon1999underfitting,chen2011parametric},
-quadratic loss and cumulative sums~\cite{inclan1994use, rigaill2010pruned}. 
+quadratic loss and cumulative sums~\cite{inclan1994use, rigaill2010pruned}.
 The most common choices for the regularization term are usually $\beta f(m) = \beta m$.
 Examples are Akaike's Information Criterion (AIC\cite{akaike1974new}) $\beta=2p$ and Schwartz Information Criterion (BIC\cite{schwarz1978estimating}) ($\beta = p \log{n}$) where $p$ is the number of additional parameters introduced by adding a new changepoint.
 Dynamic programming optimal segmentation is based on the next principle of optimality
 \begin{theorem}
 Let $P^{\text{max}}$ be an optimal optimal partition of $I$
-\end{theorem}	
+\end{theorem}
 
-\begin{algorithm}[!h]
-	\begin{algorithmic}
-		\Function{pelt}{$Y$, $\sigma$, $C(s,t)$}
-		\State n = length($Y$)
-		\State $F$ = zeros(n)\Comment{Optimal segmentation costs till $t$}
-		\State $F[0] = - \log(n)$
-		\State previous\_changes\_opt = zeros[n]\Comment{Optimal previous change location}
-		\For{t $\in$ [2, n]}
-		    \State previous\_changes\_possible = $1,\dots,t-1$
-		    \State i = 0
-		    \For{s $\in$ previous\_changes\_possible}
-		         \State i += 1
-		        \State segmentation\_costs[i] = $C(s, t)$
-		    \EndFor
-		    \State costs = $F[\text{previous\_changes\_possible}]$ + segmentation\_costs + $\log(n)$
-		    \State $F[t+1] = min(\text{costs})$
-		    \State $\text{previous\_changes\_opt}[t] = \text{previous\_changes\_possible}[argmin(\text{costs})]$
-		\EndFor
-		\State detections = $\text{fn\_extract\_detections(previous\_changes\_opt)}$
-		\EndFunction
-	\end{algorithmic}
-\end{algorithm}
-
+\input{pseudo_code_pelt}
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/example_output_pelt.eps}
 	\caption{PELT}\label{fig:pelt_output_example}
 \end{figure}
-
 
 \section{Bayesian detector}
 \cite{adams2007bayesian}
@@ -158,7 +170,6 @@ Changepoint is an event when
 \begin{equation}
 	\operatorname*{arg\,max}_{r_t} P(r_t | \pmb{x}_{1:t}, \theta) = 0
 \end{equation}
-%\[\]
 %$r_t = 0$
 Every time a new measurement $x_t$ is observed the \textit{posterior} distribution is recalculated using the Bayes` theorem to update parameters of the distributions used to model data
 \[
@@ -181,7 +192,7 @@ The \textit{prior} probability of the change $P(r_t=0|t)$ in BD detector is spec
 In this section, we describe the CuSum~\cite{Page1954} detector and its output statistic properties important for measuring performance metrics in static and dynamic settings.
 Changes in the stream of measurements reflect dynamics of observed phenomenon happening in time.
 Therefore, strictly speaking, any change is a gradual process.
-In this paper, for simplicity, we refer to change points and to detections as individual time moments as if change would have happen instantly. If change is gradual and spans time interval then it can be reduced to a single time moment by considering the start or end of the change event~\footnote{Gradual change may become represented as an abrupt change in the time series also due to the sampling rate of measurements}. 
+In this paper, for simplicity, we refer to change points and to detections as individual time moments as if change would have happen instantly. If change is gradual and spans time interval then it can be reduced to a single time moment by considering the start or end of the change event~\footnote{Gradual change may become represented as an abrupt change in the time series also due to the sampling rate of measurements}.
 Change points in the signal are characterized by the time moment when they happened and by the corresponding mean shift value in the signal.
 \begin{definition}
 	Change point is a time moment $t^c$ when statistical properties of the data stream change significantly accordingly to a predefined criteria.
@@ -212,11 +223,15 @@ CuSum works through a sequential calculation of the output statistic as follows
 Detections are alarmed at time moments when $S_{t+1} > h$, i.e. when output statistic exceeds a threshold value $h$.
 In \eqref{eq:cusum_scheme}, $\mu_0$ is the estimate of the in-control state signals' mean value.
 The parameter $k$ is called allowance value and it depends on the level of mean shift $\delta=\mu_2-\mu_1$ that we aim to detect.
+
+\input{pseudo_code_cusum}
+
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[width=0.9\textwidth]{images/example_output_cusum.eps}
+	\includegraphics[width=0.7\textwidth]{images/example_output_cusum.eps}
 	\caption{CuSum}\label{fig:cusum_output_example}
 \end{figure}
+
 
 %===============================================================================%
 %                               RECURRENCY
@@ -451,7 +466,11 @@ After estimating $\mu$ between changes and choosing the number of change points 
 %By observing how fast Pccf converges to the constant level we can select $k$ based on visual inspection of Pccf behavior.
 %Then we would need to select how many change points we need to predict
 %After that ROI intervals can be allocated around Pccf's local extremums
-
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/example_pccf.eps}
+	\caption{Pccf example}\label{fig:pccf_example}
+\end{figure}
 
 
 
@@ -467,7 +486,7 @@ Concept drift can be reduced to change detection in univariate time series?
 
 \begin{itemize}
   \item Change detection:~\cite{basseville1993detection}
-  \item Sequential change detection problem is a well studied problem, see for example in~\cite{tartakovsky2014sequential}, ~\cite{plasse2021streaming}. 
+  \item Sequential change detection problem is a well studied problem, see for example in~\cite{tartakovsky2014sequential}, ~\cite{plasse2021streaming}.
 
   \item Optimality of the change detection procedure was investigated in~\cite{Page1954},~\cite{Shiryaev2010,Shiryaev1961,Shiryaev1963}.
   Asymptotic and nonasymptotic optimality of cumulative sum algorithms was provedin~\cite{lorden1971procedures},~\cite{moustakides1986optimal},~\cite{moustakides2004optimality},~\cite{ritov1990decision}. In~\cite{Shiryaev1963,shiryaev2007optimal} the change point is modelled as a random variable with a known geometric distribution~\cite{veeravalli2014quickest} and optimal algorithm minimizing the average detection delay given constraint on the probability of false alarm is proposed. In our work we minimize the detection delay given a constraint on the maximum delay imposed by the prediction interval width. In~\cite{lorden1971procedures} asymptotic optimality of Cusum~\cite{Page1954} is proved according to the minimax criterion for delay with the mean time between false alarms going to infinity.

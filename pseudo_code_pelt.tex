@@ -1,0 +1,23 @@
+\begin{algorithm}[!h]
+	\begin{algorithmic}[1]
+		\Function{pelt}{$Y$, $\sigma$, $C(s,t)$}
+		\State n = length($Y$)
+		\State $F$ = zeros(n)\Comment{Optimal segmentation costs till $t$}
+		\State $F[0] = - \log(n)$
+		\State previous\_changes\_opt = zeros[n]\Comment{Optimal previous change location}
+		\For{t $\in$ [2, n]}
+		\State previous\_changes\_possible = $1,\dots,t-1$
+		\State i = 0
+		\For{s $\in$ previous\_changes\_possible}
+		\State i += 1
+		\State segmentation\_costs[i] = $C(s, t)$
+		\EndFor
+		\State costs = $F[\text{previous\_changes\_possible}]$ + segmentation\_costs + $\log(n)$
+		\State $F[t+1] = min(\text{costs})$
+		\State $\text{previous\_changes\_opt}[t] = \text{previous\_changes\_possible}[argmin(\text{costs})]$
+		\EndFor
+		\State detections = $\text{fn\_extract\_detections(previous\_changes\_opt)}$
+		\EndFunction
+	\end{algorithmic}
+	\caption{Pelt algorithm}\label{alg:pelt}
+\end{algorithm}
