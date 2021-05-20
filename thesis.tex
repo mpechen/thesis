@@ -18,13 +18,10 @@
 
 \mainmatter
 
-%===============================================================================%
-%                              INTRODUCTION
-%===============================================================================%
 \chapter{Introduction}
 
 
-\chapter{Concept drift problem}
+\chapter{Concept drift and change detection}
 %https://www.elen.ucl.ac.be/Proceedings/esann/esannpdf/es2014-69.pdf
 %
 %*** EXPERIMENTS NEEDED - BUT NOT NOW
@@ -41,29 +38,39 @@
 %- ML model concept drift example to make a link
 %- classifier , distribution change
 %- WHAT types of changes should be handled - gradual, abrupt etc.
+%
+%current state of the art and where we are
+%https://www.dropbox.com/scl/fi/hc065av32qwxptjcmde1d/CD_dagstuhl_7Sep2020.pptx?dl=0&rlkey=pjwwsmi5jcao6ygkx3yiuonkp
+%Include Tommi article.
 
-The aim of the machine learning (ML) model in supervised learning task is to predict a target variable $Y \equiv (y_1, \dots, y_n)$ given a set of input features $X \equiv (x_1, \dots, x_n)$.
-For example, in the production process $X$ can be sensor readings and $Y$ is a quality measure.
-ML model is trained on the training data set where both $X$ and $Y$ are known.
-On the inference step $X$ is known and ML model is used to predict $Y$ for new data samples.
+
+
+\section{Machine learning model in general}
+The aim of the machine learning model in supervised learning task is to predict a target variable $y = (y_1, \dots, y_n)$ given a set of input features $x = (x_1, \dots, x_n)$.
+Where $x_i \in \mathcal{R}^n$ elements are vectors, and the target is usually also a vector or just the number in the regression task $y_i \in \mathcal{R}^n$, or a categorical variable (e.g. ``good/bad'') in the classification tasks.
+\textit{An example} is a pair $(x_i, y_i)$.
+In the production process $x$ can be sensor readings and $y$ is a quality measure.
+The model is trained on the training data set where both $x_i$ and $y_i$ are known.
+On the inference step $x_i$ is known and model is used to predict $y_i$ for new data samples.
 Product rule, Equation\ref{eq:product_rule}, Equation\ref{eq:bayes}.
 \begin{equation}\label{eq:product_rule}
-  P(X,Y) \equiv P(Y|X)P(X) = P(X|Y)P(Y)
+  p(x,y) \equiv p(y|x)P(x) = p(x|y)P(y)
 \end{equation}
 \begin{equation}\label{eq:bayes}
-  p(Y | X) = \frac{p(Y) p(X|Y)}{P(X)}
-\end{equation}
-,where $P(X)=\sum_{Y} p(Y) P(X|Y)$.
+  p(y | x) = \frac{p(y) p(x|y)}{p(x)}\: \text{, where}\: p(x)=\sum_{y} p(y) p(x|y)
+\end{equation}.
+
+\section{Concept drift phenomenon}
 In the real world, data distributions are almost never static.
 Concept drift~\cite{schlimmer1986incremental,gama2014survey} is a phenomenon when relation between the input data and the target variable changes over time~\cite{gama2014survey}.
 Formally concept drift (CD) can be defined as follows~\cite{gama2014survey} by Equation\ref{eq:concept_drift}
 \begin{equation}\label{eq:concept_drift}
-    \exists X: p_{t_0}(X,Y) \neq  p_{t_1}(X,Y)
+    \exists x: p_{t_0}(x,y) \neq  p_{t_1}(x,y)
 \end{equation}
 Adaptive learning refers to updating model online to react to concept drifts~\cite{gama2014survey}.
 \begin{itemize}
-  \item \textit{Real concept drift}\cite{gama2014survey,gao2007general, salganicoff1997tolerating} is a change in $p(Y|X)$
-  \item \textit{Virtual drift}\cite{delany2004case,tsymbal2004problem,widmer1993effective} is a change $P(X)$ which doesn't affect $p(Y|X)$
+  \item \textit{Real concept drift}\cite{gama2014survey,gao2007general, salganicoff1997tolerating} is a change in $p(y|x)$
+  \item \textit{Virtual drift}\cite{delany2004case,tsymbal2004problem,widmer1993effective} is a change $P(x)$ which doesn't affect $p(y|x)$
 \end{itemize}
 Concepts of real and virtual drifts are illustrated by the Figure\ref{fig:fig1_gama_survey_cd}.
 Transition from one concept to another can happen in different forms over time as illustrated on Figure\ref{fig:fig2_gama_survey_cd} for one dimensional data stream.
@@ -73,30 +80,52 @@ Transition from one concept to another can happen in different forms over time a
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[height=0.15\textheight]{images_cropped/gama_survey_cd_fig1}
-	\caption{Illustration from~\cite{gama2014survey} depicting real and virtual concept drift phenomena.}\label{fig:fig1_gama_survey_cd}
+	\caption{Illustration from~\cite{gama2014survey} depicting real and virtual concept drift phenomena.
+  Circles represent instances $x_i$, different colors - classes, dashed line is a decision boundary.
+  }\label{fig:fig1_gama_survey_cd}
 \end{figure}
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images_cropped/gama_survey_cd_fig2}
-	\caption{~\cite{gama2014survey}}\label{fig:fig2_gama_survey_cd}
+  \caption{Changes between concepts can be gradual or abrupt~\cite{gama2014survey}}\label{fig:fig2_gama_survey_cd}
+\end{figure}
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=0.9\textwidth]{images_cropped/gama_survey_cd_fig3}
+  \caption{A generic schema for an online adaptive learning algorithm (from~\cite{gama2014survey})}\label{fig:fig3_gama_survey_cd}
 \end{figure}
 
-\chapter{Change detection problem}
-Machine Learning models learn the relation between input data $X$ and target
-variable $y$ by approximating a joint distribution $P(X,y)$.  Model performance
+
+\section{The link between change detection and concept drift}
+Concept drift and change detection in time series are closely related problems.
+\textit{Concept} is a set of contiguous examples where the distribution is stationary.
+In~\cite{gama2004learning} authors proposed a method to detect changes in the distribution of the training examples.
+The drift detection method works by monitoring the online error-rate of a model.
+
+The next paragraph is from~\cite{gama2004learning}.
+Suppose a sequence of examples $(x_i, y_i)$.
+For each example the model predicts $\hat y_i$ that can be True or False.
+For a set of examples the error is a random variable from Bernoulli trials.
+The probability of the number of errors for $n$ examples is given by the Binomial distribution.
+probability to observe False for an example $x_i$ is $p_i$ with the standard deviation $s_i=\sqrt{p_i(1-p_i)/i}$.
+Statistical decision theory guarantees that while the class distribution of the examples is stationary, the error rate of the learning algorithm ($p_i$) will decrease when $i$ increases.
+A significant decrease in the error rate of the model implies a change in the class distribution.
+
+Machine Learning models learn the relation between input data $x$ and target
+variable $y$ by approximating a joint distribution $p(x,y)$.  Model performance
 degrades when learned underlying data distribution changes.  Therefore concept
 drift can be detected by monitoring change points in model's output performance
 statistics.
-%===============================================================================%
+
+
+\section{Change detection problem}
 On-line change detection in time series data is an old practical problem with
 the roots in the problem of statistical quality
 control~\cite{basseville1993detection}, ~\cite{NISTbook}.  Walter A. Shewhart
 invented control charts in 1924 while working on the problem of statistical
 quality control to improve reliability of telephone transmission systems.
-%===============================================================================%
 Quality control example: $X$ is a set of sensor readings and $y=good$ is a
 quality of the produced item.
-%===============================================================================%
 Offline and online.
 In offline learning all training data is available during training.
 In online learning the data is processed sequentially from data streams.
@@ -109,8 +138,8 @@ Data evolve over time in dynamically changing environments.
 	\caption{All}\label{fig:all_detectors_stats}
 \end{figure}
 
-
-\section{Adwin}
+\section{Detectors}
+\subsection{Adwin}
 Adwin was proposed in~\cite{bifet2007learning}.
 Confidence value $\delta \in (0,1)$
 Equation\ref{eq:adwin_ecut}.
@@ -128,7 +157,7 @@ Algorithm\ref{alg:adwin}
 \end{figure}
 
 
-\section{PELT method}
+\subsection{PELT method}
 Offline detector used in online settings in ~\cite{marrero2013aclac}.
 ~\cite{killick2012optimal}
 Pelt method is based on a common approach of  minimising a cost function over possible numbers and locations of change points.
@@ -163,7 +192,7 @@ Let $P^{\text{max}}$ be an optimal optimal partition of $I$
 	\caption{PELT}\label{fig:pelt_output_example}
 \end{figure}
 
-\section{Bayesian detector}
+\subsection{Bayesian detector}
 \cite{adams2007bayesian}
 BD detector works by recursively estimating posterior probability distribution $P(r_t | \pmb{x}_{1:t}, \theta)$ of the \textit{run length} variable $r_t$ which is a time since the last changepoint.
 Changepoint is an event when
@@ -188,7 +217,7 @@ The \textit{prior} probability of the change $P(r_t=0|t)$ in BD detector is spec
 	\caption{Bayes}\label{fig:bayes_output_example}
 \end{figure}
 
-\section{CUSUM detector}
+\subsection{CUSUM detector}
 In this section, we describe the CuSum~\cite{Page1954} detector and its output statistic properties important for measuring performance metrics in static and dynamic settings.
 Changes in the stream of measurements reflect dynamics of observed phenomenon happening in time.
 Therefore, strictly speaking, any change is a gradual process.
@@ -232,7 +261,49 @@ The parameter $k$ is called allowance value and it depends on the level of mean 
 	\caption{CuSum}\label{fig:cusum_output_example}
 \end{figure}
 
-
+\subsection{ARL}
+The key performance metric of the CuSum detector is the Average Run Length (ARL), which refers to the expected number of observations before an action is taken, i.e., before the detection is alarmed~\cite{Page1954}.
+ARL refers to the FA rate before the change and to the detection delay after the change point.
+When the process is in-control, the $ARL_{\delta}$ refers to a FA rate, whereas when the change has happened it refers to the detection delay.
+% ARL approximation in Equation~\ref{eq:arl_approximation} is given by~\cite{siegmund2013sequential}.
+However, ARL is hard to estimate analytically.
+As reported in~\cite{plasse2021streaming}, one of the simplest ARL approximations is given in~\cite{siegmund2013sequential} in a form of the following equation %Equation~\ref{eq:arl_approximation}
+\begin{equation}\label{eq:arl_approximation}
+	\text{ARL}_{\delta} = \frac{\exp(-2(\delta-k)h') + 2(\delta - k)h' -1}{2 (\delta - k)^2}
+\end{equation}
+%Here, $\delta=\mu_2-\mu_1$ is the mean shift we aim to detect and
+for $h' = h+1.166$.
+Figure~\ref{fig:arl} depicts ARL behavior against $\delta$ (left plot) and versus threshold $h$ (right plot).
+It is easy to see how ARL refers to both the FA rate and to the detection delay at the same time.
+More precisely, smaller values of $\delta$ correspond to fluctuations in the signal and to the larger ARL values, whereas
+larger values of $\delta$ indicate change points to be detected.
+Not surprisingly, ARL decreases fast when $\delta$ is increased.
+It also can be seen that by changeing $\delta$ we increase or decrease ARL value.
+We will use this fact later in the experimental part when performing simulations to measure the detection delay by varying ARL values (by changing $\mu_2-\mu_1 \equiv \delta$) for static and dynamic detectors.
+%
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.9\textwidth]{images_ecmplpkdd/arl.eps}
+	\caption{
+    The left plot depicts ARL as a function of $\delta = \mu_2-\mu_1$ for two fixed threshold values $h$. The right plot depicts ARL as a function of the threshold value $h$ for two fixed $\delta$ values (Equation~\ref{eq:arl_approximation}).
+    Both plots demonstrate that smaller ARL values (and therefore detection delays) correspond to smaller $h$ values. It is obvious for the right plot, on the left plot this fact is depicted by the dashed line for $h=2$ being lower than the solid line for $h=4$.
+    %
+    Smaller $\delta$ corresponds to the fluctuations in the time series causing false alarms, larger $\delta$ correspond to changes in the level shift which are subject for detection.
+    When threshold $h$ is adjusted to smaller values ARL for all $\delta$ values gets smaller (left plot), therefore detection delay is decreased but probability of FA is increased.
+    %Left plot depicts that ARL values for the whole range of $\delta$ values are decreased including smaller $\delta$ values corresponding to FA events,i.e.\ average runs between false alarms are also decreased along with the detection delay.
+    %
+    % Our hypothesis which we investigate experimentally is that by using smaller values of $h$ within prediction intervals and by disregarding detections outside of them we can decrease detection delay and the total number of false alarms despite decreased average runs between them.
+}\label{fig:arl}
+\end{figure}
+%\begin{figure}[!htb]
+%	\centering
+%	\includegraphics[width=0.7\textwidth]{images/arl3d.eps}
+%	\caption{}
+%\end{figure}
+\begin{figure}[!htb]
+\input{images/arl3d.tex}
+\caption{ARL 3D}\label{fig:arl3d}
+\end{figure}
 %===============================================================================%
 %                               RECURRENCY
 %===============================================================================%
@@ -486,7 +557,7 @@ Concept drift can be reduced to change detection in univariate time series?
 
 \begin{itemize}
   \item Change detection:~\cite{basseville1993detection}
-  \item Sequential change detection problem is a well studied problem, see for example in~\cite{tartakovsky2014sequential}, ~\cite{plasse2021streaming}.
+  \item Sequential change detection problem is a well studied problem, see for example in~\cite{tartakovsky2014sequential},~\cite{plasse2021streaming}.
 
   \item Optimality of the change detection procedure was investigated in~\cite{Page1954},~\cite{Shiryaev2010,Shiryaev1961,Shiryaev1963}.
   Asymptotic and nonasymptotic optimality of cumulative sum algorithms was provedin~\cite{lorden1971procedures},~\cite{moustakides1986optimal},~\cite{moustakides2004optimality},~\cite{ritov1990decision}. In~\cite{Shiryaev1963,shiryaev2007optimal} the change point is modelled as a random variable with a known geometric distribution~\cite{veeravalli2014quickest} and optimal algorithm minimizing the average detection delay given constraint on the probability of false alarm is proposed. In our work we minimize the detection delay given a constraint on the maximum delay imposed by the prediction interval width. In~\cite{lorden1971procedures} asymptotic optimality of Cusum~\cite{Page1954} is proved according to the minimax criterion for delay with the mean time between false alarms going to infinity.
@@ -500,7 +571,7 @@ Concept drift can be reduced to change detection in univariate time series?
 \finnishsummary
 Foo bar
 %\inputencoding{utf8}
-\bibliographystyle{plain}
+\bibliographystyle{apalike}
 \bibliography{references}
 \appendices
 \appendix{A}
