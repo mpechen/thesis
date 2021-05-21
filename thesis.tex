@@ -96,6 +96,35 @@ Transition from one concept to another can happen in different forms over time a
 \end{figure}
 
 
+
+
+\section{ARIMA}
+% https://otexts.com/fpp2/AR.html
+autoregressive-integrated moving average
+ARIMA~\cite{box2015time}
+forecasts are usually needed over a period known as lead time $l$
+models stationary processes when the process remains in equlibrium about a constant mean level
+
+autoregressive model
+the current value is expressed as 
+let $\tilde{y}_t = y_t - \mu$
+Equation~\ref{eq:ar_proc} is autoregressive (AR) process of order $p$
+\begin{equation}\label{eq:ar_proc}
+  % \tilde{y}_t = \phi_1 \tilde{y}_{t-1} + \phi_2 \tilde{y}_{t-2} + \dots + \phi_p \tilde{y}_{t-p} + a_t
+  y_{t} = c + \phi_{1}y_{t-1} + \phi_{2}y_{t-2} + \dots + \phi_{p}y_{t-p} + \varepsilon_{t},
+\end{equation}
+%where $a_t \sim \mathcal{N}(\mu, \sigma_a)$.
+where $\varepsilon_{t}$ is a white noise. 
+\begin{equation}\label{eq:ma_proc}
+  y_{t} = c + \varepsilon_t + \theta_{1}\varepsilon_{t-1} + \theta_{2}\varepsilon_{t-2} + \dots + \theta_{q}\varepsilon_{t-q}
+\end{equation}
+for stationary processes constrains are~\cite{hyndman2018forecasting} 
+\begin{itemize}
+  \item for AR(1) $-1 < \phi_1 < 1$
+  \item for AR(2) $-1 < \phi_2 < 1, \phi_1+\phi_2 <1, \phi_2-\phi_1 < 1$
+\end{itemize}
+
+
 \section{The link between change detection and concept drift}
 Concept drift and change detection in time series are closely related problems.
 \textit{Concept} is a set of contiguous examples where the distribution is stationary.

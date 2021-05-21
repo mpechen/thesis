@@ -41,7 +41,6 @@ nnoremap <c-t> <c-^>
 " or, q: - and search last command
 autocmd FileType python nnoremap <buffer> <leader>5 :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 
-
 "colorscheme zellner
 colorscheme industry
 
