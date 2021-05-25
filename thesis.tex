@@ -98,7 +98,7 @@ Transition from one concept to another can happen in different forms over time a
 
 
 
-\section{ARIMA}
+\section{Arima concept drift example}
 % https://otexts.com/fpp2/AR.html
 autoregressive-integrated moving average
 ARIMA~\cite{box2015time}
@@ -123,6 +123,12 @@ for stationary processes constrains are~\cite{hyndman2018forecasting}
   \item for AR(1) $-1 < \phi_1 < 1$
   \item for AR(2) $-1 < \phi_2 < 1, \phi_1+\phi_2 <1, \phi_2-\phi_1 < 1$
 \end{itemize}
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.9\textwidth]{images/arima_cd_example}
+	\caption{ARIMA concept drift example}\label{fig:arima_cd_example}
+\end{figure}
+
 
 
 \section{The link between change detection and concept drift}
