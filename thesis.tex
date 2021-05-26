@@ -46,13 +46,25 @@
 
 
 \section{Machine learning model in general}
-The aim of the machine learning model in supervised learning task is to predict a target variable $y = (y_1, \dots, y_n)$ given a set of input features $x = (x_1, \dots, x_n)$.
-Where $x_i \in \mathcal{R}^n$ elements are vectors, and the target is usually also a vector or just the number in the regression task $y_i \in \mathcal{R}^n$, or a categorical variable (e.g. ``good/bad'') in the classification tasks.
+%
+The aim of the machine learning model in supervised learning task is to predict
+a target variable $y = (y_1, \dots, y_n)$ given a set of input features 
+$x = (x_1, \dots, x_n)$.
+%
+Where $x_i \in \mathcal{R}^n$ elements are vectors, and the target is usually
+also a vector or just the number in the regression task 
+$y_i \in \mathcal{R}^n$, or a categorical variable (e.g. ``good/bad'') in the
+classification tasks.
+%
 \textit{An example} is a pair $(x_i, y_i)$.
-In the production process $x$ can be sensor readings and $y$ is a quality measure.
-The model is trained on the training data set where both $x_i$ and $y_i$ are known.
-On the inference step $x_i$ is known and model is used to predict $y_i$ for new data samples.
+%
+In the production process $x$ can be sensor readings and $y$ is a quality
+measure.  The model is trained on the training data set where both $x_i$ and
+$y_i$ are known.  On the inference step $x_i$ is known and model is used to
+predict $y_i$ for new data samples.  
+%
 Product rule, Equation\ref{eq:product_rule}, Equation\ref{eq:bayes}.
+%
 \begin{equation}\label{eq:product_rule}
   p(x,y) \equiv p(y|x)P(x) = p(x|y)P(y)
 \end{equation}
@@ -61,22 +73,40 @@ Product rule, Equation\ref{eq:product_rule}, Equation\ref{eq:bayes}.
 \end{equation}.
 
 \section{Concept drift phenomenon}
+%
 In the real world, data distributions are almost never static.
-Concept drift~\cite{schlimmer1986incremental,gama2014survey} is a phenomenon when relation between the input data and the target variable changes over time~\cite{gama2014survey}.
-Formally concept drift (CD) can be defined as follows~\cite{gama2014survey} by Equation\ref{eq:concept_drift}
+%
+Concept drift~\cite{schlimmer1986incremental,gama2014survey} is a phenomenon
+when relation between the input data and the target variable changes over
+time~\cite{gama2014survey}.
+%
+Formally concept drift (CD) can be defined as follows~\cite{gama2014survey} by
+Equation\ref{eq:concept_drift}
+%
 \begin{equation}\label{eq:concept_drift}
     \exists x: p_{t_0}(x,y) \neq  p_{t_1}(x,y)
 \end{equation}
-Adaptive learning refers to updating model online to react to concept drifts~\cite{gama2014survey}.
+%
+The commonly used approaches to cope with concept drift are \textit{i)} update
+the model at regular time intervals without considering whether changes have
+occurred and \textit{ii)} monitor input data stream for distribution changes
+and update model if change is alarmed.
+%
+Adaptive learning refers to updating model online to react to concept
+drifts~\cite{gama2014survey}.
+%
 \begin{itemize}
   \item \textit{Real concept drift}\cite{gama2014survey,gao2007general, salganicoff1997tolerating} is a change in $p(y|x)$
   \item \textit{Virtual drift}\cite{delany2004case,tsymbal2004problem,widmer1993effective} is a change $P(x)$ which doesn't affect $p(y|x)$
 \end{itemize}
-Concepts of real and virtual drifts are illustrated by the Figure\ref{fig:fig1_gama_survey_cd}.
-Transition from one concept to another can happen in different forms over time as illustrated on Figure\ref{fig:fig2_gama_survey_cd} for one dimensional data stream.
-
-\cite{karkkainen2014region}
-
+Concepts of real and virtual drifts are illustrated by the
+Figure~\ref{fig:fig1_gama_survey_cd}. 
+%
+Transition from one concept to another can happen in different forms over time
+as illustrated on Figure\ref{fig:fig2_gama_survey_cd} for one dimensional data
+stream. 
+~\cite{karkkainen2014region}
+%
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[height=0.15\textheight]{images_cropped/gama_survey_cd_fig1}
@@ -96,6 +126,31 @@ Transition from one concept to another can happen in different forms over time a
 \end{figure}
 
 
+\section{The link between change detection and concept drift}
+
+Concept drift and change detection in time series are closely related problems.
+\textit{Concept} is a set of contiguous examples where the distribution is stationary.
+In~\cite{gama2004learning} authors proposed a method to detect changes in the distribution of the training examples.
+The drift detection method works by monitoring the online error-rate of a model.
+
+The next paragraph is from~\cite{gama2004learning}.
+Suppose a sequence of examples $(x_i, y_i)$.
+For each example the model predicts $\hat y_i$ that can be True or False.
+For a set of examples the error is a random variable from Bernoulli trials.
+The probability of the number of errors for $n$ examples is given by the Binomial distribution.
+Probability to observe False for an example $x_i$ is $p_i$ with the standard deviation $s_i=\sqrt{p_i(1-p_i)/i}$.
+Statistical decision theory guarantees that while the class distribution of the examples is stationary, the error rate of the learning algorithm ($p_i$) will decrease when $i$ increases.
+A significant increase in the error rate of the model implies a change in the class distribution.
+
+SINE1~\cite{gama2004learning} artificial dataset.
+In the first concept all points below the curve $y=sin(x)$ have label 1, and all points above have label 0.
+After the concept change labelling is reversed.
+
+Machine Learning models learn the relation between input data $x$ and target
+variable $y$ by approximating a joint distribution $p(x,y)$.  Model performance
+degrades when learned underlying data distribution changes.  Therefore concept
+drift can be detected by monitoring change points in model's output performance
+statistics.
 
 
 \section{Arima concept drift example}
@@ -126,34 +181,16 @@ for stationary processes constrains are~\cite{hyndman2018forecasting}
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/arima_cd_example}
-	\caption{ARIMA concept drift example}\label{fig:arima_cd_example}
+	\caption{Arima concept drift example.
+		Two $AR(1) $ processes.
+		
+		First and second halfs of the signal is generated by the $AR(1)$ process
+	}\label{fig:arima_cd_example}
 \end{figure}
 
 
-
-\section{The link between change detection and concept drift}
-Concept drift and change detection in time series are closely related problems.
-\textit{Concept} is a set of contiguous examples where the distribution is stationary.
-In~\cite{gama2004learning} authors proposed a method to detect changes in the distribution of the training examples.
-The drift detection method works by monitoring the online error-rate of a model.
-
-The next paragraph is from~\cite{gama2004learning}.
-Suppose a sequence of examples $(x_i, y_i)$.
-For each example the model predicts $\hat y_i$ that can be True or False.
-For a set of examples the error is a random variable from Bernoulli trials.
-The probability of the number of errors for $n$ examples is given by the Binomial distribution.
-probability to observe False for an example $x_i$ is $p_i$ with the standard deviation $s_i=\sqrt{p_i(1-p_i)/i}$.
-Statistical decision theory guarantees that while the class distribution of the examples is stationary, the error rate of the learning algorithm ($p_i$) will decrease when $i$ increases.
-A significant decrease in the error rate of the model implies a change in the class distribution.
-
-Machine Learning models learn the relation between input data $x$ and target
-variable $y$ by approximating a joint distribution $p(x,y)$.  Model performance
-degrades when learned underlying data distribution changes.  Therefore concept
-drift can be detected by monitoring change points in model's output performance
-statistics.
-
-
 \section{Change detection problem}
+
 On-line change detection in time series data is an old practical problem with
 the roots in the problem of statistical quality
 control~\cite{basseville1993detection}, ~\cite{NISTbook}.  Walter A. Shewhart
@@ -182,17 +219,14 @@ Equation\ref{eq:adwin_ecut}.
 	\epsilon_{\text{cut}} = \sqrt{\frac{2}{m} \cdot \sigma_W^2 \cdot \ln{\frac{2}{\delta^\prime}}} + \frac{2}{3m} \ln{\frac{2}{\delta^\prime}}
 \end{equation}
 Algorithm\ref{alg:adwin}
-
 \input{pseudo_code_adwin}
-
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/example_output_adwin.eps}
 	\caption{ADWIN}\label{fig:adwin_output_example}
 \end{figure}
 
-
-\subsection{PELT method}
+\subsection{Pelt method}
 Offline detector used in online settings in ~\cite{marrero2013aclac}.
 ~\cite{killick2012optimal}
 Pelt method is based on a common approach of  minimising a cost function over possible numbers and locations of change points.
