@@ -46,25 +46,13 @@
 
 
 \section{Machine learning model in general}
-%
-The aim of the machine learning model in supervised learning task is to predict
-a target variable $y = (y_1, \dots, y_n)$ given a set of input features 
-$x = (x_1, \dots, x_n)$.
-%
-Where $x_i \in \mathcal{R}^n$ elements are vectors, and the target is usually
-also a vector or just the number in the regression task 
-$y_i \in \mathcal{R}^n$, or a categorical variable (e.g. ``good/bad'') in the
-classification tasks.
-%
+The aim of the machine learning model in supervised learning task is to predict a target variable $y = (y_1, \dots, y_n)$ given a set of input features $x = (x_1, \dots, x_n)$.
+Where $x_i \in \mathcal{R}^n$ elements are vectors, and the target is usually also a vector or just the number in the regression task $y_i \in \mathcal{R}^n$, or a categorical variable (e.g. ``good/bad'') in the classification tasks.
 \textit{An example} is a pair $(x_i, y_i)$.
-%
-In the production process $x$ can be sensor readings and $y$ is a quality
-measure.  The model is trained on the training data set where both $x_i$ and
-$y_i$ are known.  On the inference step $x_i$ is known and model is used to
-predict $y_i$ for new data samples.  
-%
+In the production process $x$ can be sensor readings and $y$ is a quality measure.
+The model is trained on the training data set where both $x_i$ and $y_i$ are known.
+On the inference step $x_i$ is known and model is used to predict $y_i$ for new data samples.  
 Product rule, Equation\ref{eq:product_rule}, Equation\ref{eq:bayes}.
-%
 \begin{equation}\label{eq:product_rule}
   p(x,y) \equiv p(y|x)P(x) = p(x|y)P(y)
 \end{equation}
@@ -73,38 +61,24 @@ Product rule, Equation\ref{eq:product_rule}, Equation\ref{eq:bayes}.
 \end{equation}.
 
 \section{Concept drift phenomenon}
-%
 In the real world, data distributions are almost never static.
-%
-Concept drift~\cite{schlimmer1986incremental,gama2014survey} is a phenomenon
-when relation between the input data and the target variable changes over
-time~\cite{gama2014survey}.
-%
-Formally concept drift (CD) can be defined as follows~\cite{gama2014survey} by
-Equation\ref{eq:concept_drift}
+Concept drift~\cite{schlimmer1986incremental,gama2014survey} is a phenomenon when relation between the input data and the target variable changes over time~\cite{gama2014survey}.
+Formally concept drift (CD) can be defined as follows~\cite{gama2014survey} by Equation\ref{eq:concept_drift}
 %
 \begin{equation}\label{eq:concept_drift}
     \exists x: p_{t_0}(x,y) \neq  p_{t_1}(x,y)
 \end{equation}
 %
-The commonly used approaches to cope with concept drift are \textit{i)} update
-the model at regular time intervals without considering whether changes have
-occurred and \textit{ii)} monitor input data stream for distribution changes
-and update model if change is alarmed.
-%
-Adaptive learning refers to updating model online to react to concept
-drifts~\cite{gama2014survey}.
+The commonly used approaches to cope with concept drift are \textit{i)} update the model at regular time intervals without considering whether changes have occurred and \textit{ii)} monitor input data stream for distribution changes and update model if change is alarmed.
+Adaptive learning refers to updating model online to react to concept drifts~\cite{gama2014survey}.
 %
 \begin{itemize}
   \item \textit{Real concept drift}\cite{gama2014survey,gao2007general, salganicoff1997tolerating} is a change in $p(y|x)$
   \item \textit{Virtual drift}\cite{delany2004case,tsymbal2004problem,widmer1993effective} is a change $P(x)$ which doesn't affect $p(y|x)$
 \end{itemize}
-Concepts of real and virtual drifts are illustrated by the
-Figure~\ref{fig:fig1_gama_survey_cd}. 
+Concepts of real and virtual drifts are illustrated by the Figure~\ref{fig:fig1_gama_survey_cd}. 
 %
-Transition from one concept to another can happen in different forms over time
-as illustrated on Figure\ref{fig:fig2_gama_survey_cd} for one dimensional data
-stream. 
+Transition from one concept to another can happen in different forms over time as illustrated on Figure\ref{fig:fig2_gama_survey_cd} for one dimensional data stream.  
 ~\cite{karkkainen2014region}
 %
 \begin{figure}[htb!]
@@ -155,12 +129,11 @@ statistics.
 
 \section{Example: Arima concept drift example}
 % https://otexts.com/fpp2/AR.html
-autoregressive-integrated moving average
-ARIMA~\cite{box2015time}
-forecasts are usually needed over a period known as lead time $l$
-models stationary processes when the process remains in equlibrium about a constant mean level
+Let's consider AR(1) process.
+Autoregressive-integrated moving average (ARIMA)~\cite{box2015time} model models stationary processes when the process remains in equilibrium about a constant mean level.
+Forecasts are usually needed over a period known as lead time $l$
 
-autoregressive model
+In the autoregressive model
 the current value is expressed as 
 let $\tilde{y}_t = y_t - \mu$
 Equation~\ref{eq:ar_proc} is autoregressive (AR) process of order $p$
@@ -187,8 +160,10 @@ for stationary processes constrains are~\cite{hyndman2018forecasting}
 	}\label{fig:arima_cd_example}
 \end{figure}
 
-\section{Example:  ELEC2}
+
+\section{Example: ELEC2}
 The electricity market data set ELEC2~\cite{harries1999splice, gama2004learning}
+\cite{zliobaite2013good} 
 %https://www.openml.org/d/151
 %Electricity is a widely used dataset described by M. Harries and analyzed by J. Gama (see papers below). This data was collected from the Australian New South Wales Electricity Market. In this market, prices are not fixed and are affected by demand and supply of the market. They are set every five minutes. Electricity transfers to/from the neighboring state of Victoria were done to alleviate fluctuations.
 %
@@ -205,25 +180,31 @@ The dataset (originally named ELEC2) contains 45,312 instances dated from 7 May 
 %* VICprice: Victoria electricity price, normalized between 0 and 1
 %* VICdemand: Victoria electricity demand, normalized between 0 and 1
 %* transfer: scheduled electricity transfer between both states, normalized between 0 and 1
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.9\textwidth]{images/cd_example_elec2.pdf}
+	\caption{Elec2 dataset}\label{fig:elec2}
+\end{figure}
 
 \section{Example: SINE1}
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/cd_example_sine1}
-	\caption{SINE1}\label{fig:sine1}
+	\caption{SINE1 artificial dataset. 
+		Before concept drift (CD) all points above the curve $y=\sin(x)$ are classified as positive.
+After CD - as negative.	
+}\label{fig:sine1}
 \end{figure}
 
 \section{Change detection problem}
-
-On-line change detection in time series data is an old practical problem with
-the roots in the problem of statistical quality control~\cite{basseville1993detection,NISTbook}. 
-Walter A. Shewhart invented control charts in 1924 while working on the problem
-of statistical quality control to improve reliability of telephone transmission
-systems.  Quality control example: $X$ is a set of sensor readings and $y=good$
-is a quality of the produced item.  Offline and online.  In offline learning
-all training data is available during training.  In online learning the data is
-processed sequentially from data streams.  Model is being updated as more data
-arrives.  Data evolve over time in dynamically changing environments.
+On-line change detection in time series data is an old practical problem with the roots in the problem of statistical quality control~\cite{basseville1993detection,NISTbook}.
+Walter A. Shewhart invented control charts in 1924 while working on the problem of statistical quality control to improve reliability of telephone transmission systems. 
+Quality control example: $X$ is a set of sensor readings and $y=good$ is a quality of the produced item. 
+Offline and online. 
+In offline learning all training data is available during training. 
+In online learning the data is processed sequentially from data streams.
+Model is being updated as more data arrives. 
+Data evolve over time in dynamically changing environments.
 
 \begin{figure}[!htb]
 	\centering
