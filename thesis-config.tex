@@ -4,6 +4,7 @@
 \usepackage{algpseudocode}% http://ctan.org/pkg/algorithmicx
 \usepackage{listings}
 \usepackage{hyperref}
+\usepackage{enumitem}
 \usepackage{array}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -16,3 +17,5 @@
 \newtheorem{theorem}{Theorem}
 
 \newcommand*{\LargeCdot}{\raisebox{-0.5ex}{\scalebox{1.8}{$\cdot$}}}
+\newlist{WithAxioms}{enumerate}{1}
+\setlist[WithAxioms]{label=Axiom \arabic*:}
