@@ -1,5 +1,2 @@
-Describe what I have been doing.
 
-- Arima
-- Detectors
-- Concept drift examples experiments
+
