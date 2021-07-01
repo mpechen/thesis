@@ -24,35 +24,22 @@
 \mainmatter
 
 \chapter{Introduction}
-
-
-\chapter{Concept drift and change detection}
 %https://www.elen.ucl.ac.be/Proceedings/esann/esannpdf/es2014-69.pdf
-%
-%Meeting
-%
-%informed methods in CD
-%surveys papers - take figures
-%how informed methods can work
-%- more experiments
-%- state: focus only on uni-variate data, or show that it also works for multivariate
-%** SHOW concept drift
-%- ML model concept drift example to make a link
-%- classifier , distribution change
-%- WHAT types of changes should be handled - gradual, abrupt etc.
-%
 %current state of the art and where we are
 %https://www.dropbox.com/scl/fi/hc065av32qwxptjcmde1d/CD_dagstuhl_7Sep2020.pptx?dl=0&rlkey=pjwwsmi5jcao6ygkx3yiuonkp
-%Include Tommi article.
-
-\section{Machine learning model in general}
-The aim of the machine learning model in supervised learning task is to predict a target variable $y = (y_1, \dots, y_n)$ given a set of input features $x = (x_1, \dots, x_n)$.
-Where $x_i \in \mathcal{R}^n$ elements are vectors, and the target is usually also a vector or just the number in the regression task $y_i \in \mathcal{R}^n$, or a categorical variable (e.g. ``good/bad'') in the classification tasks.
-\textit{An example} is a pair $(x_i, y_i)$.
-In the production process $x$ can be sensor readings and $y$ is a quality measure.
-The model is trained on the training data set where both $x_i$ and $y_i$ are known.
-On the inference step $x_i$ is known and model is used to predict $y_i$ for new data samples.  
-Product rule, Equation\ref{eq:product_rule}, Equation\ref{eq:bayes}.
+%
+In supervised learning task machine learning model predicts a target variable
+$y = (y_1, \dots, y_n)$ given a set of input features $x = (x_1, \dots, x_n)$.
+Where $x_i \in \mathcal{R}^n$ elements are vectors, and the target is usually
+also a vector or just the number in the regression task $y_i \in
+\mathcal{R}^n$, or a categorical variable (e.g. ``good/bad'') in the
+classification tasks.  The model is trained on the training data set where both
+$x_i$ and $y_i$ are known.  On the inference step $x_i$ is known and model is
+used to predict $y_i$ for new data samples. An example is a pair $(x_i, y_i)$.
+% In the production process $x$ can be sensor readings and $y$ is a quality
+%measure.  
+%Product rule, 
+Equation~\ref{eq:product_rule}, Equation~\ref{eq:bayes}.
 \begin{equation}\label{eq:product_rule}
   p(x,y) \equiv p(y|x)P(x) = p(x|y)P(y)
 \end{equation}
@@ -60,15 +47,21 @@ Product rule, Equation\ref{eq:product_rule}, Equation\ref{eq:bayes}.
   p(y | x) = \frac{p(y) p(x|y)}{p(x)}\: \text{, where}\: p(x)=\sum_{y} p(y) p(x|y)
 \end{equation}.
 
-\section{Concept drift phenomenon}
-In the real world, data distributions are almost never static.
-Concept drift~\cite{schlimmer1986incremental,gama2014survey} is a phenomenon when relation between the input data and the target variable changes over time~\cite{gama2014survey}.
-Formally concept drift (CD) can be defined as follows~\cite{gama2014survey} by Equation\ref{eq:concept_drift}
+In the real world, data distributions are almost never static. Concept
+drift~\cite{schlimmer1986incremental,gama2014survey} is a phenomenon when
+relation between the input data and the target variable changes over
+time~\cite{gama2014survey}.  Formally concept drift (CD) can be defined as
+follows~\cite{gama2014survey} by Equation~\ref{eq:concept_drift}
 \begin{equation}\label{eq:concept_drift}
     \exists x: p_{t_0}(x,y) \neq  p_{t_1}(x,y).
 \end{equation}
-The commonly used approaches to cope with concept drift are \textit{i)} update the model at regular time intervals without considering whether changes have occurred and \textit{ii)} monitor input data stream for distribution changes and update model if change is alarmed.
-Adaptive learning refers to updating model online to react to concept drifts~\cite{gama2014survey}.
+%
+The commonly used approaches to cope with concept drift are \textit{i)} update
+the model at regular time intervals without considering whether changes have
+occurred and \textit{ii)} monitor input data stream for distribution changes
+and update model if change is alarmed.  Adaptive learning refers to updating
+model online to react to concept drifts~\cite{gama2014survey}.
+%
 \begin{itemize}
   \item \textit{Real concept drift}\cite{gama2014survey,gao2007general, salganicoff1997tolerating} is a change in $p(y|x)$
   \item \textit{Virtual drift}\cite{delany2004case,tsymbal2004problem,widmer1993effective} is a change $P(x)$ which doesn't affect $p(y|x)$
@@ -202,6 +195,7 @@ Linear regression model is trained using first 600 observations (vertical red li
 \end{figure}
 
 \section{Change detection problem}
+
 On-line change detection in time series data is an old practical problem with the roots in the problem of statistical quality control~\cite{basseville1993detection,NISTbook}.
 Walter A. Shewhart invented control charts in 1924 while working on the problem of statistical quality control to improve reliability of telephone transmission systems. 
 Quality control example: $X$ is a set of sensor readings and $y=good$ is a quality of the produced item. 
@@ -234,6 +228,7 @@ Algorithm\ref{alg:adwin}
 \end{figure}
 
 \subsection{Pelt method}
+
 Offline detector used in online settings in ~\cite{marrero2013aclac}.
 ~\cite{killick2012optimal}
 Pelt method is based on a common approach of  minimising a cost function over possible numbers and locations of change points.
@@ -269,6 +264,7 @@ Let $P^{\text{max}}$ be an optimal optimal partition of $I$
 \end{figure}
 
 \subsection{Bayesian detector}
+
 \cite{adams2007bayesian}
 BD detector works by recursively estimating posterior probability distribution $P(r_t | \pmb{x}_{1:t}, \theta)$ of the \textit{run length} variable $r_t$ which is a time since the last changepoint.
 Changepoint is an event when
@@ -294,6 +290,7 @@ The \textit{prior} probability of the change $P(r_t=0|t)$ in BD detector is spec
 \end{figure}
 
 \subsection{CUSUM detector}
+
 In this section, we describe the CuSum~\cite{Page1954} detector and its output statistic properties important for measuring performance metrics in static and dynamic settings.
 Changes in the stream of measurements reflect dynamics of observed phenomenon happening in time.
 Therefore, strictly speaking, any change is a gradual process.
@@ -338,6 +335,7 @@ The parameter $k$ is called allowance value and it depends on the level of mean 
 \end{figure}
 
 \subsection{ARL}
+
 The key performance metric of the CuSum detector is the Average Run Length (ARL), which refers to the expected number of observations before an action is taken, i.e., before the detection is alarmed~\cite{Page1954}.
 ARL refers to the FA rate before the change and to the detection delay after the change point.
 When the process is in-control, the $ARL_{\delta}$ refers to a FA rate, whereas when the change has happened it refers to the detection delay.
@@ -380,10 +378,10 @@ We will use this fact later in the experimental part when performing simulations
 \input{images/arl3d.tex}
 \caption{ARL 3D}\label{fig:arl3d}
 \end{figure}
-%===============================================================================%
-%                               RECURRENCY
-%===============================================================================%
-\chapter{Predictability And Recurrency}
+
+
+\chapter{Recurrency}
+
 Adaptive learning in concept drift.
 Predictability of events in the data stream.
 ~\cite{feller2008introduction}
