@@ -27,15 +27,13 @@
 %https://www.elen.ucl.ac.be/Proceedings/esann/esannpdf/es2014-69.pdf
 %current state of the art and where we are
 %https://www.dropbox.com/scl/fi/hc065av32qwxptjcmde1d/CD_dagstuhl_7Sep2020.pptx?dl=0&rlkey=pjwwsmi5jcao6ygkx3yiuonkp
-%
-In supervised learning task machine learning model predicts a target variable
-$y = (y_1, \dots, y_n)$ given a set of input features $x = (x_1, \dots, x_n)$.
-Where $x_i \in \mathcal{R}^n$ elements are vectors, and the target is usually
-also a vector or just the number in the regression task $y_i \in
-\mathcal{R}^n$, or a categorical variable (e.g. ``good/bad'') in the
-classification tasks.  The model is trained on the training data set where both
-$x_i$ and $y_i$ are known.  On the inference step $x_i$ is known and model is
-used to predict $y_i$ for new data samples. An example is a pair $(x_i, y_i)$.
+In supervised learning task machine learning model predicts a target variable $y = (y_1, \dots, y_n)$ given a set of input features $x = (x_1, \dots, x_n)$.
+% Where $x_i \in \mathcal{R}^n$ elements are vectors, and the target is usually
+% also a vector or just the number in the regression task $y_i \in \mathcal{R}^n$, 
+% or a categorical variable (e.g. ``good/bad'') in the classification tasks.  
+The model $p(x, y)$ (Equation~\ref{eq:product_rule}) is trained using the training data set where both $x_i$ and $y_i$ are known.
+On the inference step $x_i$ is known and model is used to predict (Equation~\ref{eq:bayes}) $y_i$ for new data samples. 
+An example is a pair $(x_i, y_i)$.
 % In the production process $x$ can be sensor readings and $y$ is a quality
 %measure.  
 %Product rule, 
@@ -111,6 +109,11 @@ variable $y$ by approximating a joint distribution $p(x,y)$.  Model performance
 degrades when learned underlying data distribution changes.  Therefore concept
 drift can be detected by monitoring change points in model's output performance
 statistics.
+
+\section{Example data: }
+% https://sites.google.com/view/uspdsrepository
+% pass: DMKD2018
+~\cite{SouzaChallenges2020}
 
 
 \section{Example: Arima concept drift example}

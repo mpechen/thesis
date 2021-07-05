@@ -15,16 +15,24 @@
 \date{}
 \begin{document}
 	\maketitle
-  Concept drift (CD) can happen and trained model performance will drop.  In
-  order to detect CD change detectors are used to monitor changes in models
+  \section{SINE1 example}
+  But concept drift (CD) can happen and the model performance can drop. In
+  order to detect CD, change detectors are used to monitor changes in models
   performance metrics on-line. Once change is alarmed the model can be
-  re-trained using the relevant data between last change point and current time
-  moment.
+  re-trained using the most relevant data between last change point and current
+  time moment.
 
-  Figure XXX illustrates CD phenomena SINE1. 
-  Figure XXX illustrates SVM decision boundary before and after CD in SINE 1 dataset.
-  Performance drops after moment $t$. 
-  And detectors alarms the change at the moment $t_1$.
+  Streaming settings is when the model is re-trained using new data not present
+  in the initial training data set. Model is re-trained using all available
+  data after each arrival of the new portion of data.  
+
+  Figure XXX illustrates
+  CD phenomena when SVM model is applied in streaming settings to the SINE1
+  dataset. Figure XXX shows decision boundary before and after CD in SINE1
+  dataset. Performance drops after moment $t$. And detectors alarms the change
+  at the moment $t_1$.
+  
+  Before concept drift error rate decreases according to the statistical decision theory cite{XXX} as model is adaptively retrained.
 
   Figure XXX illustrates an example of adaptive learning with detector and
   without. It can be seen that with detector performance is better and with
