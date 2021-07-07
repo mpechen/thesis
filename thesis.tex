@@ -22,21 +22,16 @@
 \end{notations}
 
 \mainmatter
-
-\chapter{Introduction}
-%https://www.elen.ucl.ac.be/Proceedings/esann/esannpdf/es2014-69.pdf
-%current state of the art and where we are
-%https://www.dropbox.com/scl/fi/hc065av32qwxptjcmde1d/CD_dagstuhl_7Sep2020.pptx?dl=0&rlkey=pjwwsmi5jcao6ygkx3yiuonkp
-In supervised learning task machine learning model predicts a target variable $y = (y_1, \dots, y_n)$ given a set of input features $x = (x_1, \dots, x_n)$.
-% Where $x_i \in \mathcal{R}^n$ elements are vectors, and the target is usually
-% also a vector or just the number in the regression task $y_i \in \mathcal{R}^n$, 
-% or a categorical variable (e.g. ``good/bad'') in the classification tasks.  
-The model $p(x, y)$ (Equation~\ref{eq:product_rule}) is trained using the training data set where both $x_i$ and $y_i$ are known.
-On the inference step $x_i$ is known and model is used to predict (Equation~\ref{eq:bayes}) $y_i$ for new data samples. 
-An example is a pair $(x_i, y_i)$.
-% In the production process $x$ can be sensor readings and $y$ is a quality
-%measure.  
-%Product rule, 
+\chapter{I}
+\section{Overview}
+In supervised learning task machine learning model predicts a target variable
+$y = (y_1, \dots, y_n)$ given a set of input features $x = (x_1, \dots, x_n)$.
+%
+In batch training, or, offline settings, the model $p(x, y)$
+(Equation~\ref{eq:product_rule}) is trained using the fixed training data set
+where both $x_i$ and $y_i$ are known.  On the inference step $x_i$ is known and
+model is used to predict (Equation~\ref{eq:bayes}) $y_i$ for new data samples. 
+%
 Equation~\ref{eq:product_rule}, Equation~\ref{eq:bayes}.
 \begin{equation}\label{eq:product_rule}
   p(x,y) \equiv p(y|x)P(x) = p(x|y)P(y)
@@ -44,43 +39,81 @@ Equation~\ref{eq:product_rule}, Equation~\ref{eq:bayes}.
 \begin{equation}\label{eq:bayes}
   p(y | x) = \frac{p(y) p(x|y)}{p(x)}\: \text{, where}\: p(x)=\sum_{y} p(y) p(x|y)
 \end{equation}.
+%https://www.elen.ucl.ac.be/Proceedings/esann/esannpdf/es2014-69.pdf
+%current state of the art and where we are
+%https://www.dropbox.com/scl/fi/hc065av32qwxptjcmde1d/CD_dagstuhl_7Sep2020.pptx?dl=0&rlkey=pjwwsmi5jcao6ygkx3yiuonkp
+% Where $x_i \in \mathcal{R}^n$ elements are vectors, and the target is usually
+% also a vector or just the number in the regression task $y_i \in \mathcal{R}^n$, 
+% or a categorical variable (e.g. ``good/bad'') in the classification tasks.  
+% In the production process $x$ can be sensor readings and $y$ is a quality
+%measure.  
+%Product rule, 
 
-In the real world, data distributions are almost never static. Concept
-drift~\cite{schlimmer1986incremental,gama2014survey} is a phenomenon when
-relation between the input data and the target variable changes over
-time~\cite{gama2014survey}.  Formally concept drift (CD) can be defined as
-follows~\cite{gama2014survey} by Equation~\ref{eq:concept_drift}
+In the real world, data distributions are almost never static. 
+In real world application we often deal with streaming settings.
+Streaming settings are more prevalent.
+For example sensor readings from medical devices, network traffic, satellite data.
+A stream is an ordered sequence of examples continuously observed over time. 
+An example is a pair $(x_i, y_i)$.
+
+\textit{Concept drift}~\cite{Widmer1996,schlimmer1986incremental,gama2014survey} is a
+phenomenon when relation between the input data and the target variable changes
+over time~\cite{gama2014survey}. 
+%
+Formally concept drift (CD) can be defined~\cite{gama2014survey} by
+Equation~\ref{eq:concept_drift}
 \begin{equation}\label{eq:concept_drift}
     \exists x: p_{t_0}(x,y) \neq  p_{t_1}(x,y).
 \end{equation}
-%
+\textit{Concept} is a data distribution in a given time moment.
+
 The commonly used approaches to cope with concept drift are \textit{i)} update
 the model at regular time intervals without considering whether changes have
 occurred and \textit{ii)} monitor input data stream for distribution changes
 and update model if change is alarmed.  Adaptive learning refers to updating
 model online to react to concept drifts~\cite{gama2014survey}.
-%
+
+A common approach to deal with streaming data is to analyze data within a sliding window. 
+Sliding window of width $w$ represents a sample of examples indexed by $(i, i+1, \dots, i+w-1)$. 
+The problem, however, is to identify $w$ value.
+
+With regard to the transition speed concept drifts are classified as depicted on the Figure~\cite{fig:souza_cd_speeds}.
+An abrupt drift is when data distribution changes near instantly.
+Concepts which were seen in the past and are later observed again are called \textit{recurring concepts}.
+Incremental drifts are those with intermediary concepts between initial and final concepts.
+In a gradual drift probability of observing instances belonging to the initial concept decreases while probability of instances from final concept increases within transition period.
+
 \begin{itemize}
   \item \textit{Real concept drift}\cite{gama2014survey,gao2007general, salganicoff1997tolerating} is a change in $p(y|x)$
   \item \textit{Virtual drift}\cite{delany2004case,tsymbal2004problem,widmer1993effective} is a change $P(x)$ which doesn't affect $p(y|x)$
 \end{itemize}
+
 Concepts of real and virtual drifts are illustrated by the Figure~\ref{fig:fig1_gama_survey_cd}.
 Transition from one concept to another can happen in different forms over time as illustrated on Figure\ref{fig:fig2_gama_survey_cd} for one dimensional data stream.  
 ~\cite{karkkainen2014region}
+
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[height=0.15\textheight]{images_cropped/gama_survey_cd_fig1}
 	\caption{Illustration from~\cite{gama2014survey} depicting real and virtual concept drift phenomena. Circles represent instances $x_i$, different colors - classes, dashed line is a decision boundary. }\label{fig:fig1_gama_survey_cd}
 \end{figure}
+
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images_cropped/gama_survey_cd_fig2}
   \caption{Changes between concepts can be gradual or abrupt~\cite{gama2014survey}}\label{fig:fig2_gama_survey_cd}
 \end{figure}
+
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images_cropped/gama_survey_cd_fig3}
   \caption{A generic schema for an online adaptive learning algorithm (from~\cite{gama2014survey})}\label{fig:fig3_gama_survey_cd}
+\end{figure}
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[height=0.15\textheight]{images_cropped/krop_souza_cd_speed}
+	\caption{Illustration from~\cite{SouzaChallenges2020}: illustration of three types of concept drift with regard to speed of change.}\label{fig:souza_cd_speeds}
 \end{figure}
 
 
@@ -110,7 +143,7 @@ degrades when learned underlying data distribution changes.  Therefore concept
 drift can be detected by monitoring change points in model's output performance
 statistics.
 
-\section{Example data: }
+\section{Example: Insects}
 % https://sites.google.com/view/uspdsrepository
 % pass: DMKD2018
 ~\cite{SouzaChallenges2020}
@@ -188,7 +221,7 @@ After CD - as negative.
 }\label{fig:sine1}
 \end{figure}
 
-\section{CFB boiler}
+\section{Example: CFB boiler}
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/boiler_fixed_train}
