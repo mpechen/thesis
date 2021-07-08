@@ -67,11 +67,9 @@ Equation~\ref{eq:concept_drift}
 \end{equation}
 \textit{Concept} is a data distribution in a given time moment.
 
-The commonly used approaches to cope with concept drift are \textit{i)} update
-the model at regular time intervals without considering whether changes have
-occurred and \textit{ii)} monitor input data stream for distribution changes
-and update model if change is alarmed.  Adaptive learning refers to updating
-model online to react to concept drifts~\cite{gama2014survey}.
+The commonly used approaches to cope with concept drift are \textit{i)} update the model at regular time intervals without considering whether changes have occurred (evolving models~\cite{SouzaChallenges2020}) and \textit{ii)} monitor input data stream for distribution changes and update model if change is alarmed. Adaptive models explicitly detect concept changes using drift detectors, updating models when changes are alarmed.  
+
+Adaptive learning refers to updating model online to react to concept drifts~\cite{gama2014survey}.
 
 A common approach to deal with streaming data is to analyze data within a sliding window. 
 Sliding window of width $w$ represents a sample of examples indexed by $(i, i+1, \dots, i+w-1)$. 
