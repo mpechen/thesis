@@ -1,0 +1,69 @@
+% \DeclareMathOperator*{\argmin}{arg\,min}
+% \DeclareMathOperator*{\argmin}{\arg\!\min}
+% \DeclareMathOperator*{\argmax}{\arg\!\max}
+%\[\operatorname{arg\,max}_a f(a) = \operatorname*{arg\,max}_b f(b) \]
+%\[\argmax_c f(c) \]
+\begin{algorithm}
+\label{alg:pccf_detector}
+\begin{algorithmic}[1]
+  \State $\pmb{\theta} \leftarrow (\mu_0, \kappa_0, \alpha_0, \beta_0)$
+  \State $\pmb{\theta^C} \leftarrow (\mu^C_0, \kappa^C_0, \alpha^C_0, \beta^C_0)$
+  \State $\pmb{\theta} = \pmb{\theta_0}$~\Comment{Init sig. params}
+  \State $\pmb{\theta^C} = \pmb{\theta_0^C}$~\Comment{Init PCCF params}
+  %\State $\pmb{H} = \PccfI{\pmb{\theta_0^C}}$ \Comment{Predict changes (Initial)}
+  \State $\pmb{\langle H_j \rangle_{j=1}^{T}} = \PccfI{\pmb{\theta_0^C}}$ \Comment{Predict changes (Initial)}
+  \For{t=1:T}
+  \State $\pmb{x} \leftarrow [\pmb{x}, x_t]$\Comment{Observe new datum}
+
+  \State $\pmb{\pi_t} = P(x_t | \pmb{\theta})$~\Comment{Predictive distribution}
+
+  \State $P(r_t=r_{t-1}+1, \pmb{x}) = P(r_{t-1}, x_{1:t-1}) \pmb{\pi_t} (1-\pmb{H_{t-1}})$ % ~\Comment{Growth Probs.}
+
+  \State $P(r_t = 0, \pmb{x}) = \pmb{H_{t-1}} \sum_{r_{t-1}} P(r_{t-1}, x_{1:t-1}) \pmb{\pi_t} $ % ~\Comment{Change probs.}
+
+  \State $P(r_t | \pmb{x}) = P(r_t, \pmb{x}) / P(\pmb{x})$~\Comment{Run length Distrib}
+
+  \State $\pmb{\theta} \leftarrow \text{Update}(\pmb{\theta)}$~\Comment{Update parameters}
+  
+  % Here r_t is below: 
+  %\If{$\operatorname*{arg\,max}\limits_{r_t} P(r_t | x_{1:t}, \pmb{\theta}) = 0$}
+  \If{($\operatorname*{arg\,max}_{r_t} p(r_t | \pmb{x}, \pmb{\theta}) = 0)$} 
+  \State $\pmb{\theta^C} \leftarrow \text{Update}(\pmb{\theta^C})$ % ~\Comment{Update PCCF's parameters}
+  \State $\pmb{\langle H_j \rangle_{j=t}^T} = \PccfI{\pmb{\theta^C}}$ %~\Comment{Predict changes}
+  \EndIf
+  
+  \EndFor
+
+\end{algorithmic}
+\caption{LPA-detector pseudocode}
+\end{algorithm}
+
+% \State \textit{{\small \% Calc.Run length Distrib}}
+% \State \textit{{\small \% Calc. predicitve distribution}}
+% \State \textit{{\small \%Calculate Growth Probs.}}
+% \State \textit{{\small \% Calculate Change Probs.}}
+% \State \textit{{\small \% Update parameters}}
+
+%\State $(\mu, \kappa, \alpha, \beta) = (\mu_0, \kappa_0, \alpha_0, \beta_0)$~\Comment{Init sig. params}
+%\State $(\mu^C, \kappa^C, \alpha^C, \beta^C) = (\mu_0^C, \kappa_0^C, \alpha_0^C, \beta_0^C)$~\Comment{Init PCCF params}
+
+%\State P[:,1] = Pmf(1:T $| \theta$) \Comment{Pmf fo the first change}
+%\State W = WeightsMatrix(T,$\theta$)
+%\For{i = 1:T-1}
+%    \State P[i+1:T,i+1]=W[1:T-i,1:T-i] * P[i:end-1, i]
+%\EndFor
+%\State \textbf{return} sum(P,2) \Comment{Sum of columns}
+%\EndFunction
+% \Function{WeightsMatrix}{T, $\theta$}
+%     \State M = zeros(T, T);  M[1, :] = 1:T
+%     \For{i = 2:T}
+%         \For{j = i:T}
+%             \State M[i,j] = M[i-1, j-1]
+%         \EndFor
+%     \EndFor
+%     \State \textbf{return} Pmf($M^T$ $| \theta$)
+% \EndFunction
+% \\
+%\Function{PCCF}{}
+% \State $\pmb{\theta} = \pmb{\theta_0}$ \Comment{Initialize parameters $(\mu, \kappa, \alpha, \beta)$}
+

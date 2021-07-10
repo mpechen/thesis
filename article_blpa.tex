@@ -696,7 +696,8 @@ in which:
     \item Lines 13-16: Find the most likely position of the last changepoint, update PCCF parameters and recalculate PCCF.
 \end{itemize}
 
-\input{./parts/PseudoCodeDetector.tex}
+%\input{./parts/PseudoCodeDetector.tex}
+\input{./article_blpa_pseudocode_detector.tex}
 
 \section{Experiments}
 \label{sec:experiments}
@@ -726,7 +727,35 @@ Average distance between changes was set to $\mu = 100$ with the standard deviat
 %Number of changes in each signal is $10$.
 Results are depicted in Fig.~\ref{fig:results1}.
 %\input{AllFigures.tex}
-\input{FigResults1.tex}
+\begin{figure}[!htb]
+%this is: \input{FigResults1.tex}
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        % This is pretty complex, so I don't know how to change this..
+        % The figure corners are a bit off, which is not dangerous, but
+        % it would be neat to have them aligned nicely. Jaakko
+        \fbox{\includegraphics[width=0.8 \textwidth,
+            trim={0.5cm 0cm 0.5cm 0cm}]{./images/blpa_article/fig3_concept_proof.eps}}
+        \fbox{\includegraphics[
+            width=0.787\textwidth,
+            height = 0.27 \textheight,
+            trim={0.0cm 1cm 1cm 1.7cm}]{./images/blpa_article/sim1_roc.eps}
+            }
+        \caption{
+            Experimental results for simulated data streams with recurrent changes.
+            On the top plot - an example of the generated input signal.
+            %
+            Vertical solid lines depict changepoints to be detected. 
+            Dashed lines on the plot with the signal depict moments when detector \textbf{without} PCCF alarmed changes.
+            %
+            Bottom plot - ROC curves. 
+            Blue triangles depict performance of the detector equipped with PCCF.
+            Black dots - performance without PCCF.
+            FP rate is reduced while keeping the same TP rate.
+            }
+            \label{fig:results1}
+    \end{minipage}
+\end{figure}
 FP rate is decreased while not reducing TP rate.
 In the worst cases the performance of both detectors is similar.
 
@@ -736,7 +765,30 @@ In the second experiment we used the Human activity data set~\cite{reyes2016tran
 upstairs).
 We detected changes in the signal caused by transitions from one set activities to another.
 Results are depicted in Fig.~\ref{fig:results2}.
-\input{FigResults2.tex}
+\begin{figure}[!htb]
+%this is \input{FigResults2.tex}
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \fbox{\includegraphics[width=0.8\textwidth, trim={0.5cm 0cm 0.5cm 0cm}]{./images/blpa_article/fig4_concept_proof_real.eps}}
+        \\
+        \fbox{
+            \includegraphics[
+            width=0.773\textwidth, 
+            height = 0.27 \textheight,
+            trim={0.0cm 1cm 1cm 1.7cm}]{./images/blpa_article/exp1_roc_real.eps}
+            }
+        \caption{
+         Experimental results for the 'Activity recognition' signal.
+         On the top plot - illustrating example of the signal and corresponding PCCF function.
+         Vertical solid lines depict changepoints to be detected. 
+         Dashed lines on the plot with the signal depict moments when detector \textbf{without} PCCF alarmed changes. 
+         Dashed lines on the plot \textbf{with} PCCF show time moments when the detector with PCCF alarmed changes.
+         Bottom plot - ROC curves. 
+        Blue triangles - performance of the BD with PCCF.
+            }
+            \label{fig:results2}
+    \end{minipage}
+\end{figure}
 FP rate is decreased when BD detector is used with the PCCF function.
 
 
