@@ -1,6 +1,7 @@
 *.bbx
 *.loar
 docs/
+thesis_summary.pdf
 
 thesis_from_scratch1.pdf
 ## Core latex/pdflatex auxiliary files:

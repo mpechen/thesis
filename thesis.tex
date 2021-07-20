@@ -25,14 +25,8 @@
 \mainmatter
 \chapter{I}
 \section{Overview}
-In supervised learning task machine learning model predicts a target variable
-$y = (y_1, \dots, y_n)$ given a set of input features $x = (x_1, \dots, x_n)$.
-%
-In batch training, or, offline settings, the model $p(x, y)$
-(Equation~\ref{eq:product_rule}) is trained using the fixed training data set
-where both $x_i$ and $y_i$ are known.  On the inference step $x_i$ is known and
-model is used to predict (Equation~\ref{eq:bayes}) $y_i$ for new data samples. 
-%
+In supervised learning task machine learning model predicts a target variable $y = (y_1, \dots, y_n)$ given a set of input features $x = (x_1, \dots, x_n)$.
+In batch training, or, offline settings, the model $p(x, y)$ (Equation~\ref{eq:product_rule}) is trained using the fixed training data set where both $x_i$ and $y_i$ are known.  On the inference step $x_i$ is known and model is used to predict (Equation~\ref{eq:bayes}) $y_i$ for new data samples. 
 Equation~\ref{eq:product_rule}, Equation~\ref{eq:bayes}.
 \begin{equation}\label{eq:product_rule}
   p(x,y) \equiv p(y|x)P(x) = p(x|y)P(y)
@@ -220,7 +214,25 @@ After CD - as negative.
 }\label{fig:sine1}
 \end{figure}
 
-\section{Example: CFB boiler}
+\section{Example: CFB signal}
+
+Why adaptive with detection is better than just adaptive?
+
+Outliers in CFB cause increased calculated prediction error when predicted value is according to the linear trend. 
+
+In continuous update model is being re-trained after
+using window of width $w$ $(x_{t-w}, \dots, x_{t})$
+
+In case of adaptive learning with change detection model is re-trained in a sliding window but if change is alarmed at moment $t^c$ then model uodates using 
+
+If Pccf is available then 
+
+In the CFB signal there are outliers between concept drifts.
+We run a linear regression model trained using sliding window.
+The model predicts $x(t)$ given $(x_{t-w}, \dots, x_{t-1})$ for $t in (1, \dots, n-1)$.
+If change is alarmed due to outlier then ..
+
+
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/boiler_fixed_train}
