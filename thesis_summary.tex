@@ -11,6 +11,18 @@
 \usepackage{setspace}
 \usepackage{indentfirst}
 \usepackage{hyperref}
+
+\usepackage{algorithm}% http://ctan.org/pkg/algorithms
+\usepackage{algpseudocode}% http://ctan.org/pkg/algorithmicx
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{tikz}
+\usepackage{graphics}
+\usepackage{standalone}
+\usepackage{amsthm}
+\usepackage{breakcites}
 \title{Predictive analytics with online change detection in data streams}
 \date{}
 \begin{document}
@@ -30,8 +42,16 @@
   There are various types of change detectors. Sections A,B,C describe Adwin, Cusum, Bayesian , etc.detectors.
 
   Section XXX describes how recurrency helps to reduce FA rate and decrease detection delay for CFB signal.
-
-
   In~\cite{SouzaRMB20}: One of the main problems is un uncertainty about the presence of concept drifts.
 
+
+  Figure~\cite{fig:art_sig_example}.
+
+  \begin{figure}[!htb]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/proof_of_concept_linreg_art_sig}
+    \caption{Artificial signal. Red }\label{fig:art_sig_example}
+  \end{figure}
+  \bibliographystyle{unsrt}
+  \bibliography{references}
 \end{document}
