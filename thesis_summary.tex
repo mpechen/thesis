@@ -61,8 +61,13 @@
 
   Figure XXX illustrates an example of adaptive learning with detector and without. 
   It can be seen that with detector performance is better and with recurrent detector it is even more better because we can skip possible FA and we can possibly reduce the detection delay.
+  
+  \textbf{ROI can help to detect concept drift faster, but since FA is not an issue then we will not observe performance improvement.}
 
-  In~\cite{SouzaRMB20}: One of the main problems is un uncertainty about the presence of concept drifts.
+  Figure~\ref{fig:fig7_souza} from~\cite{SouzaRMB20} presents the prequential accuracy of two classifiers: i) Naive Bayes with Drift Detection Method (DMM) (~\cite{gama2004learning}) , and ii) the No-change baseline classifier which predicts the current label to the next event for three datasets. In all cases, the baseline classifier performs better.
+  Due that in~\cite{zliobaite2013good} discusses the problem of temporal dependence for the Electricity dataset.
+  
+  In~\cite{SouzaRMB20}: One of the main problems is an uncertainty about the presence of concept drifts.
 
   Sliding window is a common approach.
   Figure~\cite{fig:art_sig_example} illustrates concept drift phenomenon when linear regression model is applied to artificially generated signal using sliding window approach. 
@@ -75,7 +80,10 @@
   \begin{figure}[!htb]
     \centering
     \includegraphics[width=0.7\textwidth]{images/proof_of_concept_linreg_cfb_sig}
-    \caption{CFB signal example. Linear regression applied in a sliding window. Prediction error with drift detection using Cusum is lower.}\label{fig:cfb_sig_linreg_proof_of_concept}
+    \caption{CFB signal example. 
+             Linear regression applied in a sliding window. 
+             Prediction error with drift detection using Cusum is lower. 
+             FA is not an issue since it doesn't cause any performance decrease.}\label{fig:cfb_sig_linreg_proof_of_concept}
   \end{figure}
 
   Figure~\ref{fig:sine1_example}
@@ -84,6 +92,15 @@
     \includegraphics[width=0.7\textwidth]{images/proof_of_concept_dt_sine1}
     \caption{Artificial signal SINE1. Classification.}\label{fig:sine1_example}
   \end{figure}
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[height=0.15\textheight]{images_cropped/souza_fig7}
+	\caption{
+For Electricity dataset, the baseline classifier achieves 85.33\% accuracy while the Naive Bayes with DMM achieves only 81.23\%. For Forest Covertype, the baseline 95.07\% vs 88.04\%. For Poker-hand: 74.51\% vs 61.96\%.
+~\ref{fig:fig7_souza}
+  }\label{fig:fig7_souza}
+\end{figure}
 
 
   \bibliographystyle{unsrt}
