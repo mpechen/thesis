@@ -69,6 +69,7 @@
   Due that in~\cite{zliobaite2013good} discusses the problem of temporal dependence for the Electricity dataset.
 
   \textbf{ROI can help to detect concept drift faster, but since FA is not an issue then we will not observe performance improvement.}
+  Figure~\ref{fig:fig28_souza} - FA do not cause performance drop.
   ROI can help to distinguish noisy data from drifts. If model is updated using noisy data then performance will decrease.
   If FA is not due to the noise than it doesn't affect model's performance. 
   One of the main problems with real data sets used for benchmarking concept drift detection methods is an uncertainty about the presence of concept drifts~\cite{SouzaRMB20}.
@@ -107,6 +108,12 @@
 
 Concept drift occurrence in the insects data set~\cite{SouzaRMB20} is controlled by temperature.
 % Sec. 55
+  \begin{figure}[htb!]
+    \centering
+    \includegraphics[height=0.5\textheight]{images_cropped/souza_fig28}
+    \caption{FA do not cause performance descrease}
+    \label{fig:fig28_souza}
+  \end{figure}
 
 
   \bibliographystyle{unsrt}
