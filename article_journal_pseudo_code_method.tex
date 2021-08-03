@@ -1,0 +1,62 @@
+\begin{algorithm}
+	% class Detector
+	\begin{algorithmic}[1]
+			%\Function{CusumSingle}{$X$, $h$, $\text{PCCF}$}\Comment{Single changepoint detection}
+			%\State n=length($X$)
+			%\State stat=zeros(n)
+			%\State stat[0]=X[0] - $\mu_0$
+			%\For{t $\in$ [1,n]}
+			%\State stat[t] = stat[t-1]+X[t]-$\mu_0$
+			%\If{(not PCCF) or (PCCF and WithinRoi()) }
+			%\If{$|stat[t]| > h$}
+			%\State \Return (t, stat) \Comment{Alarm CDE}
+			%\EndIf
+			%\EndIf
+			%\EndFor
+			%\State \Return (nan, stat)\Comment{Return missing value for CDE}
+			%\EndFunction  
+		%\\
+		\Function{CusumMutli}{$X$, $h$, $\text{PCCF}$}\Comment{Sequential/multi- changepoint detection}
+      \State n = length(Signal)
+      \State detections = [ ]
+ 	  \For{t $\in$ [1,n]}
+      %\While{$t <n$}
+        \State UpdateMu(Signal[t])
+        \State UpdateCusumStatistic()
+        \If{PCCF and EnteredRoi()}
+          \State NextRoiIndex $\mathrel{{+}{=}} 1$
+        \EndIf
+        %\Comment{If we don't use Pccf or we use Pccf and we are inside ROI}
+        \If{(not PCCF) or (PCCF and WithinRoi()) }
+        \If{$|stat[t]| > h$}
+          \State detections.append(t) \Comment{Collect CDEs}
+          \State ResetDetector()
+        \EndIf
+        \EndIf
+        %\State t $\mathrel{{+}{=}} 1$
+      %\EndWhile
+      \EndFor
+      \If{len(detections) == 0} \Comment{In case of detecting single change point}
+        \State delay = NaN \Comment{Return detection delay NaN if no detection is alarmed}
+      \EndIf
+      \State \Return detections 
+		\EndFunction
+		\\
+		\Function{UpdateMu}{}\Comment{Running mean value after each CDE}
+      \State $\mu_{t}=\frac{k-1}{k} \mu_{t-1} + \frac{x}{k}  $
+		\EndFunction
+		\\
+		\Function{UpdateCusumStatistic}{}\Comment{Update CUSUM statistic}
+      \State $\delta = x_t - \mu_t$
+      \State $stat[0] = \delta$
+      \State $stat[t] = stat[t-1] + \delta \: \forall \: t >0$
+		\EndFunction
+		\\
+		\Function{ResetDetector}{}\Comment{Re-initialize detector after each CDE}
+      \State $\mu_t=0$
+      \State k=1
+      \State $stat[t]=x_t$
+		\EndFunction
+	\end{algorithmic}
+	\caption{Cusum for single and multiple change points detection.}\label{alg:method_code}
+\end{algorithm}
