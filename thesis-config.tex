@@ -13,9 +13,68 @@
 \usepackage{standalone}
 \usepackage{amsthm}
 \usepackage{breakcites}
+
+%\usepackage{ltexpprt}
+%\algtext*{EndWhile}% Remove "end while" text
+%\algtext*{EndIf}% Remove "end if" text
+%\algtext*{EndFor}% Remove "end if" text
+\usepackage{cite}
+%\usepackage{graphicx}
+\usepackage{soul} % to cross text
+\usepackage{enumitem}
+
+
+
+
 \newtheorem{definition}{Definition}
 \newtheorem{theorem}{Theorem}
 
 \newcommand*{\LargeCdot}{\raisebox{-0.5ex}{\scalebox{1.8}{$\cdot$}}}
 \newlist{WithAxioms}{enumerate}{1}
 \setlist[WithAxioms]{label=Axiom \arabic*:}
+
+
+\newcommand{\T}{\mathcal{T}} % index set
+\newcommand{\Collect}[1]{\langle #1 \rangle} % vector/sequence notation
+%\newcommand{\Ed}[1]{\colorbox{green!20}{#1}} % highlight editions
+\newcommand{\Ed}[1]{{\color{blue!100}#1}} % highlight editions
+\newcommand{\Eq}[1]{Eq.(\ref{#1})} % ref equations as Eq.(reference)
+\newcommand{\lbl}[1]{(#1)} % to denote output labels of classifier
+%\newcommand{\Event}[2]{\mathtt{E}(#1)^{#2}} % to denote CdEs (+ or -)
+%\newcommand{\Event}[2]{\mathbf{e}(#1)^{#2}} % to denote CdEs (+ or -)
+\newcommand{\Event}[2]{\mathbf{e}_{#1}^{#2}} % to denote CdEs (+ or -)
+
+
+% from blpa 
+\def \BD   {\textbf{BD }}
+\def \PCCF {\textbf{PCCF }} 
+\def \PCCFWithoutSpace {\textbf{PCCF}} 
+\def \LEAP {\textbf{LEAP }} 
+
+%\newcommand{\Collect}[1]{\langle #1 \rangle} % vector/sequence notation
+%\newcommand{\Event}[2]{\mathbf{e}_{#1}^{#2}} % to denote CdEs (+ or -)
+%\newcommand{\lbl}[1]{(#1)} % to denote output labels of classifier
+%\newcommand{\T}{\mathcal{T}} % index set
+%\newcommand{\Eq}[1]{Eq.(\ref{#1})}
+
+\newcommand{\GammaDistr}{\text{Gamma}}
+
+\DeclareMathOperator*{\argmax}{\argmax}
+
+\newcommand{\PccfII}[2]{\textit{Pccf}(#1,#2)}
+\newcommand{\PccfI}[1]{\textit{Pccf}(#1)}
+
+%\newcommand*{\LargeCdot}{\raisebox{-0.5ex}{\scalebox{1.8}{$\cdot$}}}
+
+\def\mucommon        {\tilde{\mu}}
+\def\muzerocommon    {\tilde{\mu}_0}
+\def\sigmacommon     {\tilde{\sigma}}
+\def\xcommon         {\tilde{x}_i}
+\def\taucommon       {\tilde{\tau}}
+\def\kappazerocommon {\tilde{\kappa}_0}
+\def\kappacommon     {\tilde{\kappa}}
+\def\alphazerocommon {\tilde{\alpha}_0}
+\def\alphacommon     {\tilde{\alpha}}
+\def\betazerocommon  {\tilde{\beta}_0}
+\def\betacommon      {\tilde{\beta}}
+
