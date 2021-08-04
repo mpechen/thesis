@@ -23,13 +23,12 @@
 \end{notations}
 
 \mainmatter
-\chapter{I}
-\section{Introduction}
 
-\section{Background}
-Why recurrency, concept drift and change detection problems are important? 
-Why to work on them?
+\input{ch1_introduction}
 
+\input{ch2_background}
+
+\input{ch3_rq_and_methodology}
 
 \section{Overview}
 In supervised learning task machine learning model predicts a target variable $y = (y_1, \dots, y_n)$ given a set of input features $x = (x_1, \dots, x_n)$.
@@ -148,7 +147,6 @@ statistics.
 % pass: DMKD2018
 ~\cite{SouzaChallenges2020}
 
-
 \section{Example: Arima concept drift example}
 % https://otexts.com/fpp2/AR.html
 Let's consider AR(1) process.
@@ -182,7 +180,6 @@ for stationary processes constrains are~\cite{hyndman2018forecasting}
 % \tilde{y}_t = \phi_1 \tilde{y}_{t-1} + \phi_2 \tilde{y}_{t-2} + \dots + \phi_p \tilde{y}_{t-p} + a_t
 %where $a_t \sim \mathcal{N}(\mu, \sigma_a)$.
 
-
 \section{Example: ELEC2}
 The electricity market data set ELEC2~\cite{harries1999splice, gama2004learning} is widely used for testing adaptive learning techniques.
 It should be noted however that it is not clear if there is a concept drift in the dataset~\cite{zliobaite2013good}. 
@@ -211,7 +208,7 @@ The class label identifies the change of the price (UP or DOWN) in New South Wal
 	\caption{Elec2 dataset}\label{fig:elec2}
 \end{figure}
 
-\section{Example: SINE1}
+\section{Example: Sine1}
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/cd_example_sine1}
