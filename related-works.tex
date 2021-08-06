@@ -1,0 +1,39 @@
+\documentclass[12 pt]{article}
+\renewcommand{\baselinestretch}{1}
+\usepackage{geometry}
+\usepackage{graphics}
+\geometry{verbose,letterpaper,tmargin=0.5 cm,bmargin=0.8 cm,lmargin=2.5cm,rmargin=2.5cm,headsep=1cm}
+\setlength{\parskip}{\smallskipamount}
+\setlength{\parindent}{10 pt}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{setspace}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+
+\usepackage{algorithm}% http://ctan.org/pkg/algorithms
+\usepackage{algpseudocode}% http://ctan.org/pkg/algorithmicx
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{tikz}
+\usepackage{graphics}
+\usepackage{standalone}
+\usepackage{amsthm}
+\usepackage{breakcites}
+\begin{document}
+\section{References overview}
+\begin{itemize}
+  \item Change detection:~\cite{basseville1993detection}
+  \item Sequential change detection problem is a well studied problem, see for example in~\cite{tartakovsky2014sequential},~\cite{plasse2021streaming}.
+
+  \item Optimality of the change detection procedure was investigated in~\cite{Page1954},~\cite{Shiryaev2010,Shiryaev1961,Shiryaev1963}.
+  Asymptotic and nonasymptotic optimality of cumulative sum algorithms was provedin~\cite{lorden1971procedures},~\cite{moustakides1986optimal},~\cite{moustakides2004optimality},~\cite{ritov1990decision}. In~\cite{Shiryaev1963,shiryaev2007optimal} the change point is modelled as a random variable with a known geometric distribution~\cite{veeravalli2014quickest} and optimal algorithm minimizing the average detection delay given constraint on the probability of false alarm is proposed. In our work we minimize the detection delay given a constraint on the maximum delay imposed by the prediction interval width. In~\cite{lorden1971procedures} asymptotic optimality of Cusum~\cite{Page1954} is proved according to the minimax criterion for delay with the mean time between false alarms going to infinity.
+
+  \item Concept drift:
+\end{itemize}
+  \bibliographystyle{unsrt}
+  \bibliography{references}
+\end{document}
