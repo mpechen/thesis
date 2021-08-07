@@ -104,7 +104,11 @@ The general requirements for the model implementation are
 	\item [1)] Detect concept drifts as soon as possible, i.e. as high as possible TP rate along with small detection delays
 	\item [2)] Distinguish noise from concept drift (as low as possible FA rate)
 \end{itemize}
-
+Online adaptive learning scenario is as follows.
+The model is a mapping $y=\mathcal{L}(X)$ from input variables to the target.
+After initial model is trained a new example $X_t$ arrives and prediction is made $\hat{y_t} = \mathcal{L}(X_t)$.
+Then, after some time, true label $y_t$ arrives and the loss $f_{loss}(y_t, \hat{y_t})$ can be estimated.
+If concept drift is alarmed then model is updated using $(X_t, y_t)$.
 
 
 
