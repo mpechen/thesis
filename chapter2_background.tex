@@ -2,7 +2,8 @@
 % Technical details to read the rest
 % Concept drift & model adaptation
 
-\section{Overview}
+\section{Concept Drift}
+
 In supervised learning task machine learning model predicts a target variable $y = (y_1, \dots, y_n)$ given a set of input features $x = (x_1, \dots, x_n)$.
 In batch training, or, offline settings, the model $p(x, y)$ (Equation~\ref{eq:product_rule}) is trained using the fixed training data set where both $x_i$ and $y_i$ are known.  On the inference step $x_i$ is known and model is used to predict (Equation~\ref{eq:bayes}) $y_i$ for new data samples. 
 Equation~\ref{eq:product_rule}, Equation~\ref{eq:bayes}.
@@ -29,18 +30,15 @@ For example sensor readings from medical devices, network traffic, satellite dat
 A stream is an ordered sequence of examples continuously observed over time. 
 An example is a pair $(x_i, y_i)$.
 
-\textit{Concept drift}~\cite{Widmer1996,schlimmer1986incremental,gama2014survey} is a
-phenomenon when relation between the input data and the target variable changes
-over time~\cite{gama2014survey}. 
-%
-Formally concept drift (CD) can be defined~\cite{gama2014survey} by
-Equation~\ref{eq:concept_drift}
+\textit{Concept drift}~\cite{Widmer1996,schlimmer1986incremental,gama2014survey} is a phenomenon when relation between the input data and the target variable changes over time~\cite{gama2014survey}. 
+Formally concept drift (CD) can be defined~\cite{gama2014survey} by Equation~\ref{eq:concept_drift}
 \begin{equation}\label{eq:concept_drift}
     \exists x: p_{t_0}(x,y) \neq  p_{t_1}(x,y).
 \end{equation}
 \textit{Concept} is a data distribution in a given time moment.
 
-The commonly used approaches to cope with concept drift are \textit{i)} update the model at regular time intervals without considering whether changes have occurred (evolving models~\cite{SouzaChallenges2020}) and \textit{ii)} monitor input data stream for distribution changes and update model if change is alarmed. Adaptive models explicitly detect concept changes using drift detectors, updating models when changes are alarmed.  
+The commonly used approaches to cope with concept drift are \textit{i)} update the model at regular time intervals without considering whether changes have occurred (evolving models~\cite{SouzaChallenges2020}) and \textit{ii)} monitor input data stream for distribution changes and update model if change is alarmed. 
+Adaptive models explicitly detect concept changes using drift detectors, updating models when changes are alarmed.  
 
 Adaptive learning refers to updating model online to react to concept drifts~\cite{gama2014survey}.
 
@@ -114,7 +112,7 @@ degrades when learned underlying data distribution changes.  Therefore concept
 drift can be detected by monitoring change points in model's output performance
 statistics.
 
-\section{CD examples in real data}
+\section{Concept Drift examples in real and artificial data}
 \subsection{Example: Insects}
 % https://sites.google.com/view/uspdsrepository
 % pass: DMKD2018
@@ -193,17 +191,10 @@ After CD - as negative.
 
 \subsection{Example: CFB signal}
 
-Why adaptive with detection is better than just adaptive?
-
 Outliers in CFB cause increased calculated prediction error when predicted value is according to the linear trend. 
-
-In continuous update model is being re-trained after
-using window of width $w$ $(x_{t-w}, \dots, x_{t})$
-
+In continuous update model is being re-trained after using window of width $w$ $(x_{t-w}, \dots, x_{t})$.
 In case of adaptive learning with change detection model is re-trained in a sliding window but if change is alarmed at moment $t^c$ then model uodates using 
-
 If Pccf is available then 
-
 In the CFB signal there are outliers between concept drifts.
 We run a linear regression model trained using sliding window.
 The model predicts $x(t)$ given $(x_{t-w}, \dots, x_{t-1})$ for $t in (1, \dots, n-1)$.
@@ -217,8 +208,8 @@ Linear regression model is trained using first 600 observations (vertical red li
 }\label{fig:boiler_fixed_train}
 \end{figure}
 
-
 \section{Change detection problem}
+
 On-line change detection in time series data is an old practical problem with the roots in the problem of statistical quality control~\cite{basseville1993detection,NISTbook}.
 Walter A. Shewhart invented control charts in 1924 while working on the problem of statistical quality control to improve reliability of telephone transmission systems. 
 Quality control example: $X$ is a set of sensor readings and $y=good$ is a quality of the produced item. 
@@ -227,7 +218,6 @@ In offline learning all training data is available during training.
 In online learning the data is processed sequentially from data streams.
 Model is being updated as more data arrives. 
 Data evolve over time in dynamically changing environments.
-
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[height=0.9\textwidth]{images/detectors_output_stats}
@@ -236,7 +226,9 @@ Data evolve over time in dynamically changing environments.
 
 
 \section{Detectors}
+
 \subsection{Adwin}
+
 Adwin was proposed in~\cite{bifet2007learning}.
 Confidence value $\delta \in (0,1)$
 Equation\ref{eq:adwin_ecut}.
@@ -251,7 +243,7 @@ Algorithm\ref{alg:adwin}
 	\caption{ADWIN}\label{fig:adwin_output_example}
 \end{figure}
 
-\subsection{Pelt method}
+\subsection{Pelt}
 
 Offline detector used in online settings in ~\cite{marrero2013aclac}.
 ~\cite{killick2012optimal}
@@ -287,6 +279,7 @@ Let $P^{\text{max}}$ be an optimal optimal partition of $I$
 	\caption{PELT}\label{fig:pelt_output_example}
 \end{figure}
 
+
 \subsection{Bayesian detector}
 
 \cite{adams2007bayesian}
@@ -312,6 +305,7 @@ The \textit{prior} probability of the change $P(r_t=0|t)$ in BD detector is spec
 	\includegraphics[width=0.9\textwidth]{images/example_output_bayes.eps}
 	\caption{Bayes}\label{fig:bayes_output_example}
 \end{figure}
+
 
 \subsection{CUSUM detector}
 
@@ -357,6 +351,7 @@ The parameter $k$ is called allowance value and it depends on the level of mean 
 	\includegraphics[width=0.7\textwidth]{images/example_output_cusum.eps}
 	\caption{CuSum}\label{fig:cusum_output_example}
 \end{figure}
+
 
 \subsection{ARL}
 
@@ -412,7 +407,8 @@ Predictability of events in the data stream.
 Sums of independent random variables.
 Recurrency is a form of predictability.
 
-\subsection{Feller}
+\subsection{Relevant material from Feller textbook}
+
 The basic theory is as follows~\cite{feller2008introduction}.
 In a sequence of Bernoulli trials the waiting time up to the first event gas a geometric distribution.
 After the first event the process starts anew, and the number of trials between $n$ and $n+1$ th events has the same geometric distribution.
@@ -434,6 +430,7 @@ where $t$ varies over the real numbers.
 \end{definition}
 
 \subsection{Inter-arrival times modeling}
+
 Basic theory.
 \begin{definition}
 	A function $\mathbb{P}$ that assigns a real number $\mathbb{P}(A)$ to each event $A$ is a probability distribution if \\
@@ -448,6 +445,7 @@ Commonly used probability distributions for modelling inter-arrival times.
 
 
 \section{Pccf}~\label{sec:pccf}
+
 If change points are expected to reoccur in the input signal, then this prior information can be used to approximate prediction time intervals, or regions of interest (ROI), where changes are most likely to appear in the future.
 Once calculated, and if predictions are correct, then this information can further be used to reduce the false alarm rate of the change detection process, %at the least
 and potentially to reduce detection delays too.
