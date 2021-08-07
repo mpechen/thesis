@@ -1,4 +1,6 @@
 *.bbx
+script-bck.sh
+script-compile-refs.py
 *.loar
 docs/
 thesis_summary.pdf
