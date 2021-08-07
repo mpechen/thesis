@@ -161,7 +161,7 @@ An example of such PCCF is illustrated in Figure~\ref{fig:periodicexample}.
 % ~Eq.(\ref{eq:pccf_periodic})
 \begin{figure}[htb!]
 \centering
-\includestandalone[width=0.40\textwidth]{./pics/sdm_paper/PeriodicalEvents}
+\includestandalone[width=0.40\textwidth]{articles/pics/sdm_paper/PeriodicalEvents}
 \caption{
 An example of PCCF function for periodic events with $w=24$h, $i w = (24, 48, 72, \dots)$.}
 \label{fig:periodicexample}
@@ -187,7 +187,7 @@ p(c_{1} = t - c_{i})  p(c_{i} = \tau).
 Figure~\ref{fig:cascades} shows a toy example of PCCF calculation for every moment of the recurrent change detection process of time length $T=5$, i.e. $\T=\Collect{1,2,3,4,5}$.
 \begin{figure}[htb!]
 \centering
-\includestandalone[width=0.40\textwidth]{./pics/sdm_paper/Cascades}
+\includestandalone[width=0.40\textwidth]{articles/pics/sdm_paper/Cascades}
 \caption{
 %Trellis structure~\cite{mackay2007}
 Possible times of recurrent changes.
@@ -296,7 +296,7 @@ L = \frac{\sqrt{\mu}}{\sigma \sqrt{2\pi}} \int_{-\infty}^{\infty} e^{-\frac{\mu^
 Figure~\ref{fig:pccf_example} illustrates two Gaussian PCCF functions (Eq.~\ref{eq:gaussian_pccf}) for two cases $(\mu=10, \sigma=2)$ and $(\mu=15, \sigma=3)$.
 \begin{figure}[htb!]
 \centering
-\includegraphics[width=0.40\textwidth]{./pics/sdm_paper/pccfExamples.pdf}
+\includegraphics[width=0.40\textwidth]{articles/pics/sdm_paper/pccfExamples.pdf}
 \caption{An example of two Gaussian PCCF functions.
 }
 \label{fig:pccf_example}
@@ -321,7 +321,7 @@ If we do not reestimate $\theta$ then update procedure is very fast as we simply
 \begin{figure}[htb!]
 \centering
 %\includegraphics[width=0.5\textwidth]{./images/conff3.pdf} \\
-\includegraphics[width=0.35\textwidth]{./pics/sdm_paper/PCCF.pdf}
+\includegraphics[width=0.35\textwidth]{articles/pics/sdm_paper/PCCF.pdf}
 \caption{PCCF converges to the limit $L = 0.1$ depicted by the horizontal bold line.
 Two horizontal lines $\lambda$ illustrate possible thresholds above and below the limit.
 Vertical line $D$ depicts delay of change confirmation.
@@ -416,7 +416,7 @@ The right plot illustrates the situation, when recurrence information is benefic
 The maximum tolerable delay $D$ is illustrated by the vertical line. Please observe that this line is located close to the moments when TP rate goes down \emph{and} FP rate goes up meaning that improvement of the base detector is not possible any more. This confirms our hypothesis that the maximum change confirmation delay $D$ can be estimated by finding the closest local maximum of the PCCF which is higher than $\lambda$.
 \begin{figure}[htb!]
 \centering
-\includestandalone[width=0.45\textwidth]{./pics/sdm_paper/artificialsig}
+\includestandalone[width=0.45\textwidth]{articles/pics/sdm_paper/artificialsig}
 \caption{
 	%Output statistic of the naive detector is the first order difference of the signal.
 	The base-level detector.
@@ -428,8 +428,8 @@ The optimal dynamic threshold is depicted by the dashed line. }
 %
 \begin{figure}[htb!]
 \centering
-\includegraphics[ width=0.24\textwidth]{./pics/sdm_paper/performance2sdm.pdf}
-\includegraphics[ width=0.24\textwidth]{./pics/sdm_paper/performance1sdm.pdf}
+\includegraphics[ width=0.24\textwidth]{articles/pics/sdm_paper/performance2sdm.pdf}
+\includegraphics[ width=0.24\textwidth]{articles/pics/sdm_paper/performance1sdm.pdf}
 \caption{
 % Fractions of CDEs correctly predicted by PCCF as changes (TPs) and error changes (FPs) .
 TP and FP rates of PCCF (not the base- or PCCF-enhanced detector) vs. the delay $D$ of change point confirmation.
@@ -472,7 +472,7 @@ We can see that performance of the detector can be improved using PCCF if $D < 2
 This is in line with our theoretical results.
 \begin{figure}[htb!]
 \centering
-\includegraphics[width=0.30\textwidth]{./pics/sdm_paper/ROCImprovementAndDelay3}
+\includegraphics[width=0.30\textwidth]{articles/pics/sdm_paper/ROCImprovementAndDelay3}
 \caption{
 The trade-off between TPs and FPs.
 Red squares show performance with the dynamic threshold with delayed feedback $(0, \mu, 2 \mu)$.}
@@ -499,7 +499,7 @@ Two outliers are correctly identified by PCCF and do not cause FPs.
 \begin{figure}[htb!]
 \centering
 %\includegraphics[width = 0.8\textwidth ]{./images/new2/cfbproof2.pdf}
-\includegraphics[width = 0.45\textwidth, height = 0.35\textheight, ]{./pics/sdm_paper/cfbproof2.pdf}
+\includegraphics[width = 0.45\textwidth, height = 0.35\textheight, ]{articles/pics/sdm_paper/cfbproof2.pdf}
 \caption{
 %Outliers caused by noisy changes at the moments $t = (308, 458)$ are omitted
 %The mass flow signal with abrupt changes (top) and cascades of PCCFs (bottom).
@@ -535,7 +535,7 @@ FP rate is not increasing because in both pre- and post-processing settings of P
 % {\color{red} What does it indicate?}
 \begin{figure}[htb!]
 \centering
-\includegraphics[width=0.48\textwidth]{./pics/sdm_paper/TrafficData.pdf}
+\includegraphics[width=0.48\textwidth]{articles/pics/sdm_paper/TrafficData.pdf}
 \caption{
 Aggregated traffic in the UK academic network.
 The bottom figure in a zoomed region.
@@ -548,10 +548,10 @@ Dashed lines depict the true change points. % to be detected are depicted by ver
 \begin{figure}[htb!]
 \centering
 %\begin{minipage}{0.35\textwidth}
-\includegraphics[width=0.24\textwidth]{./pics/sdm_paper/performance1sdm.pdf}
+\includegraphics[width=0.24\textwidth]{articles/pics/sdm_paper/performance1sdm.pdf}
 %\end{minipage}
 %\begin{minipage}{0.35\textwidth}
-\includegraphics[width=0.24\textwidth]{./pics/sdm_paper/performance2sdm.pdf}
+\includegraphics[width=0.24\textwidth]{articles/pics/sdm_paper/performance2sdm.pdf}
 %\end{minipage}
 \caption{
 PCCF sensitivity and specificity for the internet traffic dataset.
@@ -563,7 +563,7 @@ The maximum delay of confirmation is $6 \mu $ (vertical line on the left plot).
 %
 \begin{figure}[htb!]
 \centering
-\includegraphics[width=0.3\textwidth]{./pics/sdm_paper/ROCimprtraff.pdf}
+\includegraphics[width=0.3\textwidth]{articles/pics/sdm_paper/ROCimprtraff.pdf}
 \caption{
 	Black line - performance of the detector with static parameters.
 	Red triangles - performance of PCCF based detector when applied to the  static detector with settings corresponding to the point marked as `Static'.

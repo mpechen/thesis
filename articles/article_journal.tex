@@ -196,7 +196,7 @@ We will use this fact later in the experimental part when performing simulations
 %
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[width=0.9\textwidth]{pics/journal_paper/arl.eps}
+	\includegraphics[width=0.9\textwidth]{articles/pics/journal_paper/arl.eps}
 	\caption{
     The left plot depicts ARL as a function of $\delta = \mu_2-\mu_1$ for two fixed threshold values $h$. The right plot depicts ARL as a function of the threshold value $h$ for two fixed $\delta$ values (Equation~\ref{eq:arl_approximation}).
     Both plots demonstrate that smaller ARL values (and therefore detection delays) correspond to smaller $h$ values. It is obvious for the right plot, on the left plot this fact is depicted by the dashed line for $h=2$ being lower than the solid line for $h=4$.
@@ -273,12 +273,12 @@ So, we consider optimality of change detection in the presence of prediction int
 	\begin{minipage}[t]{1.0\textwidth}
     \centering
     % trim={<left> <lower> <right> <upper>}
-    \includegraphics[width=0.44\textwidth, trim={1.5cm 1.0cm 0.3cm 1.0cm}]{pics/journal_paper/proof_of_concept2.eps}
-    \includegraphics[width=0.44\textwidth, trim={1.5cm 1.0cm 0.3cm 1.0cm}]{pics/journal_paper/proof_of_concept2_fn_case.eps}
+    \includegraphics[width=0.44\textwidth, trim={1.5cm 1.0cm 0.3cm 1.0cm}]{articles/pics/journal_paper/proof_of_concept2.eps}
+    \includegraphics[width=0.44\textwidth, trim={1.5cm 1.0cm 0.3cm 1.0cm}]{articles/pics/journal_paper/proof_of_concept2_fn_case.eps}
     \\
-		\includestandalone[width=0.35\textwidth]{pics/journal_paper/tikz/perf_metrics_case1}
+		\includestandalone[width=0.35\textwidth]{articles/pics/journal_paper/tikz/perf_metrics_case1}
     \hspace{10mm}
-		\includestandalone[width=0.35\textwidth]{pics/journal_paper/tikz/perf_metrics_case2}
+		\includestandalone[width=0.35\textwidth]{articles/pics/journal_paper/tikz/perf_metrics_case2}
 		\caption{
     Left side plots depict how performance can be improved with prediction interval (ROI). 
     Detection 1 is false alarm and it is ignored since it is outside ROI. 
@@ -525,7 +525,7 @@ After estimating $\mu$ between changes and choosing the number of change points 
 \end{equation}
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[scale=0.5]{pics/journal_paper/pccf_example.eps}
+	\includegraphics[scale=0.5]{articles/pics/journal_paper/pccf_example.eps}
 	\caption{
     Gaussian PCCF.
 		The oscillating curve depicts probability estimation for the changepoint to occur at corresponding time moment.
@@ -670,7 +670,7 @@ This is depicted on the right side of Figure~\ref{fig:possible_outcomes}.
 % Dynamic CuSum outperforms static settings CuSum in terms of detection delay and $F_1$ score values for smaller $h$.
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[width=0.90\textwidth]{pics/journal_paper/performance_detection_sim}
+	\includegraphics[width=0.90\textwidth]{articles/pics/journal_paper/performance_detection_sim}
 	\caption{Average detection delays (left side) and average $F_1$ score (right side) when variating threshold value $h$ (x-axis).
 	Top, middle and bottom rows of plots are for different $\delta = \mu_2 - \mu_1$ values.
 	Solid and dashed lines depict static and dynamic cases.
@@ -695,7 +695,7 @@ Subject for the change detection is the beginning of every working day when heat
 Figure~\ref{fig:dht22} illustrates the measuring device.
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[width=0.4\textwidth]{./pics/journal_paper/DHT22.png}
+	\includegraphics[width=0.4\textwidth]{articles/pics/journal_paper/DHT22.png}
 	\caption{
 		Arduino Uno board with attached DHT22 temperature and humidity sensor.
 		When it was not cloudy the sun light shined directly on the sensor through the window in the noon causing temperature peaks.
@@ -720,7 +720,7 @@ Figure~\ref{fig:performance_temperature_signal} illustrates results.
 % Figure\ref{fig:performance_pccf_temperature_signal} shows Pccf performance for the signal.
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[width=0.9\textwidth]{./pics/journal_paper/temperature_signal}
+	\includegraphics[width=0.9\textwidth]{articles/pics/journal_paper/temperature_signal}
 	\caption{
     Temperature signal and Pccf.
     Changes are depicted by vertical solid lines on both plots.
@@ -731,8 +731,8 @@ Figure~\ref{fig:performance_temperature_signal} illustrates results.
 \begin{figure}[!htb]
 		\centering
   \begin{tikzpicture}[scale=0.9]
-		\draw(0, 0) node{\includegraphics[width=0.8\textwidth]{./pics/journal_paper/performance_temperature_seven}};
-		\draw(0, -4.8) node{\includegraphics[width=0.8\textwidth]{./pics/journal_paper/performance_temperature}};
+		\draw(0, 0) node{\includegraphics[width=0.8\textwidth]{articles/pics/journal_paper/performance_temperature_seven}};
+		\draw(0, -4.8) node{\includegraphics[width=0.8\textwidth]{articles/pics/journal_paper/performance_temperature}};
 		\draw(3, 2.0) node {When predicting 7 changes};
 		\draw(3, -2.7) node {When predicting all changes};
 	\end{tikzpicture}
@@ -776,7 +776,7 @@ In the future work we plan to include more experiments with real data.
 \section{Pseudocode}\label{sec:pseudo_code}
 Pseudocode for Cusum detector with and without Pccf.
 Full implementation can be found in the GitHub repository~\href{https://github.com/av-maslov/pccf}{https://github.com/av-maslov/pccf}.
-\input{article_journal_pseudo_code_method}
+\input{articles/article_journal_pseudo_code_method}
 
 % \begin{abstract}
 % % \PACS{PACS code1 \and PACS code2 \and more}

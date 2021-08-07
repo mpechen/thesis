@@ -85,7 +85,7 @@ the fuel feeding stage starts that is reflected by a rapid mass increase~\cite{Z
 The automatically available mass signal is a noisy estimate of fuel mass at each operation time point. The mass of the fuel inside the container is measured by a scale, with 1 Hz sample rate.
 
 \begin{figure}[htb!]
-\includegraphics[width=0.45\textwidth]{pics/cfb_paper/OMF/MassFlowScheme}
+\includegraphics[width=0.45\textwidth]{articles/pics/cfb_paper/OMF/MassFlowScheme}
 \caption{The origin of the input signal ~\cite{ZliobaiteBP09}.}\label{fig:OMF}
 \end{figure}
 
@@ -156,7 +156,7 @@ Quantiles are points taken at regular intervals from the empirical cumulative di
 
 \begin{figure}[htb!]
 \centering
-\includegraphics[width=0.4\textwidth]{pics/cfb_paper/QuantileDef}
+\includegraphics[width=0.4\textwidth]{articles/pics/cfb_paper/QuantileDef}
 \caption{The probability density distribution illustrating quantile values: $10\%$ of all points have values less than 0.76 (the first dashed line),
 $15\%$ of all points lie between the first and the second dashed lines (because there are quantiles with probabilities $10\%$ and $25\%$), etc.}
 \label{fig:PDD_quantile}
@@ -174,7 +174,7 @@ At each moment of time we consider a range of data which is divided into two sub
 We compute the minimum Index of observations in the Reference window which values are in the range between quantiles of the measurements in a Test window} (Figure~\ref{fig:QI_scheme}).
 
 \begin{figure}[htb!]
-\centering{\includegraphics[width=0.45\textwidth]{pics/cfb_paper/QIdefinition}}\\
+\centering{\includegraphics[width=0.45\textwidth]{articles/pics/cfb_paper/QIdefinition}}\\
 \caption{QI method illustration. %Beginning of the \emph{reference interval} should start from the last detected change or from the beginning of a signal if there has been no change detected so far.
 QI depicts the position of a point with the smallest index which lies between quantile 0.9 limits
 in the Test interval.}
@@ -232,8 +232,8 @@ Each block is shifted by the $step = 0.15$ relative to the previous one.
 The artificial data is produced in a similar way as described in ~\cite{journals/tkde/TakeuchiY06,Kawahara_2009}.
 
 \begin{figure}[htb!]
-\centering{\includegraphics[width=0.45\textwidth]{pics/cfb_paper/DebugDataSet/DataPIC150}}\\
-\centering{\includegraphics[width=0.45\textwidth]{pics/cfb_paper/DebugDataSet/DataPIC250}}
+\centering{\includegraphics[width=0.45\textwidth]{articles/pics/cfb_paper/DebugDataSet/DataPIC150}}\\
+\centering{\includegraphics[width=0.45\textwidth]{articles/pics/cfb_paper/DebugDataSet/DataPIC250}}
 \caption{Behaviour of scaled QI values (red dots), quantiles values (blue dots) for uniformly distributed data (black dots).}
 \label{fig:figure3.0}
 \end{figure}
@@ -266,14 +266,14 @@ At a particular moment, particles with another average size were added inside a 
 It caused abrupt change in the signal (Figure~\ref{fig:psd_change}, $t=223$). Further mixing of particles is manifested by the gradual change in the amplitude of pressure. The signal is symmetrical because we use the first difference of the original signal.
 
 \begin{figure}[htb!]
-\centering{\includegraphics[width=0.45\textwidth]{pics/cfb_paper/PSD/PSDsampled}}
+\centering{\includegraphics[width=0.45\textwidth]{articles/pics/cfb_paper/PSD/PSDsampled}}
 \caption{Adding of particles with another PSD.}\label{fig:psd_change}
 \end{figure}
 
 Figure~\ref{figure7} shows the Box-And-Whisker diagram, in which each box represents 5 values: the largest and smallest values, median, and the highest and lowest quartiles. From the diagram we can see more explicitly the gradual change near the 16th-17th data windows.
 
 \begin{figure}[htb!]
-\includegraphics[width=0.45\textwidth]{pics/cfb_paper/PSD/PSDboxplot}
+\includegraphics[width=0.45\textwidth]{articles/pics/cfb_paper/PSD/PSDboxplot}
 \caption{Box Plot for sampled signal. Signal was divided into groups of samples. Each box
 on the graph represents 5 statistics for each group.}\label{figure7}
 \end{figure}
@@ -281,7 +281,7 @@ on the graph represents 5 statistics for each group.}\label{figure7}
 Figure~\ref{figure8} shows the probability density estimations of the data before and after change. We can see that the averages are almost the same, but the standard deviation values are quite different.
 
 \begin{figure}[htb!]
-\includegraphics[width=0.45\textwidth]{pics/cfb_paper/PSD/PSDdensity}
+\includegraphics[width=0.45\textwidth]{articles/pics/cfb_paper/PSD/PSDdensity}
 \caption{Estimation of a probability density of a signal before and after change.}\label{figure8}
 \end{figure}
 
@@ -289,7 +289,7 @@ From Figure~\ref{figure9} we can see that the most significant change happened i
 $(Mean2 - Mean1)/Mean1 = 0.02$, $(Std2 - Std1)/Std1 = 1.99$. The first 250 seconds time range is considered as process in control, because we know that no particles have been added by this moment and some time after. Accordingly to the standard rules, the process in control points should fall within $3\sigma$ limits. 
 
 \begin{figure}[htb!]
-\includegraphics[width=0.45\textwidth]{pics/cfb_paper/PSD/PSDsd}
+\includegraphics[width=0.45\textwidth]{articles/pics/cfb_paper/PSD/PSDsd}
 \caption{Moving standard deviation -- a promising feature to use for change detection.}\label{figure9}
 \end{figure}
 
@@ -299,7 +299,7 @@ We define new control limits for a process each time when we have more than $10\
 when current control limits are greater more than 1.5 times than $3\sigma$ (Figure~\ref{figure10}).
 
 \begin{figure}[htb!]
-\includegraphics[width=0.45\textwidth]{pics/cfb_paper/PSD/PSDrunnqccSD}
+\includegraphics[width=0.45\textwidth]{articles/pics/cfb_paper/PSD/PSDrunnqccSD}
 \caption{Control charts for the first order difference of the moving standard deviation.
 New control limits are updated each time when more than $10\%$ of points fall beyond limits.}\label{figure10}
 \end{figure}
@@ -321,7 +321,7 @@ log \frac {QI[i]}{QI[i-1]} \geq threshold.
 Change points detected with QI are shown in Figure~\ref{figure12}. The latency of the detection for the known change at $t=248$ is $(248-223)=25$ seconds.
 
 \begin{figure}[htb!]
-\includegraphics[width=0.45\textwidth]{pics/cfb_paper/PSD/PSDsteadyQI1}
+\includegraphics[width=0.45\textwidth]{articles/pics/cfb_paper/PSD/PSDsteadyQI1}
 \caption{Change detection with QI on raw data.}\label{figure12}
 \end{figure}
 
@@ -348,7 +348,7 @@ where $\mu >0$ is a predetermined threshold~\cite{Kawahara_2009}.
 
 Figure~\ref{figure12.1} shows change detection results with the online non-parametric Kernel Density Ratio estimation (KDE) algorithm.
 \begin{figure}[htb!]
-\includegraphics[width=0.45\textwidth]{pics/cfb_paper/PSD/PSDkde}
+\includegraphics[width=0.45\textwidth]{articles/pics/cfb_paper/PSD/PSDkde}
 \caption{Change detection with KDE. Detected points: $t=\{219,274,614\}$.}
 \label{figure12.1}
 \end{figure}
@@ -364,19 +364,19 @@ makes change detection and especially gradual change detection rather challengin
 Figure~\ref{figure18} shows the both the abrupt and the gradual changes.
 
 \begin{figure}[htb!]
-\includegraphics[width=0.45\textwidth]{pics/cfb_paper/OMF/OMFspg}
+\includegraphics[width=0.45\textwidth]{articles/pics/cfb_paper/OMF/OMFspg}
 \caption{Spectrogram showing frequency changes.}\label{figure15}
 \end{figure}
 
 As a fuel mass estimation we use the sequence of points at the bottom of a signal, or, in other words, the lowest quantile at each moment of time (Figure~\ref{figure16}).
 
 \begin{figure}[htb!]
-\includegraphics[width=0.45\textwidth]{pics/cfb_paper/OMF/OMFestim2}
+\includegraphics[width=0.45\textwidth]{articles/pics/cfb_paper/OMF/OMFestim2}
 \caption{Fuel mass estimation using $5\%$ quantile (dashed line) computed over the sliding window.}\label{figure16}
 \end{figure}
 
 \begin{figure}[htb!]
-\includegraphics[width=0.45\textwidth]{pics/cfb_paper/OMF/OMFscalednoise}
+\includegraphics[width=0.45\textwidth]{articles/pics/cfb_paper/OMF/OMFscalednoise}
 \caption{Mass flow signal with marked change points, determined by visual inspection of the original signal and the spectrogram.
 There are a lot of changes due to switching between burning and feeding stages (depicted by thin dashed lines) and
 two changes due to the screw frequency change (two bold solid lines).}
@@ -393,11 +393,11 @@ when the data points fall between $3\sigma$ control limits.
 The standard deviation is even more non-stationary (Figure~\ref{figure20}).
 
 \begin{figure}[htb!]
-\includegraphics[width=0.45\textwidth]{pics/cfb_paper/OMF/OMFrma}
+\includegraphics[width=0.45\textwidth]{articles/pics/cfb_paper/OMF/OMFrma}
 \caption{Moving average for the difference of the original signal and the fuel mass estimation.}\label{figure19}
 \end{figure}
 \begin{figure}[htb!]
-\includegraphics[width=0.45\textwidth]{pics/cfb_paper/OMF/OMFboxplot}
+\includegraphics[width=0.45\textwidth]{articles/pics/cfb_paper/OMF/OMFboxplot}
 \caption{Box plot representing mean, lower and upper quartiles, maximum and minimum values for each of the sliding window.}\label{figure20}
 \end{figure}
 
@@ -407,7 +407,7 @@ Another way is to find a feature which is sensitive only to changes of a particu
 For example we can use as a feature a cumulative mean, i.e.\ average values of the signal from the beginning to the current point (Figure~\ref{figure21}).
 
 \begin{figure}[htb!]
-\includegraphics[width=0.45\textwidth]{pics/cfb_paper/OMF/OMFcumulativemean}
+\includegraphics[width=0.45\textwidth]{articles/pics/cfb_paper/OMF/OMFcumulativemean}
 \caption{Cumulative mean}\label{figure21}
 \end{figure}
 
@@ -422,7 +422,7 @@ With short data series, QI statistic gives statistically incorrect results.
 Updates of QI were performed at the points marked by the vertical lines (Figure~\ref{figure22}).
 
 \begin{figure}[htb!]
-\includegraphics[width=0.45\textwidth]{pics/cfb_paper/OMF/OMFsteadyQI1}
+\includegraphics[width=0.45\textwidth]{articles/pics/cfb_paper/OMF/OMFsteadyQI1}
 \caption{Change points detected by means of QI which were calculated from the beginning of a signal initially and
 after each detected change later. Detected points:(9236,11597,28973)}
 \label{figure22}
@@ -433,7 +433,7 @@ Computing the density ratio estimation in the online settings (eq.~\ref{KDEformu
 Actually, a series of changes is detected, but they all are concentrated near three mean points which are depicted by dashed lines.
 
 \begin{figure}[htb!]
-\includegraphics[width=0.45\textwidth]{pics/cfb_paper/OMF/OMFkde}
+\includegraphics[width=0.45\textwidth]{articles/pics/cfb_paper/OMF/OMFkde}
 \caption{Change points detected by means KDE. Detected points:(14434,25061,28246). Successfully detected the main change at 28500 sec.} \label{figure23}
 \end{figure}
 
