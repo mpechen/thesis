@@ -263,7 +263,7 @@ Equation\ref{eq:adwin_ecut}.
 	\epsilon_{\text{cut}} = \sqrt{\frac{2}{m} \cdot \sigma_W^2 \cdot \ln{\frac{2}{\delta^\prime}}} + \frac{2}{3m} \ln{\frac{2}{\delta^\prime}}
 \end{equation}
 Algorithm\ref{alg:adwin}
-\input{pseudo_code_adwin}
+\input{pseudo_code/pseudo_code_adwin}
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/example_output_adwin.eps}
@@ -299,7 +299,7 @@ Dynamic programming optimal segmentation is based on the next principle of optim
 Let $P^{\text{max}}$ be an optimal optimal partition of $I$
 \end{theorem}
 
-\input{pseudo_code_pelt}
+\input{pseudo_code/pseudo_code_pelt}
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/example_output_pelt.eps}
@@ -371,7 +371,7 @@ Detections are alarmed at time moments when $S_{t+1} > h$, i.e. when output stat
 In \eqref{eq:cusum_scheme}, $\mu_0$ is the estimate of the in-control state signals' mean value.
 The parameter $k$ is called allowance value and it depends on the level of mean shift $\delta=\mu_2-\mu_1$ that we aim to detect.
 
-\input{pseudo_code_cusum}
+\input{pseudo_code/pseudo_code_cusum}
 
 \begin{figure}[!htb]
 	\centering
