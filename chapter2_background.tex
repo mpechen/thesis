@@ -86,6 +86,28 @@ Transition from one concept to another can happen in different forms over time a
 \end{figure}
 
 
+\section{Concept drift adaptation}
+
+Excellent survey~\cite{Gama2014a} provides a comprehensive overview on handling concept drift using adaptive learning methods in On-line settings.
+In \textit{offline} training settings the whole training data is available at the time of training.
+In \textit{online} training settings training data is not static and new training samples arrive over time and the data is usually processed sequentially.
+Another case is when the whole training data is available but it doesn't fit into memory and model should be trained in incremental settings by reading data in batches from the hard drive. 
+
+Online model is continuously updated during operation as more data arrives.
+\textbf{Example:} new articles which are relevant or not relevant for a particular person.
+
+
+\subsection{Requirements for adaptive models}
+Predictive models which operate in dynamic environment need to have mechanisms to \textbf{detect} and adapt to evolving data, otherwise their accuracy will degrade. 
+The general requirements for the model implementation are 
+\begin{itemize}
+	\item [1)] Detect concept drifts as soon as possible, i.e. as high as possible TP rate along with small detection delays
+	\item [2)] Distinguish noise from concept drift (as low as possible FA rate)
+\end{itemize}
+
+
+
+
 \section{The link between change detection and concept drift}
 
 Concept drift and change detection in time series are closely related problems.
