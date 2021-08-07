@@ -1,4 +1,0 @@
-
-* Prsentation: [[http://www.mpipks-dresden.mpg.de/~dswc09/CONTRIBUTIONS/donges_talk.pdf][Complex network approach for recurrence analysis of time series]] :recurrency:
-* [[http://journals.aps.org/prl/abstract/10.1103/PhysRevLett.96.238701][Complex Network from Pseudoperiodic Time Series: Topology versus Dynamics]] J. Zhang and M. Small :recurrency:
-* [[https://www.pik-potsdam.de/members/kurths/publikationen/2010/recurrence%20based%20evolving.pdf][Recurrence-based evolving networks for time series analysis of complex systems]] :recurrency:
