@@ -1,11 +1,12 @@
 \chapter{Background}
 % Technical details to read the rest
 % Concept drift & model adaptation (Survey paper by Gama)
-
+%gama_survey_cd_fig3.pdf
 \section{Concept Drift}
 
 In supervised learning task machine learning model predicts a target variable $y = (y_1, \dots, y_n)$ given a set of input features $x = (x_1, \dots, x_n)$.
-In batch training, or, offline settings, the model $p(x, y)$ (Equation~\ref{eq:product_rule}) is trained using the fixed training data set where both $x_i$ and $y_i$ are known.  On the inference step $x_i$ is known and model is used to predict (Equation~\ref{eq:bayes}) $y_i$ for new data samples. 
+In batch training, or, offline settings, the model $p(x, y)$ (Equation~\ref{eq:product_rule}) is trained using the fixed training data set where both $x_i$ and $y_i$ are known. 
+On the inference step $x_i$ is known and model is used to predict (Equation~\ref{eq:bayes}) $y_i$ for new data samples. 
 Equation~\ref{eq:product_rule}, Equation~\ref{eq:bayes}.
 \begin{equation}\label{eq:product_rule}
   p(x,y) \equiv p(y|x)P(x) = p(x|y)P(y)
@@ -13,15 +14,10 @@ Equation~\ref{eq:product_rule}, Equation~\ref{eq:bayes}.
 \begin{equation}\label{eq:bayes}
   p(y | x) = \frac{p(y) p(x|y)}{p(x)}\: \text{, where}\: p(x)=\sum_{y} p(y) p(x|y)
 \end{equation}.
-%https://www.elen.ucl.ac.be/Proceedings/esann/esannpdf/es2014-69.pdf
-%current state of the art and where we are
-%https://www.dropbox.com/scl/fi/hc065av32qwxptjcmde1d/CD_dagstuhl_7Sep2020.pptx?dl=0&rlkey=pjwwsmi5jcao6ygkx3yiuonkp
-% Where $x_i \in \mathcal{R}^n$ elements are vectors, and the target is usually
-% also a vector or just the number in the regression task $y_i \in \mathcal{R}^n$, 
-% or a categorical variable (e.g. ``good/bad'') in the classification tasks.  
-% In the production process $x$ can be sensor readings and $y$ is a quality
-%measure.  
-%Product rule, 
+% https://www.elen.ucl.ac.be/Proceedings/esann/esannpdf/es2014-69.pdf
+% https://www.dropbox.com/scl/fi/hc065av32qwxptjcmde1d/CD_dagstuhl_7Sep2020.pptx?dl=0&rlkey=pjwwsmi5jcao6ygkx3yiuonkp
+% Where $x_i \in \mathcal{R}^n$ elements are vectors, and the target is usually also a vector or just the number in the regression task $y_i \in \mathcal{R}^n$, or a categorical variable (e.g. ``good/bad'') in the classification tasks.  
+% In the production process $x$ can be sensor readings and $y$ is a quality %measure.  
 
 In the real world, data distributions are almost never static. 
 In real world application we often deal with streaming settings.
@@ -73,11 +69,6 @@ Transition from one concept to another can happen in different forms over time a
   \caption{Changes between concepts can be gradual or abrupt~\cite{gama2014survey}}\label{fig:fig2_gama_survey_cd}
 \end{figure}
 
-\begin{figure}[htb!]
-	\centering
-	\includegraphics[width=0.9\textwidth]{images/images_cropped/gama_survey_cd_fig3}
-  \caption{A generic schema for an online adaptive learning algorithm (from~\cite{gama2014survey})}\label{fig:fig3_gama_survey_cd}
-\end{figure}
 
 \begin{figure}[htb!]
 	\centering
@@ -85,6 +76,9 @@ Transition from one concept to another can happen in different forms over time a
 	\caption{Illustration from~\cite{SouzaChallenges2020}: illustration of three types of concept drift with regard to speed of change.}\label{fig:souza_cd_speeds}
 \end{figure}
 
+\section{Illustrative examples}
+Online mass flow prediction in CFB boiler~\cite{pechenizkiy2010online} is one example 
+Circulating fluidized bed (CFB).
 
 \section{Concept drift adaptation}
 
@@ -96,10 +90,9 @@ Another case is when the whole training data is available but it doesn't fit int
 Online model is continuously updated during operation as more data arrives.
 \textbf{Example:} new articles which are relevant or not relevant for a particular person.
 
-
 \subsection{Requirements for adaptive models}
 Predictive models which operate in dynamic environment need to have mechanisms to \textbf{detect} and adapt to evolving data, otherwise their accuracy will degrade. 
-The general requirements for the model implementation are 
+The general requirements for the model implementation are that the model should be able to:
 \begin{itemize}
 	\item [1)] Detect concept drifts as soon as possible, i.e. as high as possible TP rate along with small detection delays
 	\item [2)] Distinguish noise from concept drift (as low as possible FA rate)
@@ -110,6 +103,18 @@ After initial model is trained a new example $X_t$ arrives and prediction is mad
 Then, after some time, true label $y_t$ arrives and the loss $f_{loss}(y_t, \hat{y_t})$ can be estimated.
 If concept drift is alarmed then model is updated to $\mathcal{L}^{\text{updated}}$ using $(X_t, y_t)$.
 At some moment $\mathcal{L}^{\text{initial}}$ can be completely forgotten and replaced by $\mathcal{L}^{\text{updated}}$.
+There are various scenarios how old model and training data can be handled depending on available computational and memory resources.
+Figure~\ref{fig:fig3_gama_survey_cd} depicts a general architecture of adaptive learning system.
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=0.9\textwidth]{images/images_cropped/gama_survey_cd_fig3}
+  \caption{(Figure from~\cite{gama2014survey}) 
+	A generic schema of adaptive learning system.
+  The memory module is responsible for which data is presented to the learning module.
+  The loss estimation module computes current model performance and produces input signal for Change detection module.  
+  The change detection module is a control unit which alarms a change once it is detected and triggers model and memory update procedures.
+	}\label{fig:fig3_gama_survey_cd}
+\end{figure}
 
 
 
