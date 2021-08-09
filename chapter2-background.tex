@@ -77,8 +77,16 @@ Transition from one concept to another can happen in different forms over time a
 \end{figure}
 
 \section{Illustrative examples}
-Online mass flow prediction in CFB boiler~\cite{pechenizkiy2010online} is one example 
-Circulating fluidized bed (CFB).
+
+Another example is, for example, ice cream demand prediction.
+Demand is affected by seasons.
+And obviously demand for the ice cream is higher during the summer and lower in winter time.
+
+Another example is relevant news feed recommendations.
+Covid-19 event is a concept drift example affected probably all human activities around the world, including relevant news feed.
+
+Online mass flow prediction in CFB (Circulating fluidized bed) boiler~\cite{pechenizkiy2010online} is an example from monitoring and control application area.
+
 
 \section{Concept drift adaptation}
 
@@ -117,7 +125,6 @@ Figure~\ref{fig:fig3_gama_survey_cd} depicts a general architecture of adaptive 
 \end{figure}
 
 
-
 \section{The link between change detection and concept drift}
 
 Concept drift and change detection in time series are closely related problems.
@@ -138,11 +145,9 @@ SINE1~\cite{gama2004learning} artificial dataset.
 In the first concept all points below the curve $y=sin(x)$ have label 1, and all points above have label 0.
 After the concept change labelling is reversed.
 
-Machine Learning models learn the relation between input data $x$ and target
-variable $y$ by approximating a joint distribution $p(x,y)$.  Model performance
-degrades when learned underlying data distribution changes.  Therefore concept
-drift can be detected by monitoring change points in model's output performance
-statistics.
+Machine Learning models learn the relation between input data $x$ and target variable $y$ by approximating a joint distribution $p(x,y)$. 
+Model performance degrades when learned underlying data distribution changes. 
+Therefore concept drift can be detected by monitoring change points in model's output performance statistics.
 
 \section{Concept Drift examples in real and artificial data}
 \subsection{Example: Insects}
