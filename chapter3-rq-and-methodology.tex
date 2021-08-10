@@ -1,14 +1,11 @@
 \chapter{Research questions and Methodology}
 % Methodology:
 % - How do we answer RQs: simulation, controlled experiments, etc.
-
 In this work we concentrate on the Change detection control unit (Figure~\ref{fig:fig3_gama_survey_cd}) which makes a decision when to retrain the model.
 Implementation is done in a form of change detection algorithm.
 
 Concept drifts are usually assumed to be not predictable.
 We consider the case when they are predictable.
-
-
 
 \begin{itemize}
   \item [i)] Model
@@ -19,10 +16,20 @@ We consider the case when they are predictable.
 Is it so that iii) is better than ii) and ii) is better than i) under certain assumptions?
 If assumptions are wrong then even ii) is not better than i)~\cite{SouzaRMB20}.
 
-In ~\cite{XXX} we demonstrated hhow FA arte and detection delays can be lowered for changedetection problem.
+In~\cite{XXX} we demonstrated how FA rate and detection delays can be lowered for changedetection problem.
 It can be used for concept drift handling in on-line learning under certain assumptions.
 
 
+\section{Formalization of recurrent change detection}
+% Nikolai: (likely current 2.9 (Recurrency) and some 2.10 (Pccf) goes here)
+\input{sections_recurrency_and_pccf}
+
+
+\section{Research questions}
+% Nikolai: - Questions about ROI and PCCF
+% Nikolai: - Questions about integration with detectors
+% Nikolai: - Questions about impact of better detection of recurrent changes on model adaptation / adaptive learning
+% Nikolai: - From the SDM, BLPA and the submitted journal paper please extract /formulate the main research questions they answer and add them here to Section 3.2
 Figure~\ref{fig:research_question} illustrates the research question.
 \begin{figure}[htb!]
 	\centering
@@ -30,3 +37,17 @@ Figure~\ref{fig:research_question} illustrates the research question.
   \caption{
 	}\label{fig:research_question}
 \end{figure}
+
+
+\section{Research methodology}
+%Nikolai:  Here, I think you can use a high-level umbrella or Nunamaker et al. 
+%Nikolai:  See e.g. Figure 14 and brief discussion around it in my thesis at p.49  https://jyx.jyu.fi/bitstream/handle/123456789/13253/1/9513922715.pdf
+%Nikolai:  You can adapt the figure to your needs. I.e. four ovals become:
+%Nikolai:  Theory building: PCCF; (conceptualization, formalization, theorem proving
+%Nikolai:  Artifact development: Recurrent change detection technique development
+%Nikolai:  Experimentation with benchmark datasets: (recurrent) change detection performance; effect of (recurrent) change detection on predictive modeling
+%Nikolai:  
+%Nikolai:  Simulation with synthetic data: (recurrent) change detection performance
+%Nikolai:  Please put as much info into Chapter 3 as you can during tomorrow. F
+
+
