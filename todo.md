@@ -1,5 +1,7 @@
 
 
+## Meeting 21 Aug 2021
+
 Maybe structure: Part 1 - individual chp Part 2: recurrency
 
 <img src='./www/meeteing_21aug2021.jpg' width=270px>
