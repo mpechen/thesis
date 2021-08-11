@@ -1,6 +1,6 @@
 
 
-## Meeting 21 Aug 2021
+## Meeting 11 Aug 2021
 
 Maybe structure: Part 1 - individual chp Part 2: recurrency
 
