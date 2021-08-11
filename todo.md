@@ -6,7 +6,7 @@ Maybe structure: Part 1 - individual chp Part 2: recurrency
 Image:
 
 
-![](./www/meeteing_21aug2021.jpg)
+<img src='./www/meeteing_21aug2021.jpg' width=270px>
 
 
 - Now: Finnish first Chapter 3
