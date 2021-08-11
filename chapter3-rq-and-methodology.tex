@@ -1,24 +1,6 @@
 \chapter{Research questions and Methodology}
 % Methodology:
 % - How do we answer RQs: simulation, controlled experiments, etc.
-In this work we concentrate on the Change detection control unit (Figure~\ref{fig:fig3_gama_survey_cd}) which makes a decision when to retrain the model.
-Implementation is done in a form of change detection algorithm.
-
-Concept drifts are usually assumed to be not predictable.
-We consider the case when they are predictable.
-
-\begin{itemize}
-  \item [i)] Model
-  \item [ii)] Model with DDM
-  \item [iii)] Model with DDM and embedded Pccf
-\end{itemize}
-
-Is it so that iii) is better than ii) and ii) is better than i) under certain assumptions?
-If assumptions are wrong then even ii) is not better than i)~\cite{SouzaRMB20}.
-
-In~\cite{XXX} we demonstrated how FA rate and detection delays can be lowered for changedetection problem.
-It can be used for concept drift handling in on-line learning under certain assumptions.
-
 
 \section{Formalization of recurrent change detection}
 % Formalization of recurrent change detection
@@ -31,11 +13,31 @@ It can be used for concept drift handling in on-line learning under certain assu
 % Nikolai: - Questions about integration with detectors
 % Nikolai: - Questions about impact of better detection of recurrent changes on model adaptation / adaptive learning
 % Nikolai: - From the SDM, BLPA and the submitted journal paper please extract /formulate the main research questions they answer and add them here to Section 3.2
+In this work we concentrate on the Change detection control unit (Figure~\ref{fig:fig3_gama_survey_cd}) which makes a decision when to retrain the model.
+Implementation is done in a form of change detection algorithms.
+Concept drifts are usually assumed to be not predictable.
+We consider the case when they are predictable.
+In~\cite{XXX} we demonstrated how FA rate and detection delays can be lowered for changedetection problem if assumptions are correct.
+It can be used for concept drift handling in on-line learning under certain assumptions.
+
 \begin{itemize}
-    \item a
+
+  \item Usually changes, or, concept drifts, are assumed to be not predictable. In this thesis we address to the question - can we increase change detection and prediction performance using information about temporal re-occurence patterns of changes? 
+
+  \item How to formalize recurrency? As any sequence of events can be considered as recurrent. Answer - Assumptions about distributions of inter-arrival times.
+
+  \item How to integrate Pccf with change detectors? What are the advantages / drawbacks of  Post- or pre-processing settings? Answer: detection delay reductions is possible only in pre-processing settings; Post-processing is more safe and only removes FAs.
+
+  \item How to deal with uncertainty in assumptions? Answer - BLPA
+
+  \item Assuming i) Model ii) Model with DDM iii) Model with DDM and embedded Pccf. Is it so that iii) is better than ii) and ii) is better than i) under certain assumptions (Figure~\ref{fig:research_question})? If assumptions are wrong then even ii) is not better than i)~\cite{SouzaRMB20}.
+
+  \item What happens if Pccf predictions are not correct due to the data properties or due to the wrong assumptions/model? 
+
+  \item How it can be used for model adaptation?
+
 \end{itemize}
 
-Figure~\ref{fig:research_question}.
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/google_slides/scheme_cd_recurrency}
