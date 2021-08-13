@@ -11,4 +11,4 @@ Main file [thesis.tex](./thesis.tex) loads chapters
 - Chapter 5?: Individual contributions of each paper
 - [Chapter 6 (last): Effect on model adaptation](chapter-effect-on-model-adaptation.tex) (possibly new material for the new paper, or extra for the last submitted)
   - Example with CFB signal and linear regression
-- Chapter 7: Conclusions
+- [Chapter 7: Conclusions and Future work](conclusions.tex)
