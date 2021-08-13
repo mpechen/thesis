@@ -4,7 +4,7 @@
 
 Maybe structure: Part 1 - individual chp Part 2: recurrency
 
-<img src='./www/meeteing_21aug2021.jpg' width=270px>
+<img src='./www/meeteing_21aug2021.jpg' width=540px>
 
 
 - Now: Describe which datasets were used
