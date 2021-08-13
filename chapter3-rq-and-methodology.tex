@@ -5,7 +5,7 @@
 \section{Formalization of recurrent change detection}
 % Formalization of recurrent change detection
 % Nikolai: likely current 2.9 (Recurrency) and some 2.10 (Pccf) goes here
-\input{sections_recurrency_and_pccf}
+\input{recurrency_and_pccf}
 
 
 \section{Research questions}
@@ -13,10 +13,23 @@
 % Nikolai: - Questions about integration with detectors
 % Nikolai: - Questions about impact of better detection of recurrent changes on model adaptation / adaptive learning
 % Nikolai: - From the SDM, BLPA and the submitted journal paper please extract /formulate the main research questions they answer and add them here to Section 3.2
-In this work we concentrate on the Change detection control unit (Figure~\ref{fig:fig3_gama_survey_cd}) which makes a decision when to retrain the model.
-Implementation is done in a form of change detection algorithms.
+Change point detection in time series data and change point detection as drift detection method (DDM) as a control unit in adaptive ML system~\ref{fig:fig3_gama_survey_cd}.
 Concept drifts are usually assumed to be not predictable.
 We consider the case when they are predictable.
+When predicting occurrence of a change point or CD event a number of assumptions is made.
+Namely
+\begin{itemize}
+  \item The main assumption is an assumption about probability distribution of inter-arrival times between changes or CD events, and particular choice of parameters values of the distribution. 
+  \item Assumptions about width of the region of interest (ROI) and its positioning relatevely to the changepoint (left, center, right).
+  \item Assumption about number of events to be predicted, as with larger number the larger the uncertainty is due to mathematical properties of predictive confidence change function (Pccf).
+\end{itemize}
+What will happen if assumptions are wrong? And what are the benefits if correct?
+Recurrency for change detection and recurrency for model adaptation.
+
+Assumptions about statistical properties of the input signal for change detector. 
+
+In this work we concentrate on the Change detection control unit (Figure~\ref{fig:fig3_gama_survey_cd}) which makes a decision when to retrain the model.
+Implementation is done in a form of change detection algorithms.
 In~\cite{XXX} we demonstrated how FA rate and detection delays can be lowered for changedetection problem if assumptions are correct.
 It can be used for concept drift handling in on-line learning under certain assumptions.
 
@@ -48,7 +61,8 @@ It can be used for concept drift handling in on-line learning under certain assu
 
 \section{Research methodology}
 %Nikolai:  Here, I think you can use a high-level umbrella or Nunamaker et al. 
-%Nikolai:  See e.g. Figure 14 and brief discussion around it in my thesis at p.49  https://jyx.jyu.fi/bitstream/handle/123456789/13253/1/9513922715.pdf
+%Nikolai:  See e.g. Figure 14 and brief discussion around it in my thesis at p.49  
+% https://jyx.jyu.fi/bitstream/handle/123456789/13253/1/9513922715.pdf
 %Nikolai:  You can adapt the figure to your needs. I.e. four ovals become:
 %Nikolai:  Theory building: PCCF; (conceptualization, formalization, theorem proving
 %Nikolai:  Artifact development: Recurrent change detection technique development
@@ -57,4 +71,13 @@ It can be used for concept drift handling in on-line learning under certain assu
 %Nikolai:  Simulation with synthetic data: (recurrent) change detection performance
 %Nikolai:  Please put as much info into Chapter 3 as you can during tomorrow. F
 
+
+% section Datasets
+\include{datasets}
+
+\begin{itemize}
+  \item 
+  \item CFB in~\cite{x}
+  \item Temperature signal from sensor
+\end{itemize}
 

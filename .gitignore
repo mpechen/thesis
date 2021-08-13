@@ -1,4 +1,5 @@
 *.bbx
+empty.txt
 script-bck.sh
 script-compile-refs.py
 *.loar

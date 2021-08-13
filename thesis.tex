@@ -1,9 +1,8 @@
 %\documentclass[licentiate,utf8,lot,loar,lof,shortloft,index]{jydiss}
 \documentclass[doctoral,utf8,lot,loar,shortloft,index]{jydiss}
 % TODO: add 'lof' == list of figures 
-\input{thesis-config}
-\input{thesis-metadata}
-%\input{article_blpa_math_notations}
+\input{configs/thesis-config}
+\input{configs/thesis-metadata}
 
 \makeindex
 \begin{document}
@@ -24,13 +23,13 @@
 
 \input{chapter3-rq-and-methodology}
 
-\input{articles-list}
+\input{chapter-articles-list}
 
-\chapter{Article: CFB}
-\input{articles/article_cfb}
-
-\chapter{Article: ACLAC}
-\input{articles/article_aclac}
+% ? \chapter{Article: CFB}
+% ? \input{articles/article_cfb}
+% 
+% ? \chapter{Article: ACLAC}
+% ? \input{articles/article_aclac}
 
 \chapter{Article: SDM}
 \input{articles/article_sdm}
@@ -40,6 +39,10 @@
 
 \chapter{Article: Journal paper}
 \input{articles/article_journal}
+
+\input{chapter_x_effect_on_model_adaptation}
+
+\input{conclusions}
 
 \tailmatter
 \finnishsummary
