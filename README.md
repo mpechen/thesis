@@ -8,6 +8,6 @@
 - [Chapter 3: Research questions and methodology](chapter3-rq-and-methodology.tex)
 - [Chapter 4?: Core of 3 papers and Datasest description](chapter-articles-and-datasets.tex)
 - Chapter 5?: Individual contributions of each paper
-- Chapter (last): Effect on model adaptation (possibly new material for the new paper, or extra for the last submitted)
+- Chapter 6 (last): Effect on model adaptation (possibly new material for the new paper, or extra for the last submitted)
   - Example with CFB signal and linear regression
-- Chapter: Conclusions
+- Chapter 7: Conclusions
