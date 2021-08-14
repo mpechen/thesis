@@ -143,14 +143,15 @@ fn print_archs() {
     let rad1: f64 = 4.0;
     let rad2: f64 = 4.3;
     // from left to top
-    print_left_arc(rad1);
-    print_left_arc(rad2);
+    print_arc(rad1);
+    print_arc(rad2);
 
 }
 
-fn print_left_arc(rad: f64){
+fn print_arc(rad: f64){
     let ang1 = PI / 6.0 - calc_angle(rad, rad, RADIUS);
     let ang2 = calc_angle(rad, rad, RADIUS);
+    let ang3 = PI / 6.0 + calc_angle(rad, rad, RADIUS);
 
     let left = Point {
         x: -rad * ang1.cos(),
@@ -172,6 +173,15 @@ fn print_left_arc(rad: f64){
         y: top_l.y
     };
 
+    let left_bottom = Point{
+        x: -rad * ang3.cos(),
+        y: -rad * ang3.sin()
+    };
+    let right_bottom = Point{
+        x: - left_bottom.x,
+        y: left_bottom.y,
+    };
+
     let arc_l = Arc {
         origin: left,
         destination: top_l,
@@ -180,8 +190,13 @@ fn print_left_arc(rad: f64){
         origin: right,
         destination: top_r,
     };
+    let arc_b = Arc{
+        origin: left_bottom,
+        destination: right_bottom,
+    };
     arc_l.print_tikz_repr();
     arc_r.print_tikz_repr();
+    arc_b.print_tikz_repr();
 
 }
 
