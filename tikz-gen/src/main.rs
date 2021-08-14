@@ -1,5 +1,5 @@
 use std::f64::consts::PI;
-const RADIUS: f64 = 1.2;
+const RADIUS: f64 = 1.5;
 const DISTANCE: f64 = 4.0;
 const ALPHA_ARROWS: f64 = PI * (5.0 / 180.0);
 

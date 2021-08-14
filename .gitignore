@@ -1,4 +1,5 @@
 *.bbx
+methodology.pdf
 debug/
 target/
 tikz*.pdf
