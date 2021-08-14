@@ -8,6 +8,21 @@ struct Point {
     y: f64,
 }
 
+struct Arc {
+    origin: Point,
+    destination: Point,
+}
+
+impl Arc {
+    fn tikz_repr(&self) {
+        let tikz_str = format!(
+            "\\draw [->] ({:.2}, {:.2}) -- ({:.2}, {:.2});",
+            self.origin.x, self.origin.y, self.destination.x, self.destination.y
+        );
+        println!("{}", tikz_str);
+    }
+}
+
 fn calc_angle(a: f64, b: f64, c: f64) -> f64 {
     ((a.powf(2.0) + b.powf(2.0) - c.powf(2.0)) / (2.0 * a * b)).acos()
 }
@@ -125,14 +140,28 @@ fn print_arrows_to_right_and_left_top() {
 }
 
 fn print_archs() {
-    let new_rad: f64 = 4.0;
+    let rad1: f64 = 4.0;
     // from left to top
-    let angle_axis_centrum: f64 = PI/6.0;
-    let new_alpha = angle_axis_centrum - calc_angle(new_rad, new_rad, RADIUS); 
-    let x = -new_rad*new_alpha.cos();
-    let y = -new_rad*new_alpha.sin();
-    let dotstr = format!("\\draw ({:.2},{:.2}) circle [radius=0.1];", x, y);
-    println!("{}", dotstr);
+    let ang = PI / 6.0 - calc_angle(rad1, rad1, RADIUS);
+    let left_a = Point {
+        x: -rad1 * ang.cos(),
+        y: -rad1 * ang.sin(),
+    };
+    let ang = calc_angle(rad1, rad1, RADIUS);
+    let top_a = Point {
+        x: -rad1 * ang.sin(),
+        y: rad1 * ang.cos(),
+    };
+    let arc = Arc {
+        origin: left_a,
+        destination: top_a,
+    };
+    arc.tikz_repr();
+    //let dotstr = format!(
+    //    "\\draw ({:.2},{:.2}) circle [radius=0.1];",
+    //    left_a.x, left_a.y
+    //);
+    //println!("{}", dotstr);
 }
 
 fn main() {
