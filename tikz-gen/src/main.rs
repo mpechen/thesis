@@ -14,7 +14,7 @@ struct Arc {
 }
 
 impl Arc {
-    fn tikz_repr(&self) {
+    fn print_tikz_repr(&self) {
         let tikz_str = format!(
             "\\draw [->] ({:.2}, {:.2}) -- ({:.2}, {:.2});",
             self.origin.x, self.origin.y, self.destination.x, self.destination.y
@@ -141,27 +141,33 @@ fn print_arrows_to_right_and_left_top() {
 
 fn print_archs() {
     let rad1: f64 = 4.0;
+    let rad2: f64 = 4.3;
     // from left to top
-    let ang = PI / 6.0 - calc_angle(rad1, rad1, RADIUS);
+    print_left_arc(rad1);
+    print_left_arc(rad2);
+
+}
+
+fn print_left_arc(rad: f64){
+    let ang1 = PI / 6.0 - calc_angle(rad, rad, RADIUS);
+    let ang2 = calc_angle(rad, rad, RADIUS);
+
     let left_a = Point {
-        x: -rad1 * ang.cos(),
-        y: -rad1 * ang.sin(),
+        x: -rad * ang1.cos(),
+        y: -rad * ang1.sin(),
     };
-    let ang = calc_angle(rad1, rad1, RADIUS);
+
     let top_a = Point {
-        x: -rad1 * ang.sin(),
-        y: rad1 * ang.cos(),
+        x: -rad * ang2.sin(),
+        y: rad * ang2.cos(),
     };
+
     let arc = Arc {
         origin: left_a,
         destination: top_a,
     };
-    arc.tikz_repr();
-    //let dotstr = format!(
-    //    "\\draw ({:.2},{:.2}) circle [radius=0.1];",
-    //    left_a.x, left_a.y
-    //);
-    //println!("{}", dotstr);
+    arc.print_tikz_repr();
+
 }
 
 fn main() {
