@@ -17,21 +17,17 @@ fn get_circles_centers() -> (Point, Point, Point, Point){
 fn print_arrows_to_right() {
     let (lt, tp, _, rt) = get_circles_centers();
     let alpha_next: f64 = PI * 1.0 / 6.0 + ALPHA_ARROWS;
-    let top_left = Point {
-        x: RADIUS * alpha_next.cos(),
-        y: -RADIUS * alpha_next.sin(),
-    };
+    let top_left = Point {x: RADIUS * alpha_next.cos(),
+                          y: -RADIUS * alpha_next.sin()};
+    let bottom_right = Point{x: rt.x - RADIUS * alpha_next.cos(), y: rt.y + RADIUS * alpha_next.sin()};
 
 
     let alpha_next: f64 = PI*1.0/6.0-ALPHA_ARROWS;
-    let bottom_left = Point{x: rt.x - RADIUS * alpha_next.cos(), 
-                            y: rt.y + RADIUS * alpha_next.sin()};
-    //let top_right = Point {
-    //    x: RADIUS * (PI * 2.0 / 3.0 - ALPHA_ARROWS).cos(),
-    //    y: -RADIUS * (PI * 2.0 / 3.0 - ALPHA_ARROWS).sin(),
-    //};
-    //let bottom_right = Point{x:, y:};
-    print_arrow(top_left, bottom_left);
+    let bottom_left = Point{x: rt.x - RADIUS * alpha_next.cos(), y: rt.y + RADIUS * alpha_next.sin()};
+    let top_right = Point {x: RADIUS * alpha_next.cos(),
+                           y: -RADIUS * alpha_next.sin()};
+    print_arrow(&top_left, &bottom_left);
+    print_arrow(&bottom_right, &top_right);
 }
 
 fn print_arrows_to_top() {
@@ -51,11 +47,11 @@ fn print_arrows_to_top() {
         x: -right_bottom.x,
         y: DISTANCE - right_bottom.y,
     };
-    print_arrow(right_bottom, right_top);
-    print_arrow(left_top, left_bottom);
+    print_arrow(&right_bottom, &right_top);
+    print_arrow(&left_top, &left_bottom);
 }
 
-fn print_arrow(from: Point, to: Point) {
+fn print_arrow(from: &Point, to: &Point) {
     let rep = format!(
         "\\draw [->] ({:.2}, {:.2}) -- ({:.2}, {:.2});",
         from.x, from.y, to.x, to.y
