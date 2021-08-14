@@ -14,7 +14,7 @@ struct Arc {
 }
 
 impl Arc {
-    fn print_tikz_repr(&self, add_to_end_angle: f64, add_to_start_angle: f64) {
+    fn print_tikz_repr(&self, add_to_end_angle: f64, add_to_start_angle: f64, orient: &str) {
         let rad = (self.origin.x.powf(2.0)+self.origin.y.powf(2.0)).powf(0.5);
         let start = (-self.destination.x/ self.destination.y).atan();
         let stop = (self.origin.x / self.origin.y).atan();
@@ -22,7 +22,8 @@ impl Arc {
         let stop_angle = 180.0*((1.5*PI-stop)/PI) + add_to_end_angle;
 
         let tikz_str = format!(
-            "\\draw ({:.2},{:.2}) arc [radius={:.2}, start angle = {:.2}, end angle = {:.2}];",
+            "\\draw[{}] ({:.2},{:.2}) arc [radius={:.2}, start angle = {:.2}, end angle = {:.2}];",
+            orient,
             self.destination.x, self.destination.y, rad,start_angle, stop_angle
         );
         println!("{}", tikz_str);
@@ -149,12 +150,12 @@ fn print_archs() {
     let rad1: f64 = 4.0;
     let rad2: f64 = 4.3;
     // from left to top
-    print_arc(rad1);
-    print_arc(rad2);
+    print_arc(rad1, "->");
+    print_arc(rad2, "<-");
 
 }
 
-fn print_arc(rad: f64){
+fn print_arc(rad: f64, orient: &str){
     let ang1 = PI / 6.0 - calc_angle(rad, rad, RADIUS);
     let ang2 = calc_angle(rad, rad, RADIUS);
     let ang3 = PI / 6.0 + calc_angle(rad, rad, RADIUS);
@@ -200,9 +201,9 @@ fn print_arc(rad: f64){
         origin: left_bottom,
         destination: right_bottom,
     };
-    arc_l.print_tikz_repr(0.0, 0.0);
-    arc_r.print_tikz_repr(-360.0, 0.0);
-    arc_b.print_tikz_repr(0.0, 180.0);
+    arc_l.print_tikz_repr(0.0, 0.0, orient);
+    arc_r.print_tikz_repr(-360.0, 0.0, orient);
+    arc_b.print_tikz_repr(0.0, 180.0, orient);
 
 }
 
