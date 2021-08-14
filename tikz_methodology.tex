@@ -6,20 +6,8 @@
 \usepackage{tikz}
 \begin{document}
     \begin{tikzpicture}[scale = 1]
-        % \def\radius{0.9}
-	      % \draw [black] (0, 0) circle [radius=\radius];
-	      % \draw [black] (0, 4) circle [radius=\radius];  
-	      % \draw [black] (3.45, -2) circle [radius=\radius];  
-	      % \draw [black] (-3.45, -2) circle [radius=\radius];  
 
-        % \draw [->] (0.1, 0.9) -- (0.1, 3.1);
-        % \draw [->] (-0.1, 3.1) -- (-0.1, 0.9);
-
-        % \draw [->] (0.78, -0.45) -- (2.68, -1.55);
-        % \draw [->] (2.68, -1.55) -- (0.78, -0.45);
-
-
-\draw [black] (0.00, 0.00) circle [radius=1.2];
+        \draw [black] (0.00, 0.00) circle [radius=1.2];
 \draw [black] (0.00, 4.00) circle [radius=1.2];
 \draw [black] (3.46, -2.00) circle [radius=1.2];
 \draw [black] (-3.46, -2.00) circle [radius=1.2];
@@ -29,15 +17,13 @@
 \draw [->] (-2.48, -1.31) -- (-1.09, -0.51);
 \draw [->] (0.10, 1.20) -- (0.10, 2.80);
 \draw [->] (-0.10, 2.80) -- (-0.10, 1.20);
-\draw [->] (-3.90, -0.88) -- (-1.19, 3.82);
-\draw [->] (3.90, -0.88) -- (1.19, 3.82);
-\draw [->] (-2.72, -2.94) -- (2.72, -2.94);
-\draw [->] (-4.17, -1.04) -- (-1.19, 4.13);
-\draw [->] (4.17, -1.04) -- (1.19, 4.13);
-\draw [->] (-2.98, -3.10) -- (2.98, -3.10);
 
+
+        %\draw[blue] (-1.19,3.82) arc [radius=4.00, start angle = 107, end angle = 193];
+
+\draw (-1.19,3.82) arc [radius=4.00, start angle = 107.25, end angle = 192.75];
+\draw (-1.19,4.13) arc [radius=4.30, start angle = 106.04, end angle = 193.96];
 %\draw (0,0) circle [radius=4];
 %\draw (0,0) circle [radius=4.3];
-
 \end{tikzpicture}
 \end{document}

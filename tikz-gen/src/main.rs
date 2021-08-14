@@ -15,9 +15,14 @@ struct Arc {
 
 impl Arc {
     fn print_tikz_repr(&self) {
+        let rad = (self.origin.x.powf(2.0)+self.origin.y.powf(2.0)).powf(0.5);
+        let start = (-self.destination.x / self.destination.y).atan();
+        let stop = (self.origin.x / self.origin.y).atan();
+        let start_angle = 180.0*((PI/2.0 + start)/PI);
+        let stop_angle = 180.0*((1.5*PI-stop)/PI);
         let tikz_str = format!(
-            "\\draw [->] ({:.2}, {:.2}) -- ({:.2}, {:.2});",
-            self.origin.x, self.origin.y, self.destination.x, self.destination.y
+            "\\draw ({:.2},{:.2}) arc [radius={:.2}, start angle = {:.2}, end angle = {:.2}];",
+            self.destination.x, self.destination.y, rad,start_angle, stop_angle
         );
         println!("{}", tikz_str);
     }
@@ -195,8 +200,8 @@ fn print_arc(rad: f64){
         destination: right_bottom,
     };
     arc_l.print_tikz_repr();
-    arc_r.print_tikz_repr();
-    arc_b.print_tikz_repr();
+    //arc_r.print_tikz_repr();
+    //arc_b.print_tikz_repr();
 
 }
 
