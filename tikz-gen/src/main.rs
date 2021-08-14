@@ -152,21 +152,36 @@ fn print_left_arc(rad: f64){
     let ang1 = PI / 6.0 - calc_angle(rad, rad, RADIUS);
     let ang2 = calc_angle(rad, rad, RADIUS);
 
-    let left_a = Point {
+    let left = Point {
         x: -rad * ang1.cos(),
         y: -rad * ang1.sin(),
     };
 
-    let top_a = Point {
+    let right = Point {
+        x: - left.x,
+        y: left.y,
+    };
+
+    let top_l = Point {
         x: -rad * ang2.sin(),
         y: rad * ang2.cos(),
     };
 
-    let arc = Arc {
-        origin: left_a,
-        destination: top_a,
+    let top_r =Point{
+        x: - top_l.x,
+        y: top_l.y
     };
-    arc.print_tikz_repr();
+
+    let arc_l = Arc {
+        origin: left,
+        destination: top_l,
+    };
+    let arc_r = Arc {
+        origin: right,
+        destination: top_r,
+    };
+    arc_l.print_tikz_repr();
+    arc_r.print_tikz_repr();
 
 }
 
