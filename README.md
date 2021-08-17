@@ -1,5 +1,6 @@
+# Meta 
 
-## Meta
+## Content
 
 Main file [thesis.tex](./thesis.tex) loads chapters
 
