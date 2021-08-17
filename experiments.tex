@@ -57,7 +57,7 @@
   Figure~\ref{fig:fig7_souza} from~\cite{SouzaRMB20} presents the prequential accuracy of two classifiers: i) Naive Bayes with Drift Detection Method (DMM) (~\cite{gama2004learning}) , and ii) the No-change baseline classifier which predicts the current label to the next event for three datasets. In all cases, the baseline classifier performs better.
   Due that in~\cite{zliobaite2013good} discusses the problem of temporal dependence for the Electricity dataset.
 
-  Continuous model update using sliding or adaptive window is equivalent to the situation when change alarm happens at every time moment.
+  Training data is data since the last change alarm till current time moment.
   \textbf{ROI can help to detect concept drift faster, but since FA is not an issue then we will not observe performance improvement.}
   Figure~\ref{fig:fig28_souza} - FA do not cause performance drop.
   ROI can help to distinguish noisy data from drifts. If model is updated using noisy data then performance will decrease.
