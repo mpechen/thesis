@@ -229,7 +229,221 @@ In the performed experiments parameters $\theta$ were assumed to be known a prio
 
 This work provide several straightforward opportunities for future work, in particular investigating how uncertainty of $\theta$ estimates affects the performance of recurrent change detection, and studying other approaches for integrating PCCF with different existing change detection mechanisms.
 
-\section{From BLPA: Integration with Bayesian detector}
+\section{BLPA: Integration with Bayesian detector}
 
+Our approach (called \textbf{BLPA} method) is based on the hypothesis that if probability distribution of the time intervals between changepoints differs from the probability distribution of time intervals between outliers we can use this information to predict time locations of the changes and skip outliers and therefore achieve better TP/FP rates.
+
+BLPA is a new online detection method. It extends the Bayesian Online Changepoint Detector (\textbf{BD}) proposed in~\cite{mackay2007} by embedding into it a Predictive Change Confidence Function (\textbf{PCCF}), which we introduced recently in~\cite{MaslovSDM2016}, in order to predict future changepoints in the input data stream, adjust detector's settings dynamically and to reduce FP rate.
+
+In short, BD detector works by recursively estimating posterior probability distribution $P(r_t | \pmb{x}_{1:t}, \theta)$ of the \textit{run length}  variable $r_t$ which is a time since the last changepoint.
+Changepoint is an event when
+\[
+    \operatorname*{arg\,max}_{r_t} P(r_t | \pmb{x}_{1:t}, \theta) = 0
+\]
+The \textit{posterior} distribution is recalculated then every time a new measurement $x_t$ is observed using Bayes` theorem to update parameters of the distributions used to model data
+and the law of total probability
+\[
+P(r_t|\:\LargeCdot) = \sum_{r_{t-1}} P(r_{t} | \: r_{t-1},\:\LargeCdot) \: P(r_{t-1}|\:\LargeCdot)
+\]
+to consider all possible run's values in the past.
+
+The \textit{prior} probability of the change $P(r_t=0|t)$ in BD detector is specified using the constant-value hazard rate $h$ which is an instant prior probability to observe a change and which is supposed to be known before the change detection process starts.
+The uniform \textit{non-informative} prior does not hold enough information to distinguish outliers and noisy changes from the changepoints.
+We improve performance of the BD detector by using an \textit{informative} prior distribution in a form of the PCCF function which parameters are the average time interval $\mu$ between consecutive changepoints $\langle c_i - c_{i-1} \rangle$ and standard deviation $\sigma$.
+Given current estimate of $\mu$ and $\sigma$ PCCF gives a prior probability $\mathcal{P}(t | \mu,\sigma)$ to observe recurrent changepoint at time $t$.
+% inferred from the stream of detected changepoints $\langle c_j \rangle$.
+During the change detection process parameters of the BD detector are adjusted dynamically according the predictions in order to skip possible noisy changes in between changepoints.
+When a new changepoint is detected  (or its location is provided by outer source) parameters $(\mu, \sigma)$ are updated using Bayesian rule and new prediction
+$\mathcal{P}(t | \mu_{\text{new}}, \sigma_{\text{new}})$ is made.
+
+In the Bayesian online change detector proposed in~\cite{mackay2007} and extended in~\cite{Wilson2010a} authors model time intervals between change points (run lengths) using the hazard rate.
+This approach allows to take into account recurrence by tuning single parameter, but it does not allow to distinguish outliers from changes which may appear between them.
+In~\cite{huang2014detecting} data stream volatility, defined as the rate of detected changes, is used to make detector more reactive.
+We concentrate on the problem of improving change detection by predicting time locations of the changes in the future in order to better distinguish outliers from real changes.
+
+In BD~\cite{mackay2007} the hazard rate is a constant value assumed to be known in advance.
+This is not a realistic assumption and this problem has been addressed in~\cite{WilsonBayesOnline} where authors proposed an on-line inference
+procedure to estimate $h$ parameter for the case if hazard rate is unknown and can itself undergo changes while new data
+arrives.
+In~\cite{DowneyChp} authors proposed an algorithm 
+which can detect and locate changepoints simultaneously using Bayesian statistics approach.
+In~\cite{saatcci2010gaussian} authors use Gaussian Process model to compute predictive distribution $p(x_{\textbf{new}} | \pmb{x}_{\textbf{old}})$.
+
+Our method is different from these ones because we combine change detection and prediction tasks. 
+We add a second layer (PCCF function) on top of the change detection algorithm allowing to predict future recurrent changes and adjust detectors settings dynamically.
+This second layer is a change detector itself in the sense that it automatically incorporates changes in underlying distribution of the time intervals between recurrent changes.
+
+In our previous work~\cite{MaslovSDM2016} we demonstrated how to integrate PCCF with the very naive threshold based detector in a heuristic way. 
+The BLPA method we propose here is a more advanced.
+It \textbf{integrates} PCCF natively into the BD detector using Bayesian statistics framework.
+BLPA updates both parameters of BD and PCCF sequentially, detects changes, predicts future changes and adjusts parameters of the BD detector according to the predictions in order to skip noisy changes and outliers while detecting changes of interest.
+
+\subsection{Online Bayesian Change Detector (BD)}
+\label{subsec:bd_detector}
+In this section we describe the Bayesian Online Changepoint Detector proposed in~\cite{mackay2007}.
+As we mentioned - to model time occurrences of the changes authors introduce a latent variable run length $r_t$ which is the number of time steps since the most recent change.
+In Fig.~\ref{fig:trellis_struct} plot \textbf{(A)} you can see an illustrating example of the input signal and corresponding run values on plot (B).
+
+On each time step there are two possibilities: either the run length increases $r_t = r_{t-1}+1$ or changepoint occurs $r_t = 0$.
+The conditional prior $P(r_t | r_{t-1})$ of the change is given by a constant-value hazard rate $h$ (Equation~\ref{eq:hazard_rate}).
+\begin{equation}
+    p(r_t | r_{t-1}) =
+    \begin{cases}
+    1 - h \text{\:\:\: if }  r_t = r_{t-1} + 1 \\
+    h \text{\:\:\:\:\:\:\:\:\:\:\:  if } r_t = 0
+    \end{cases}
+    \label{eq:hazard_rate}
+\end{equation}
+The plot \textbf{(C)} in Fig.~\ref{fig:trellis_struct} illustrates the
+message-passing algorithm to compute prior probabilities of the
+changepoint at any time moment given the boundary condition
+$P(r_1=0)=1.0$ that change occurred at the moment $t=1$.
+Each node (circle) represents a hypothesis about the current run length value.
+From each node there is a solid line upwards depicting probability of increasing of the run on the next time step (no change) and a dashed line going downwards depicting probability of the change.
+
+At each time step the probability of the changepoint is estimated by calculating posterior probability distribution of the run length value given the data so far observed (Equation~\ref{eq:r_t_posterior}).
+\begin{equation}
+    P(r_t | \pmb{x}_{1:t}) = \frac{P(r_t, \pmb{x}_{1:t})}{P(\pmb{x}_{1:t})}
+    \label{eq:r_t_posterior}
+\end{equation}
+The joint probability of the run length values and observed so far data
+can be sequentially computed using recursive procedure in Equation~\ref{eq:bd_recursive_formula} as it is described in~\cite{mackay2007}:
+\begin{multline}
+    P(r_t, x_{1:t}) = \sum_{r_{t-1}} P(r_t, r_{t-1}, x_{1:t}) = \\
+    \sum_{r_{t-1}} P(r_t, x_t \: | \: r_{t-1}, x_{1: t-1}) \: P(r_{t-1}, x_{1:t-1}) = \\
+    \sum_{r_{t-1}} P(r_t | r_{t-1}) P(x_t | r_{t-1}, x_t^{(r)}) P(r_{t-1}, x_{1:t-1})
+    \label{eq:bd_recursive_formula}
+\end{multline}
+where $x_t^{(r)} \equiv \langle x_{t-r+1},\dots,x_t \rangle$ is input data sub-interval associated with the run length $r$.
+Marginal predictive distribution of the new observation $x_t$ is computed using the sum rule:
+\begin{equation}
+    P(x_{t} | \pmb{x}_{1:t-1}) = \sum_{r_t} P(x_{t}|r_{t}, \pmb{x}_t^{(r)}) P(r_t | \pmb{x}_{1:t-1})
+    \label{eq:bd_marginal_predictive}
+\end{equation}
+%
+\begin{figure}[htb!]
+    \includestandalone[width=0.40\textwidth]{images/blpa_article/trellis-struct}
+    \caption{
+        The changepoint detection problem.
+        (A): Input signal.
+        (B): A particular realization of the run length path corresponding to the actual changepoints locations in the input signal.
+        (C): Directed graph representing all possible run length paths.
+        \textit{The figure is replicated from the illustration in~\cite{mackay2007}.}
+        }
+\label{fig:trellis_struct}
+\end{figure}
+
+
+\subsection{BLPA change detector}
+\label{subsec:BLPA}
+The BLPA method is a combination of BD detector and PCCF predictive function.
+Particularly when we compute the joint probability $P(r_t, \langle x_j \rangle_{j=1}^{t})$
+and after that when computing the run-length distribution
+$P(r_t | \langle x_j \rangle_{j=1}^{t})$
+we multiply these probabilities by the prior probability of the
+changes given by PCCF for the moment $t$.
+The BLPA method is depicted in Algorithm~1, in which:
+\begin{itemize}
+    \item Lines 1-4: Set initial parameters values for the probability distribution of the data $D$.
+
+    \item Line 5: Compute PCCF using initial values of the
+        parameters (Equation~\ref{eq:pccf}).
+
+    \item Line 7: Collect a new measurement.
+
+    \item Line 8: Compute predictive distribution using Equation~\ref{eq:predictive_distribution2}.
+
+    \item Line 9-10: Compute change probabilities and `growth' probabilities of the run length.
+
+    \item Line 11: Compute posterior probabilities of run lengths (changes).
+
+    \item Line 12: Update parameters of the probability distributions for the data $D$ using Equations~\ref{eq:update_rule}.
+
+    \item Lines 13-16: Find the most likely position of the last changepoint, update PCCF parameters and recalculate PCCF.
+\end{itemize}
+
+\input{articles/article_blpa_pseudocode_detector.tex}
+
+\subsection{Experiments}
+\label{sec:experiments}
+We performed experiments with artificially generated and real
+data sets.
+% === START: MOVE TO EXPERIMENTS SECTION
+To measure the performance of the change detector we can consider it as as a binary classifier assigning labels `change'/`not change' to the incoming observations $x_t$.
+If
+$\Event{t}{+}$ is the `change' label assigned at the moment $t$
+and
+$\Event{t}{-}$ is the label `not change' assigned at $t$
+then
+Then True Positive (TP), False Positives (FP), True Negatives (TN) and False Negatives (FN) events can be defined as follows:
+\begin{itemize}[leftmargin=*]\setlength\itemsep{0em}
+    \item $\Event{t}{+}$ is TP if $\exists c_i:t-c_i<\delta$, and FP if $\nexists c_i:t-c_i<\delta$
+    \item $\Event{t}{-}$ is FN if $\exists c_i:t-c_i <\delta$, and TN if $\nexists c_i:t-c_i<\delta$
+\end{itemize}
+The \textit{performance of the change detector} is defined by TP/FP rates and by the average delay $\delta$ of the detection.
+
+\subsection{Artificial data}
+In the simulation we generated 200 signals with 10 recurrent changes in the mean value for each hazard-rate value $h$ varied in the interval from 50 to 300 by the step 15.
+Average distance between changes was set to $\mu = 100$ with the standard deviation $\sigma = 10$.
+Results are depicted in Fig.~\ref{fig:results1}.
+\begin{figure}[!htb]
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \fbox{\includegraphics[width=0.8 \textwidth,
+            trim={0.5cm 0cm 0.5cm 0cm}]{./images/blpa_article/fig3_concept_proof.eps}}
+        \fbox{\includegraphics[
+            width=0.787\textwidth,
+            height = 0.27 \textheight,
+            trim={0.0cm 1cm 1cm 1.7cm}]{./images/blpa_article/sim1_roc.eps}
+            }
+        \caption{
+            Experimental results for simulated data streams with recurrent changes.
+            On the top plot - an example of the generated input signal.
+            %
+            Vertical solid lines depict changepoints to be detected. 
+            Dashed lines on the plot with the signal depict moments when detector \textbf{without} PCCF alarmed changes.
+            %
+            Bottom plot - ROC curves. 
+            Blue triangles depict performance of the detector equipped with PCCF.
+            Black dots - performance without PCCF.
+            FP rate is reduced while keeping the same TP rate.
+            }
+            \label{fig:results1}
+    \end{minipage}
+\end{figure}
+FP rate is decreased while not reducing TP rate.
+In the worst cases the performance of both detectors is similar.
+
+\subsection{Human Activity (HA) signal}
+%https://archive.ics.uci.edu/ml/datasets/Smartphone-Based+Recognition+of+Human+Activities+and+Postural+Transitions
+In the second experiment we used the Human activity data set~\cite{reyes2016transition} which contains sensor measurements from people performed 6 types of activities: three static postures (standing, sitting, lying) and three dynamic activities (walking, walking downstairs and walking
+upstairs).
+We detected changes in the signal caused by transitions from one set activities to another.
+Results are depicted in Fig.~\ref{fig:results2}.
+\begin{figure}[!htb]
+%this is \input{FigResults2.tex}
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \fbox{\includegraphics[width=0.8\textwidth, trim={0.5cm 0cm 0.5cm 0cm}]{./images/blpa_article/fig4_concept_proof_real.eps}}
+        \\
+        \fbox{
+            \includegraphics[
+            width=0.773\textwidth, 
+            height = 0.27 \textheight,
+            trim={0.0cm 1cm 1cm 1.7cm}]{./images/blpa_article/exp1_roc_real.eps}
+            }
+        \caption{
+         Experimental results for the 'Activity recognition' signal.
+         On the top plot - illustrating example of the signal and corresponding PCCF function.
+         Vertical solid lines depict changepoints to be detected. 
+         Dashed lines on the plot with the signal depict moments when detector \textbf{without} PCCF alarmed changes. 
+         Dashed lines on the plot \textbf{with} PCCF show time moments when the detector with PCCF alarmed changes.
+         Bottom plot - ROC curves. 
+        Blue triangles - performance of the BD with PCCF.
+            }
+            \label{fig:results2}
+    \end{minipage}
+\end{figure}
+FP rate is decreased when BD detector is used with the PCCF function.
 
 \section{From Journal: Integration with CuSum}

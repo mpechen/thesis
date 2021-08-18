@@ -300,8 +300,316 @@ PCCF is calculated in line 15 by summing up probabilities in the columns of matr
 \end{algorithm}
 
 
-
 \section{From BLPA}
+Here we consider uncertainty factors.
+Not too much to add. 
+Mostly integration.
+Pccf related section (to be merged): 
+
+\subsection{PCCF function}
+\label{subsec:pccf}
+In this section we show how to compute PCCF function used to predict time locations of the recurrent changes in the future.
+We consider a discrete case when observations are obtained at the
+discrete time moments $\langle t \rangle_{t=1}^T$ with a constant sampling rate.
+Probability distribution for the discrete sets is defined using
+Probability mass function (\textbf{Pmf}).
+As mentioned earlier we assume that changes \textit{re-}occur after
+`approximately' equal time intervals.
+To model time intervals between consecutive changes
+$\langle c_i - c_{i-1} \rangle$
+we use the Gaussian distribution assuming that standard deviation is small enough so that probability to observe the change $c_i$ before $c_{i-1}$ is extremely small.
+\begin{definition}
+    \label{def:recurrentdefinition}
+    \textit{
+        Changes $\Collect{c_i}_{i=1}^k$ are recurrent if
+    }
+    \begin{equation}
+        p(c_{i+1} = t \: | \: \theta^C) = p(c_1 = t - c_{i} \: | \: \theta^C),
+        \label{eq:procnorefs}
+    \end{equation}
+    \textit{
+        where
+        $\theta^C=(\mu^C,\sigma^C)$,
+        $c_1$ is the time of the $1^{st}$ change,
+        $c_i$ is the time of the $i^{th}$ change.
+    }
+\end{definition}
+%
+This definition corresponds to the generative model defined by
+Equation~\ref{eq:recurrent_generative_model} in which every next
+change $c_{i+1}$ happens after time intervals $\Delta$ which are
+samples from the Gaussain distribution $N(\mu^C, \sigma^C)$.
+\begin{equation}
+    c_{i+1} = c_i + \Delta,~~\text{where } \Delta \sim N(\mu^c, \sigma^c)
+    \label{eq:recurrent_generative_model}
+\end{equation}
+%
+To predict future changes we introduce the notion of the
+Predictive Change Confidence Function (\PCCF)~\cite{MaslovSDM2016}.
+\begin{definition}
+    \label{def:pccf_definition}
+    \textit{
+        \PCCF is a \textbf{Pmf} defined on a discrete set of time moments
+        $\langle t \rangle_{t=1}^T$ giving a probability
+        to observe recurrent change $\forall c \in \Collect{ c_i }_{i=1}^k$
+        at the time moment $t$
+    }
+    \begin{equation}
+        \mathcal{P}(c=t|\mu^c,\sigma^c)=\sum_{i=1}^{k} p(c_i=t|\mu^c,\sigma^c)
+    \end{equation}
+    \textit{
+        where $p(c_i=t|\mu^c,\sigma^c)$ is a \textbf{Pmf} for an
+        individual change $c_i$.
+    }
+\end{definition}
+It is important to note that \textit{change-}events $\langle c_i \rangle$ are
+independent.
+Every $c_i$ can happen at any moment of time according to its
+individual \textbf{Pmf} $p(c_i=t|\mu^c,\sigma^c)$.
+Following the sum rule for total probability\footnote{$P(x) = \sum_{y} P(x|y) p(y)$} in order to compute Pmf of $c_{i+1}$ we need to consider all
+possible time locations of $c_i$.
+\begin{equation}
+    p(c_{i+1} = t) = \sum_{\tau = i}^{t-1} p(c_{i+1}=t \: | \: c_i = \tau) p(c_i = \tau).
+    \label{eq:sum_rule_recurrent}
+\end{equation}
+According to the definition~\ref{def:pccf_definition} PCCF is a sum of individual \textbf{Pmf}'s of the changes which might happen till current moment of time
+\begin{eqnarray}
+    \notag
+    \mathcal{P}(t) & = &  \sum_{i=1}^{t} \sum_{\tau = i}^{t-1} p(c_{i+1} = t | c_{i} = \tau)  p(c_{i} = \tau) \\
+    & = & \sum_{i=1}^{t} \sum_{\tau = i}^{t-1}
+    p(c_{1} = t - c_{i})  p(c_{i} = \tau).
+    \label{eq:pccf}
+\end{eqnarray}
+Right side of the Equation~\ref{eq:sum_rule_recurrent} is a convolution for the Pmf $p(c_1)$ of the $1^{st}$ recurrent change and of the Pmf of the change $c_i$ computed in the previous step
+\begin{eqnarray} \notag
+    p(c_{i+1}) & = & (p(c_1) \ast p(c_i)) [\tau] \\
+    & = & \sum_{\tau = 1}^{t-1} p(c_1 = t - \tau) p(c_i = \tau).
+    \label{eq:sum_rule_convolution}
+\end{eqnarray}
+The convolution of two Gaussian distributions is also Gaussian distribution
+\begin{equation}
+    (p(x|\mu_1, \sigma_1) \ast p(x|\mu_2, \sigma_2)) = p(x| \mu_1 + \mu_2, \sqrt{\sigma_1^2 + \sigma_2^2}).
+\end{equation}
+PCCF (Eq.~\ref{eq:pccf})
+can be written as a t-fold convolution
+\begin{equation}
+\mathcal{P}(t) =
+(
+\underbrace{
+    p(c_1) \ast p(c_1) \ast \dots  \ast p(c_1)
+}_\text{t}
+)
+\end{equation}
+% https://en.wikipedia.org/wiki/Renewal_theory !!!
+% http://mathworld.wolfram.com/NormalSumDistribution.html
+% Charles M. Grinstead "Introduction of probability"
+% http://www.dartmouth.edu/~chance/teaching_aids/books_articles/probability_book/book.html
+% https://www.dartmouth.edu/~chance/teaching_aids/books_articles/probability_book/Chapter7.pdf
+%??Uncomment? = p(c_1)^{\ast t}.
+%
+%
+%Therefore PCCF for the moment $t$ is a sum
+which is equivalent to the sum
+\begin{equation}
+    \mathcal{P}(t) = \sum_{l=1}^{t} \frac{1}{\sigma \sqrt{2 \pi l}} \exp \left(\frac{-(t - l \mu)^2}{2 l \sigma^2} \right)
+    \label{eq:gaussian_pccf}.
+\end{equation}
+The sum~\ref{eq:gaussian_pccf} describes renewal-reward process~\cite{cox1962renewal},~\cite{feller1968introduction}.
+Using the renewal theorem~\cite{cox1962renewal}
+%(Chapter 13~\cite{feller1968introduction}
+we can calculate the limit of $\mathcal{P}(t)$ when $t \to \infty$
+%given by expression~\ref{eq:gaussian_pccf_limit}
+\begin{equation}
+L = \lim_{t \to \infty} \sum_{l=1}^{\infty} \frac{1}{\sigma \sqrt{2 \pi l}} \exp\left(-\frac{(t- \mu l)^2}{2 l \sigma^2} \right) = \frac{1}{\mu}.
+\label{eq:gaussian_pccf_limit}
+\end{equation}
+From Equation~\ref{eq:gaussian_pccf_limit} follows that PCCF converges to the constant value uniform distribution for large $t$ values.
+Fig.~\ref{fig:pccf_example} illustrates two PCCF
+functions (Equation~\ref{eq:gaussian_pccf}) with parameters $(\mu=10, \sigma=2)$ and $(\mu=15, \sigma=3)$.
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=0.40\textwidth]{images/blpa_article/pccfExamples.pdf}
+    \caption{
+        An example of two Gaussian PCCF functions.
+        The limits are $\frac{1}{\mu^C}.$
+    }
+    \label{fig:pccf_example}
+\end{figure}
+Prior and posteriors for the PCCF's parameters are estimated and updated using the procedure described in Section~\ref{sec:data_model} describing data model.
+
+\subsection{Uncertainty model (Data model)}
+In this section we describe the data model which we use in BLPA.
+There are two streams of data to be analysed.
+The stream of input observations $\langle x_t \rangle$ and the stream of time intervals between changepoints  $\langle c_i - c_{i-1} \rangle$.
+The first stream is used to detect changes and therefore to produce the second stream.
+The stream of changes maybe updated by the outer sources providing additional information about time location of the changes.
+E.g. there is a process running in parallel with the main detector which can run additional change-detection processes over collected data to identify locations of the changes in the past more precisely.
+The stream of changepoints is used to predict future changepoints in order to adjust detector's settings to achieve a better performance.
+Further, data $D$ is either input data stream of observations $\langle x_t \rangle$ or data stream of time intervals between consecutive changepoints $\langle c_i - c_{i-1} \rangle$.
+In this section we describe a data model for $D$ common both for input signal and sequence of time intervals between changepoints.
+
+Data $D$ is assumed to be generated by a Gaussian distribution with an unknown mean and variance.
+We denote elements of $D$ by $\xcommon \in D$ with mean and variance $(\mucommon, \sigmacommon)$.
+
+\subsection{Prior distributions.}
+Following the notations in~\cite{JordanChapter9}, we use a \emph{normal-gamma} prior for $\mucommon$ and $\sigmacommon$:
+%
+\begin{align}
+    \xcommon &\sim N(\mucommon,\taucommon),~~\taucommon=(1/\sigmacommon)^2\\
+    \mucommon &\sim N(\muzerocommon,\kappazerocommon \taucommon)\\
+    \taucommon &\sim Gamma(\alphazerocommon,\betazerocommon)
+    \label{eq:theta_normal_gamma}
+\end{align}
+%
+where $(\alphazerocommon, \betazerocommon, \muzerocommon,
+\kappazerocommon)$ are hyperparameters.
+%
+The value $\taucommon$ is also named
+\emph{precision}~\footnote{Further we use $\sigma$ and $\tau$
+    parameters interchangeably.}.
+%
+The likelihood of data $D=\langle \xcommon \rangle$ is
+%
+\begin{equation}
+P(D|\mucommon, \taucommon) = \Big(\frac{\taucommon}{2\pi} \Big)^{n/2}  \exp \Big (-\frac{\taucommon}{2}\sum_{i=1}^{n}(\xcommon-\mu)^2 \Big)
+\end{equation}
+%
+The joint conjugate prior for parameters $(\mucommon,\taucommon
+)$ is the defined \emph{normal-gamma} (\textit{NG}) distribution:
+%
+\begin{align}
+    &P(\mucommon,\taucommon | \muzerocommon,\kappazerocommon,\alphazerocommon,\betazerocommon) =  N(\muzerocommon,\kappazerocommon \taucommon) Gamma(\alphazerocommon,\betazerocommon)\\
+    &=\frac{1}{Z}\taucommon^{1/2}\exp\Big(-\frac{\kappazerocommon \taucommon}{2}(\mucommon-\muzerocommon)^2\Big)\taucommon^{\alphazerocommon-1}e^{-\taucommon \betazerocommon}\\
+    &=\frac{1}{Z}\taucommon^{\alphazerocommon-1/2}\exp\Big(-\frac{\taucommon}{2}[\kappazerocommon(\mucommon-\muzerocommon)^2+2\betazerocommon]\Big)
+\end{align}
+%
+where $Z=\frac{\Gamma(\alphazerocommon)}{\betazerocommon^{\alphazerocommon}}\Big(\frac{2\pi}{\kappazerocommon}\Big)^{1/2}$
+is the normalized factor.
+
+\subsection{Posterior distributions}
+%Therefore,
+The posterior can be derived as
+%
+\begin{align}
+    P(\mucommon,\taucommon|D) &\varpropto P(\mucommon,\taucommon|\muzerocommon,\kappazerocommon,\alphazerocommon,\betazerocommon)P(D|\mucommon, \taucommon)\\
+    &\propto N(\mucommon_n, \kappacommon_n \taucommon) Gamma(\alphazerocommon+n/2,\betacommon_n)
+    \label{eq:mu_tau_posterior}
+\end{align}
+%
+which is also a \emph{normal-gamma} distribution:
+%
+\begin{equation}
+P(\mucommon,\taucommon|D)=NG(\mucommon,\taucommon|\mucommon_n,\kappacommon_n,\alphacommon_n,\betacommon_n)
+\label{eq:mu_tau_prior}
+\end{equation}
+%
+with the parameters
+%
+\begin{align}
+    \mucommon_n&= \frac{\kappazerocommon}{\kappazerocommon + n} \muzerocommon + \frac{n}{\kappazerocommon + n} \bar x\\
+    \kappacommon_n&= \kappazerocommon + n\\
+    \alphacommon_n&= \alphazerocommon + n/2 \\
+    \betacommon_n&= \betazerocommon+\frac{1}{2}\sum_{i=1}^{n}(\xcommon-\bar{x})^2+\frac{\kappazerocommon n(\bar{x}-\muzerocommon)^2}{2(\kappazerocommon+n)}
+    \label{eq:update_rule}
+\end{align}
+where $\bar{x}=\frac{1}{n}\sum_{i=1}^{n}\xcommon$ is the mean of sampled data.
+The posterior distribution for $\taucommon$ is obtained by
+integrating Equation~\ref{eq:mu_tau_prior} over $\mu$
+(See~\cite{JordanChapter9}) --
+\begin{multline}
+    p(\taucommon | D, \muzerocommon, \kappazerocommon, \alphacommon, \betacommon) \varpropto\\
+    Gamma(\alphacommon + n/2, \betacommon + \frac{1}{2} \sum_{i=1}^n (\xcommon-\bar{x})^2 +
+    \frac{\kappacommon \kappazerocommon}{2(\kappacommon + \kappazerocommon)} (\bar{x} - \muzerocommon)^2 ))
+    \label{eq:kappa_posterior}
+\end{multline}
+Given the updated parameters
+$\theta=(\alpha_0, \beta_0, \mu_0, \kappa_0)$ using the rules~\ref{eq:update_rule} ,
+the predictive distribution for a new data $x_{\text{new}}$ is
+\begin{multline}
+    p(x_{\text{new}} | \pmb{x}, \mu, \kappa, \alpha, \beta) = \\
+    \int p(x_{\text{new}} | \mu, \tau) p(\tau | \pmb{x}, \mu_0, \kappa_0, \alpha, \beta) d \tau
+    \label{eq:predictive_distribution}
+\end{multline}
+where
+\begin{equation}
+p(x_{\text{new}} | \mu, \tau) = (\frac{\tau}{2 \pi})^{1/2} e^{-\frac{\tau}{2} (x-\mu)^2} d \tau
+\end{equation}
+and $p(\tau | \pmb{x}, \mu_0, \kappa_0, \alpha, \beta)$ is given by~\ref{eq:kappa_posterior}.
+Integral~\ref{eq:predictive_distribution} is a Pearson type VII distribution (Equation~\ref{eq:predictive_distribution2}) which is
+equivalent of the non-standardized Student's t-distribution.
+\begin{equation}
+p(x_{\text{new}})=\frac{1}{\alpha B(m - 1/2,1/2)} \Big (  1 + \Big (\frac{x_{n+1} - \lambda}{\alpha} \Big )^2 \Big )^{-m}
+\label{eq:predictive_distribution2}
+\end{equation}
+where
+\begin{align}
+    m &= \alpha_0 + (n+1)/2\\
+    %
+    \alpha &= A \sqrt{ \sum_{i=1}^{n} x_i^2 + \kappa_0 \mu_0^2 - \frac{( \sum_{i=1}^{n} x_i + \mu_0 \kappa_0 )^2}{n + \kappa_0} + 2 \beta_0 }\\
+    %
+    A &= \sqrt{\frac{n+1+\kappa_0}{n+\kappa_0}}\\
+    %
+    \lambda &= \frac{\sum_{i=1}^n x_i + \mu_0 \kappa_0}{n + \kappa_0}
+    \label{eq:posteriro_parameters}
+\end{align}
+Predictive distribution~\ref{eq:bd_marginal_predictive} in case
+of this data model is given by Equation~\ref{eq:predictive_distribution2}.
+Please see detailed calculations:
+
+\noindent
+\textbf{Marginal predictive distribution} $p(x_{n+1}|x_1,...,x_n)$ can be found as
+\begin{align}
+\label{eq:post1}
+    &p(x_{n+1}|x_1,...,x_n)\\\nonumber
+    &=\frac{ \int_{\tau\in \mathbb{R}^+} \int_{\mu\in \mathbb{R}}p(x_1,....,x_{n+1}|\mu,\tau) p(\mu,\tau)d\mu d\tau}{ \int_{\tau\in \mathbb{R}^+} \int_{\mu\in\mathbb{R}}p(x_1,....,x_{n}|\mu,\tau) p(\mu,\tau)d\mu d\tau}.
+\end{align}
+Assuming the Gaussian distribution 
+\begin{equation}
+    p(x|\mu,\tau)=\frac{\sqrt{\tau}}{\sqrt{2\pi}} e^{-\frac{\tau}2 (x-\mu)^2}
+    \label{eq:gauss_appendix}
+\end{equation}
+the probability $p(x_1,....,x_{n}|\mu,\tau) p(\mu,\tau)$ is
+\begin{align}\label{eq:prob1}
+    \left(\frac{\sqrt{\tau}}{\sqrt{2\pi}}\right)^{n}\times &\exp\left(-\frac{\tau}{2}\sum_{i=1}^{n} (x_i-\mu)^2\right) \tau^{\alpha_0-1/2}\\\nonumber &\times\exp\left(-\frac{\tau}2 \left(\kappa_0(\mu-\mu_0)^2+2\beta_0\right) \right)
+\end{align}
+where an expression in the exponent is 
+\begin{align}
+    &-\frac{\tau(n+\kappa_0)}{2}\sum_{i=1}^{n} \left(\mu-\frac{\sum_{i=1}^{n} x_i+\mu_0 \kappa_0}{n+\kappa_0}\right)^2\\\nonumber &-\frac{\tau}{2} \left(\sum_{i=1}^{n} x_i^2 + \kappa_0\mu_0^2 - \frac{(\sum_{i=1}^{n}x_i +\mu_0 \kappa_0)^2}{n+\kappa_0}+2\beta_0\right),
+\end{align}
+Therefore %from where
+\begin{align}
+    &p(x_1,....,x_{n}|\mu,\tau) p(\mu,\tau)\\\nonumber
+    =& \left(\frac{1}{\sqrt{2\pi}}\right)^{n-1} \frac{\Gamma(\alpha_0+n/2)}{\sqrt{n+\kappa_0}} \left(\frac{\hat{b}_n}2\right)^{-\alpha_0+n/2}\\\nonumber \times &\GammaDistr(\tau|\alpha_0+n/2,\hat{a}_n/2) \mathcal{N}(\mu|\hat{\mu}_n,\hat{\sigma}^2_n)
+\end{align}
+where posterior parameters estimates $\hat{a}_n, \hat{\mu}_n, \hat{\sigma}^2_n$ are
+\begin{align}
+    &\hat{a}_n = \left(\sum_{i=1}^{n} x_i^2 + \kappa_0\mu_0^2 - \frac{(\sum_{i=1}^{n}x_i +\mu_0 \kappa_0)^2}{n+\kappa_0}+2\beta_0\right),\\\nonumber &\hat{\mu}_n = \frac{\sum_{i=1}^{n}x_i+\mu_0 \kappa_0}{n+\kappa_0},\ \hat{\sigma}^2_n = \frac{1}{\tau(n+\kappa_0)}.
+\end{align}
+Therefore the integral in the numerator in Equation~\ref{eq:post1} is
+\begin{align}
+    &\int_{\tau\in \mathbb{R}^+} \int_{\mu\in \mathbb{R}}p(x_1,....,x_{n+1}|\mu,\tau) p(\mu,\tau)d\mu d\tau\\\nonumber
+    =& \left(\frac{1}{\sqrt{2\pi}}\right)^{n-1} \frac{\Gamma(\alpha_0)}{\sqrt{n+\kappa_0}} \left(\frac{\hat{a}_n}2\right)^{-(\alpha_0+n/2)}
+\end{align}
+and integral~\ref{eq:post1} can be expressed as
+\begin{align}
+    &\frac{\sqrt{n+\kappa_0}}{\sqrt{n+1+\kappa_0}\ B(\alpha_0+n/2,1/2)} \frac{\hat{a}_n^{\alpha_0+n/2}}{\hat{a}_{n+1}^{\alpha_0+(n+1)/2}}\\\nonumber
+    =&\frac{\sqrt{n+\kappa_0}}{\sqrt{n+1+\kappa_0}\ B(\alpha_0+n/2,1/2)} \left(\frac{\hat{a}_{n+1}}{\hat{a}_n}\right)^{-(\alpha_0+(n+1)/2)} \hat{a}_n^{-1/2}.
+\end{align}
+Noticing that
+\begin{align}
+    &\frac{\hat{a}_{n+1}}{\hat{a}_n} = 1+ \frac{n+\kappa_0}{\hat{a}_n(n+1+\kappa_0)}\\\nonumber \times &\left(x_{n+1}^2 - \frac{2x_{n+1}\left(\sum_{i=1}^n x_i +\mu_0 \kappa_0\right)}{n+\kappa_0}
+    + \frac{\left(\sum_{i=1}^n x_i +\mu_0 \kappa_0\right)^2}{(n+\kappa_0)^2}\right)
+\end{align}
+\textbf{marginal predictive distribution} is 
+\begin{align}
+    &p(x_{n+1}|x_1,...,x_n)\\\nonumber =& \frac{1}{\hat{b}_n B(\alpha_0+n/2,1/2)} \left(
+1+\frac{(x_{n+1}-\lambda)^2}{\hat{b}_n^2}\right)^{-(\alpha_0+(n+1)/2)},
+\end{align}
+where coefficients are
+\begin{equation}
+    \hat{b}_n = \frac{\sqrt{(n+1+\kappa_0)\hat{a}_n}}{\sqrt{(n+\kappa_0)}},\ \lambda = \frac{\sum_{i=1}^n x_i +\mu_0 \kappa_0}{n+\kappa_0}.
+\end{equation}
+
 
 \section{From Journal}
 
