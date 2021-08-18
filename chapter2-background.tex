@@ -76,6 +76,7 @@ Transition from one concept to another can happen in different forms over time a
 	\caption{Illustration from~\cite{SouzaChallenges2020}: illustration of three types of concept drift with regard to speed of change.}\label{fig:souza_cd_speeds}
 \end{figure}
 
+
 \section{Illustrative examples}
 
 Another example is, for example, ice cream demand prediction.
@@ -442,3 +443,38 @@ We will use this fact later in the experimental part when performing simulations
 \end{figure}
 
 
+\section{Relevant material from Feller textbook}
+
+The basic theory is as follows~\cite{feller2008introduction}.
+In a sequence of Bernoulli trials the waiting time up to the first event gas a geometric distribution.
+After the first event the process starts anew, and the number of trials between $n$ and $n+1$ th events has the same geometric distribution.
+\begin{definition}
+	Let $a_1, a_2, \dots, $ be a sequence of real numbers. If 
+	\begin{equation}
+		A(s) = a_0 + a_1 s + a_2 s^2 + \dots 
+	\end{equation}
+    converges in some interval $-s_0 < s < s_0 $ , then $A(s)$ is called the generating function of the sequence $\{a_j\}$. 
+\end{definition}
+
+From\cite{wasserman2013all}
+\begin{definition}
+	The moment generating function MGF, or Laplace transform, of $X$ is defined by
+	\begin{equation}
+		\psi_X = \mathbb{E}(e^{tX}) = \int e^{tX} dF(x) 
+	\end{equation}
+where $t$ varies over the real numbers.
+\end{definition}
+
+\section{Inter-arrival times modeling}
+
+Basic theory.
+\begin{definition}
+	A function $\mathbb{P}$ that assigns a real number $\mathbb{P}(A)$ to each event $A$ is a probability distribution if \\
+	Axiom 1: $\mathbb{P}(A) \geq 0$ for every $A$\\
+	Axiom 2: $\mathbb{P}(\Omega) = 1$\\
+	Axiom 3: If $A_1, A_2, \dots $ are disjoint then 
+	\begin{equation}
+		\mathbb{P} \Big( \bigcup\limits_{i=1}^{\infty} A_i  \Big) = \sum_{i=1}^{\infty} \mathbb{P}(A_i)
+	\end{equation}
+\end{definition}
+Commonly used probability distributions for modelling inter-arrival times.

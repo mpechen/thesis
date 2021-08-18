@@ -2,10 +2,9 @@
 % Methodology:
 % - How do we answer RQs: simulation, controlled experiments, etc.
 
-\section{Formalization of recurrent change detection}
+\section{?Formalization of recurrent change detection}
 % Formalization of recurrent change detection
 % Nikolai: likely current 2.9 (Recurrency) and some 2.10 (Pccf) goes here
-\input{recurrency_and_pccf}
 
 
 \section{Research questions}
@@ -13,6 +12,18 @@
 % Nikolai: - Questions about integration with detectors
 % Nikolai: - Questions about impact of better detection of recurrent changes on model adaptation / adaptive learning
 % Nikolai: - From the SDM, BLPA and the submitted journal paper please extract /formulate the main research questions they answer and add them here to Section 3.2
+
+
+\begin{enumerate}
+  \item How to formalize recurrency phenomena?
+  \item How to integrate predictive confidence change function (Pccf) into change detectors?
+  \begin{itemize}
+    \item Post- or pre-processing settings? When and what is the safest strategy? And what are the trade offs?
+    \item How to take into account uncertainty in parameters estimation (assumptions)?
+  \end{itemize}
+  \item What is an effect on model adaptation?
+\end{enumerate}
+
 Change point detection in time series data and change point detection as drift detection method (DDM) as a control unit in adaptive ML system~\ref{fig:fig3_gama_survey_cd}.
 Concept drifts are usually assumed to be not predictable.
 We consider the case when they are predictable.
@@ -70,12 +81,19 @@ It can be used for concept drift handling in on-line learning under certain assu
 %Nikolai:  Experimentation with benchmark datasets: (recurrent) change detection performance; effect of (recurrent) change detection on predictive modeling
 %Nikolai:  
 %Nikolai:  Simulation with synthetic data: (recurrent) change detection performance
-%Nikolai:  Please put as much info into Chapter 3 as you can during tomorrow. F
+%Nikolai:  Please put as much info into Chapter 3 as you can during tomorrow. 
+Figure~\ref{fig:methodology}.
+According to~\cite{nunamaker1990systems} developed system is a proof-of-concept for the research life cycle and provides an artifacts that become a subject for expanded and continuing research.
+In our case Pccf construction is part of "Theory Building" and integration of Pccf with existing detectors is "Experimentation" block.
+A pivotal in our work role plays computer simulations investigate detectors behavior (e.g. ARL) and effects of integration of Pccf with detectors.
+Analytical - Pccf construction.
+Computer simulation and experimentation - integration of Pccf with detectors.
 
 \begin{figure}[htb!]
 \centering
 \includestandalone[width=0.90\textwidth]{images/tikz/methodology}
-  \caption{e~\cite{nunamaker1990systems}}\label{fig:methodology}
+  \caption{Adaptation of the diagram from~\cite{nunamaker1990systems}. Field and case studies are part of the future work.}
+  ~\label{fig:methodology}
 \end{figure}
 
 \begin{itemize}
