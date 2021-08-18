@@ -1,8 +1,8 @@
-%\documentclass{standalone}
-%\usepackage{graphicx}
-%\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
-%\usepackage{tikz,ulem}
-%\begin{document}
+\documentclass{standalone}
+\usepackage{graphicx}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{tikz,ulem}
+\begin{document}
 
 \begin{tikzpicture}[scale = 1]
 
@@ -13,8 +13,8 @@
   \draw [black, line width=0.4mm] (-3.46, -2.00) circle [radius=1.5];
   \draw [->, line width=0.4mm] (1.23, -0.86) -- (2.10, -1.37);
   \draw [->, line width=0.4mm] (2.24, -1.14) -- (1.36, -0.63);
-  \draw [->, line width=0.4mm] (-1.23, -0.86) -- (-2.10, -1.37);
-  \draw [->, line width=0.4mm] (-2.24, -1.14) -- (-1.36, -0.63);
+  \draw [->, dashed, line width=0.4mm] (-1.23, -0.86) -- (-2.10, -1.37);
+  \draw [->, dashed,line width=0.4mm] (-2.24, -1.14) -- (-1.36, -0.63);
   \draw [->, line width=0.4mm] (0.13, 1.49) -- (0.13, 2.51);
   \draw [->, line width=0.4mm] (-0.13, 2.51) -- (-0.13, 1.49);
   \draw[->, line width=0.4mm] (-1.47,3.72) arc [radius=4.00, start angle = 111.61, end angle = 188.39];
@@ -26,7 +26,8 @@
 
 % END: Rust generated
   \node[text width=2cm, align=center] at (0, 0.8) {System \uline{Development}};
-  \node[text width=3.5cm, scale=0.8] at (0.15, -0.3) {Recurrent change detection and its effect on predictive model adaptation};
+  \node[text width=3.5cm, scale=0.80, align=center] at (0.05, 0.15) {Artifact construction;};
+  \node[text width=3.5cm, scale=0.8, align=center] at (0.10, -0.3) {Implementation};
 
   \node[text width=2cm, align=center]  at (0,4.5) {Theory \uline{Building}};
   \node[text width=5cm,align=center, scale=0.8] at (0, 3.9) {Math. models (Pccf)};
@@ -34,12 +35,12 @@
 
   \node[text width=2cm, align=center]  at (-3.55, -1.5) {\uline{Observation}};
   \node[align=center,scale=0.8]  at (-3.55, -1.9) {Case studies};
-  \node[align=center,scale=0.8]  at (-3.55, -2.2) {Field studies};
+  \node[align=center,scale=0.8]  at (-3.55, -2.3) {Field studies};
 
   \node[text width=2cm, align=center]  at (3.2, -1.5) {\uline{Experimentation}};
   \node[align=center,scale=0.8]  at (3.4, -1.9) {Benchmark datasets};
-  \node[align=center,scale=0.8]  at (3.4, -2.2) {Computer simulations};
+  \node[align=center,scale=0.8]  at (3.4, -2.3) {Computer simulations};
 
 \end{tikzpicture}
 
-%\end{document}
+\end{document}
