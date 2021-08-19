@@ -680,7 +680,7 @@ summary!}
     \vspace{1cm}%
     {\large\diss@type}\par%
     \vfill%
-    \ifdiss@fi JYV\"ASKYL\"AN YLIOPISTO\else UNIVERSITY OF JYV\"ASKYL\"A\fi\ \the\year%
+    \ifdiss@fi JYV\"ASKYL\"AN YLIOPISTO\else EINDHOVEN UNIVERSITY OF TECHNOLOGY\\ AND\\ UNIVERSITY OF JYV\"ASKYL\"A\\ \fi\ \the\year%
   \end{titlepage}%
   \ifdefined\diss@epigraph%
   \thispagestyle{empty}\cleardoublepage%
