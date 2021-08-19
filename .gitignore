@@ -4,7 +4,6 @@ debug/
 target/
 tikz*.pdf
 empty.txt
-script-bck.sh
 script-compile-refs.py
 *.loar
 docs/
