@@ -447,3 +447,304 @@ Results are depicted in Fig.~\ref{fig:results2}.
 FP rate is decreased when BD detector is used with the PCCF function.
 
 \section{From Journal: Integration with CuSum}
+
+\subsection{Cumulative Sum (CuSum) detector}~\label{subsec:cusum_detector}
+In this section, we describe the CuSum~\cite{Page1954} detector and its output statistic properties important for measuring performance metrics in static and dynamic settings.
+Changes in the stream of measurements reflect dynamics of observed phenomenon happening in time.
+Therefore, strictly speaking, any change is a gradual process.
+In this paper, for simplicity, we refer to change points and to detections as individual time moments as if change would have happen instantly. If change is gradual and spans time interval then it can be reduced to a single time moment by considering the start or end of the change event~\footnote{Gradual change may become represented as an abrupt change in the time series also due to the sampling rate of measurements}. 
+Change points in the signal are characterized by the time moment when they happened and by the corresponding mean shift value in the signal.
+\begin{definition}
+  Change point is a time moment $t^c$ when statistical properties of the data stream change significantly accordingly to a predefined criteria.
+\end{definition}
+\begin{definition}
+  Detection is a time moment $t^d$ when a detector alarms a change.
+\end{definition}
+For example, if $x_i \sim \mathbb{N}(\mu_1, \sigma)$ for $i < k$ and $x_i \sim \mathbb{N}(\mu_2, \sigma)$ for $i \geq k$,
+then we say that a change point occurred at time moment $t_k$, i.e. $t^{\text{c}}_{k} \equiv t_k$.
+In general, detection can usually be alarmed before or after a change point.
+If $t^{\text{d}}_k > t^{\text{c}}_k$, then change is detected with the delay $t^{\text{d}}_k - t^{\text{c}}_k$.
+If $t^{\text{d}}_k < t^{\text{c}}_k$ then detection $t^{\text{d}}_k$ is a false alarm (FA).
+
+As an input, CuSum detector receives time series of observations~\ref{eq:input_ts} usually taken at constant sampling rate.
+\begin{equation}\label{eq:input_ts}
+	(x_i)_{i=1}^{N} \equiv (x_1, x_2, \dots, x_N)
+\end{equation}
+taken at corresponding time moments $(t_i)_{i=1}^N$.
+Observations and time moments are enumerated by index $i$ mapping $t_i$ to observations $x_i$ and vice versa.
+CuSum works through a sequential calculation of the output statistic as follows
+% Cusum rule: https://www.itl.nist.gov/div898/handbook/pmc/section3/pmc323.htm
+\begin{align}
+	S_0 &= 0 \nonumber \\
+	S_{n} &= \max (0, S_{n-1} + x_n - \mu_0 - k )\label{eq:cusum_scheme}.
+\end{align}
+Detections are alarmed at time moments when $S_{t+1} > h$, i.e. when output statistic exceeds a threshold value $h$.
+In \eqref{eq:cusum_scheme}, $\mu_0$ is the estimate of the in-control state signals' mean value.
+The parameter $k$ is called allowance value and it depends on the level of mean shift $\delta=\mu_2-\mu_1$ that we aim to detect.
+Notations used throughout the article are summarized in Table~\ref{tab:notations}. Table~\ref{tab:interchangeable} summarises terms which we use interchangeably.
+\begin{table}[!htb]
+	\begin{tabular}{|l|l|}
+		\hline\noalign{\smallskip}
+		Index to enumerate observations and time moments & $i$ \\
+		Index to enumerate changes and detections & $k$ \\
+		Input signal & $(x_i)_{i=1}^{N} $ \\
+		Time moments & $(t_i)_{i=1}^{N}$ \\
+    Change points & $t_{k}^{\text{c}}$ \\
+		Detections & $t_{k}^{\text{d}}$ so that  $t_{k}^{\text{c}} \in (t_i)_{i=1}^{N}$ and  $t_{k}^{\text{d}} \in (t_i)_{i=1}^{N}$   \\
+		Detection delay & $t_k^{\text{d}} - t_k^{\text{c}}$ \\
+		Signal mean values before and after change& $\mu_1$, $\mu_2$ \\
+		Mean shift & $\delta=\mu_2 - \mu_1$   \\
+		Threshold for Cusum output statistic & $h$  \\
+		Average run length given $\delta$ & $ARL_{\delta}$ \\
+		Average run length given $h$ & $ARL_{h}$ \\
+		Width of the prediction interval (ROI) & $\text{ROI}_{\text{Width}}$  \\
+    Binary performance metrics (Number of corresponding events) & TP, FA, FN \\
+		\noalign{\smallskip}\hline
+	\end{tabular}
+	\caption{Notations summary}~\label{tab:notations}
+\end{table}
+\begin{table}[!htb]
+	\begin{tabular}{| l | l |}
+		\hline\noalign{\smallskip}
+    Prediction intervals & ROI (Region Of Interest) \\
+    Dynamic/Static settings detector & Detector using / not using prediction intervals \\
+    Detection threshold $h$  & Detector's sensitivity $h^-1$ \\
+		\noalign{\smallskip}\hline
+	\end{tabular}
+	\caption{Abbreviations and interchangeable terms}~\label{tab:interchangeable}
+\end{table}
+
+\subsection{ARL}
+The key performance metric of the CuSum detector is the Average Run Length (ARL), which refers to the expected number of observations before an action is taken, i.e., before the detection is alarmed~\cite{Page1954}.
+ARL refers to the FA rate before the change and to the detection delay after the change point.
+When the process is in-control, the $ARL_{\delta}$ refers to a FA rate, whereas when the change has happened it refers to the detection delay.
+However, ARL is hard to estimate analytically.
+As reported in~\cite{plasse2021streaming}, one of the simplest ARL approximations is given in~\cite{siegmund2013sequential} in a form of the following equation 
+\begin{equation}\label{eq:arl_approximation}
+	\text{ARL}_{\delta} = \frac{\exp(-2(\delta-k)h') + 2(\delta - k)h' -1}{2 (\delta - k)^2}
+\end{equation}
+for $h' = h+1.166$.
+Figure~\ref{fig:arl} depicts ARL behavior against $\delta$ (left plot) and versus threshold $h$ (right plot).
+It is easy to see how ARL refers to both the FA rate and to the detection delay at the same time.
+More precisely, smaller values of $\delta$ correspond to fluctuations in the signal and to the larger ARL values, whereas
+larger values of $\delta$ indicate change points to be detected.
+Not surprisingly, ARL decreases fast when $\delta$ is increased.
+It also can be seen that by changeing $\delta$ we increase or decrease ARL value.
+We will use this fact later in the experimental part when performing simulations to measure the detection delay by varying ARL values (by changing $\mu_2-\mu_1 \equiv \delta$) for static and dynamic detectors.
+%
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.9\textwidth]{articles/pics/journal_paper/arl.eps}
+	\caption{
+    The left plot depicts ARL as a function of $\delta = \mu_2-\mu_1$ for two fixed threshold values $h$. The right plot depicts ARL as a function of the threshold value $h$ for two fixed $\delta$ values (Equation~\ref{eq:arl_approximation}).
+    Both plots demonstrate that smaller ARL values (and therefore detection delays) correspond to smaller $h$ values. It is obvious for the right plot, on the left plot this fact is depicted by the dashed line for $h=2$ being lower than the solid line for $h=4$.
+    %
+    Smaller $\delta$ corresponds to the fluctuations in the time series causing false alarms, larger $\delta$ correspond to changes in the level shift which are subject for detection.
+    When threshold $h$ is adjusted to smaller values ARL for all $\delta$ values gets smaller (left plot), therefore detection delay is decreased but probability of FA is increased.
+}\label{fig:arl}
+\end{figure}
+
+\subsection{Random walk property of CuSum output statistic}
+In order to investigate how detection delay and false alarm rate depend on the detection threshold $h$ in static and dynamic settings, it is important to describe CuSum's statistical properties before and after a change point.
+Assuming that the input signal before the change follows
+$x_i \sim \mathbb{N}(\mu_0, \sigma)$
+and after the change
+$x_i \sim \mathbb{N}(\mu_0 + \delta, \sigma)$, the
+CuSum's output statistic can be calculated as
+$s_i = x_i - \mu_0$ if $i == 0$,
+and as
+$s_i = s_{i-1} + x_i - \mu_0$ if $i > 0$.
+%
+If $x_i \sim \mathbb{N}(\mu_0, \sigma)$ then
+$x_i - \mu_0 \sim \mathbb{N}(\mu=0, \sigma)$
+before the change, and, therefore, the CuSum's statistic
+$s_i =s_{i-1} + x_i - \mu_0$ is a Gaussian random walk
+$s_i = \sum_{i=0}^{k} (x_i \sim \mathbb{N}(\mu=0, \sigma))$.
+Furthermore, after the change,
+$x_i - \mu_0 \sim \mathbb{N}(\delta, \sigma)$
+and, therefore, $s_i$ is a random walk with the drift.
+%
+So, before the change CuSum's output statistic behaves as a Gaussian random walk (RW) stochastic process and after the change as a random walk with the drift (see example on Figure~\ref{fig:possible_outcomes}).
+Variance of the RW increases over time as a function of $\sigma \sqrt{t}$ with expected value staying around $0$.
+Expected value of the RW with drift increases according to the linear trend $\sim t \mu$.
+That is why ARL increases as it is depicted on the right plot of Figure~\ref{fig:arl} with increasing threshold value $h$ according to the Equation~\ref{eq:arl_approximation}.
+It also becomes clear that false alarm events are caused not only by input signal properties but also by the stochastic nature of the CuSum's output statistic.
+Even if there is no change point in the signal, there is still a non-zero probability of FA event.
+This is depicted on the left plot in Figure~\ref{fig:arl} by large values of ARL corresponding to small values of $\delta$.
+
+Let us comment Figure~\ref{fig:possible_outcomes} depicting Cusum's output statistic before and after a change point.
+Figure depicts two detections, change point location in the middle, threshold value (horizontal line), and prediction intervals (ROI).
+Depicted threshold value is not optimal on a global scale for the whole signal, but it is optimal locally in case if we use a prediction interval.
+In this case the first detection, which is a false alarm, is skipped, while second detection is a correct detection with a smaller detection delay in comparison to the case where we would use larger $h$ on the global scale in order to skip false alarms.
+This example demonstrates that despite the fact that by making threshold value smaller we decrease ARL values both for detection delay and for false alarms, according to the Figure~\ref{fig:arl} and Equation~\ref{eq:arl_approximation}, it is still possible to improve the performance both for detection delay and FA rate.
+Smaller ARL imply higher probability of false alarms but number of false alarms can be lower in dynamic settings, because we consider subsets of the input signal which are within prediction intervals.
+Plots in column B on Figure~\ref{fig:possible_outcomes} illustrates the opposite case when the performance is decreased when using the prediction interval (ROI).
+Run length for detection after a change point happens to be longer than the ROI width. Other outcomes are possible which are discussed in detail in the Section~\ref{sec:performance} about performance metrics.
+
+An important factor to note is that if we wouldn't have strict constraints on the detection delay to be that small as depicted on Figure~\ref{fig:possible_outcomes}, then the optimal strategy would be to just increase threshold value and it would result in zero FA rate and in a longer detection delay.
+So, we consider optimality of change detection in the presence of prediction intervals when having constraints on the detection delay values.
+\begin{figure}[!htb]
+	\begin{minipage}[t]{1.0\textwidth}
+    \centering
+    \includegraphics[width=0.44\textwidth, trim={1.5cm 1.0cm 0.3cm 1.0cm}]{articles/pics/journal_paper/proof_of_concept2.eps}
+    \includegraphics[width=0.44\textwidth, trim={1.5cm 1.0cm 0.3cm 1.0cm}]{articles/pics/journal_paper/proof_of_concept2_fn_case.eps}
+    \\
+		\includestandalone[width=0.35\textwidth]{articles/pics/journal_paper/tikz/perf_metrics_case1}
+    \hspace{10mm}
+		\includestandalone[width=0.35\textwidth]{articles/pics/journal_paper/tikz/perf_metrics_case2}
+		\caption{
+    Left side plots depict how performance can be improved with prediction interval (ROI). 
+    Detection 1 is false alarm and it is ignored since it is outside ROI. 
+    Detection 2 is alarmed after the change point with a small delay. 
+    Without ROI we would have to increase threshold in order to avoid FA, but in this case detection delay would increase.
+    Right side plots depict the case when performance is decreased when using prediction. Prediction interval is correct but the width of the interval isn't enough to detect change within it what leads to FN event. 
+    Plots at the bottom depict how performance metrics are calculated.
+    In both cases FA event causes FN event.
+    If detection happens after the change but outside ROI (right side) then it is counted as FA.
+    }~\label{fig:possible_outcomes}
+	\end{minipage}
+\end{figure}
+
+
+\subsection{Performance metrics}~\label{sec:performance}
+As mentioned in Section~\ref{sec:cusum_detector}, the commonly used change detection performance metric with Cusum is the ARL value, which refers to the FA rate before change point and to the detection delay after the change.
+In case of multiple change points, the ARL metric is not sufficient as it doesn't reflect how many changes were detected and missed.
+As in~\cite{bodenham2017continuous} and in~\cite{plasse2021streaming}, in addition to the detection delay, we use binary classification metrics to assess performance of the change detection process.
+We define those metrics in terms of mappings between change and detection events as follows.
+\begin{definition}
+	We define TP, FA, FN and TN events in terms of mappings between change points and detections.
+	To every TP corresponds one change point.
+	FA is the detection to which there is no any corresponding change point.
+	FN is change point to which there is no corresponding detection.
+	More formally
+	\begin{itemize}
+    \item \textit{TP is a first detection (DE) after change point.} E.g., if $\text{changes}=[100], \text{DEs}=[50, 110, 121]$ then TP is $\text{d} =110$.
+
+    \item \textit{Detection delay is a time interval between TP and corresponding change point} $t_{\text{d}} - t_{\text{c}} \geq 0$. If detection doesn't happen $\text{NaN}$ value is assigned to the delay.
+
+    \item \textit{FA is a detection before change point or detection after another detection which was TP but before next change point.} E.g., if $\text{changes}=[100], \text{DEs}=[50, 110, 121]$ then FA are $\text{DEs} = [50, 121]$.
+
+    \item \textit{FN is an event when there is no detection corresponding to the change point.} E.g., if $\text{changes}=[100, 150], \text{DEs}=[50, 110, 121]$ then FN is $[150]$. FN can be caused by events 1) Cusum output statistic didn't exceed threshold $h$ 2) in the dynamic case - if DE was alarmed after change point but not within prediction interval. E.g., if $\text{changes}=[100], \text{DEs}=[50, 121]$, prediction interval is $\text{ROI}=[(90, 110)]$ then FN is change point $[100]$.
+
+    \item \textit{TN is every event when detection is not alarmed correctly}, i.e. - if alarmed it would cause FA.
+
+\end{itemize}
+\end{definition}
+Figure~\ref{fig:possible_outcomes} illustrates given definitions for static and dynamic settings. As in~\cite{plasse2021streaming} we use $F_1=\frac{TP}{TP+\frac{1}{2}(FA+FN)}$ score metric combining precision and recall to measure detection performance along with the detection delay value.
+There is a similarity to binary classification but analogy is not full because any change in real signal takes time.
+And therefore all time moments and observations within change time interval should be labelled as change.
+During change detection using CuSum no labels to observations or time moments are assigned.
+CuSum alarms detection when its output statistic exceeds threshold.
+
+
+\subsection{Experiments}\label{sec:experiments}
+We perform two experiments to show how CuSum detection performance can be improved with prediction intervals. 
+
+\subsubsection{Implementation}\label{sec:implementation}
+Before the experimental results, we describe how the combination of Pccf in Section~\ref{sec:pccf} and the CuSum detector in Equations~\ref{eq:cusum_scheme} is translated to a change point detection framework.
+The implementation is depicted in Algorithm~\ref{alg:method_code}.
+The core logical part is a code snippet:
+\begin{algorithm}[!h]
+	\begin{algorithmic}
+    \If{(not PCCF) or (PCCF and WithinRoi()) }
+        \If{$|stat[t]| > h$}
+            \State detections.append(t)
+            \State ResetDetector()
+        \EndIf
+    \EndIf
+	\end{algorithmic}
+\end{algorithm}
+
+\noindent
+which states that the CuSum stopping rule is checked continuously if no prediction intervals (ROIs) are provided or checked only within ROI intervals if they are available. If so, the detection is collected to the array  and detector's settings are re-initialized. In case of a sequential change detection a new in-control mean value of the input signal is estimated using function $UpdateMu$ after each detection. An important property of the implementation is that  when detection happens before change point or does not happen at all then detection delay has NaN value (lines 17-18, Algorithm~\ref{alg:method_code}). And delay mean value is calculated after removing NaN values.
+
+
+\subsubsection{Artificial signal simulation}
+In the first experiment we perform a simulation to measure average values of the detection delay and $F_1$ score of the CuSum detector in the presence of prediction interval and without it. We will measure performance while variating detection threshold $h$ and level shift in the mean value $\delta=\mu_2-\mu_1$, controlling signal-to-noise ratio. These two parameters are controlling ARL value (Figure~\ref{fig:arl}, Equation~\ref{eq:arl_approximation}).
+We expect to see performance gain in dynamic case for small $h$ values when corresponding ARL is smaller or equal to the $\text{ROI}_{\text{Width}}$. For larger $h$ values detection will happen outside ROI (Figure~\ref{fig:possible_outcomes}) and static detector should perform better. 
+
+Input signal was generated $1000$ times by drawing samples from Gaussian distribution with parameters $\mu_1=0, \sigma=1$ before change at time moment $t^c = 100$ and $\mu_2 \in [1.1, 2.1, 3.1], \sigma=1$ after change.
+Prediction interval of width $\text{ROI}_{\text{Width}}=50$ is located in the middle of the signal symmetrically to the changepoint.
+Performance metrics are measured while changing detection threshold value $h$ and signal level shift $\delta$.
+Level shift $\delta$ is being increased in order to decrease corresponding ARL (Figure~\ref{fig:arl}, Equation~\ref{eq:arl_approximation}) and its ratio to the $\text{ROI}_{\text{Width}}$.
+When ARL becomes larger we expect to see less performance gain when using dynamic settings since static detector will be able to detect change with similar delay.
+
+Figure~\ref{fig:artificial_signal_perf_results} depicts the results.
+Plots on the left side show averaged detection delays.
+Plots on the right side show averaged $F_1$ score values.
+Three rows of plots from top to down depict cases for different $\delta$ values.
+Both in case of dynamic and static detector settings, when $h$ is small the detection delay is also small but there are a lot of false alarms. 
+When threshold increases $F_1$ score increases because of fewer FA and the detection delay gets bigger. 
+
+Detection delay with prediction interval is lower or the same as in case without prediction interval for all $h$.
+Dashed curve depicting dynamic detector delays is shorter that solid curve corresponding to the static detector because because dynamic detection delay can't exceed half of the $\text{ROI}_{\text{Width}}$ (since ROI is symmetrical to change point location). 
+In case of FA event detection delay is assigned to $\text{NaN}$ value. 
+While calculating average value $\text{NaN}$ values are ignored. 
+Therefore detection delay plot depicts only successful detections cases. 
+The cases when delay is $\text{NaN}$ are captured by FA and FN factors in $F_1$ score value.
+
+Dynamic CuSum $F_1$ score outperforms static CuSum (Figure ~\ref{fig:artificial_signal_perf_results}) for smaller $h$ values when false alarms outside ROI are skipped and change is detected within ROI. 
+This situation is depicted on the left side of Figure~\ref{fig:possible_outcomes}.
+When $h$ increases CuSum ARL exceeds $\text{ROI}_{\text{Width}}$ and detection doesn't happen within ROI.
+This is depicted on the right side of Figure~\ref{fig:possible_outcomes}. 
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.90\textwidth]{articles/pics/journal_paper/performance_detection_sim}
+	\caption{Average detection delays (left side) and average $F_1$ score (right side) when variating threshold value $h$ (x-axis).
+	Top, middle and bottom rows of plots are for different $\delta = \mu_2 - \mu_1$ values.
+	Solid and dashed lines depict static and dynamic cases.
+    Average delay is calculated after ignoring NaN values caused by FA.
+    NaN delay values and corresponding FA events are counted by $F_1$.
+    For small $h$ values corresponding to smaller ARL values comparable to the prediction interval width, dynamic CuSum performance is better.
+    When $h$ gets larger static detector $F_1$ score starts exceeding dynamic detector curve.
+    Detection delay plots depict only cases when FA event didn't happen, therefore it should be analyzed along with $F_1$ metric.
+    Dynamic CuSum has better performance with the given ROI for $h$ values when $F_1$ dashed curve (dynamic case) is above solid curve (static case).
+	}
+	\label{fig:artificial_signal_perf_results}
+\end{figure}
+
+
+\subsubsection{Temperature data}
+In the second experiment, we predict and detect multiple change points in the time series of temperature measurements collected from the sensor installed in the home office environment.
+We measure the same performance metrics, except ARL, as in the first experiment when trying to predict all changes using Pccf and when predicting only several most earliest change points.
+In the second experiment, we confirm results obtained in the first experiment using the real signal and, in addition, we investigate sensitivity of the results with regard to the prediction accuracy when calculating prediction intervals using Pccf.
+An important difference also is that in this experiment we do not average detection delay values and therefore we also compare detection delays in static and dynamic cases directly without possibility to disregard $NaN$ values due to averaging.
+Measurements took place in the city of Jyv\"{a}skyl\"{a} (Finland) from 06 Mar 2021 (19:11m) until 21 Mar 2021 what is a cold period in Finland.
+Subject for the change detection is the beginning of every working day when heater was turned on in the morning and what caused abrupt changes in the ambient temperature.
+Figure~\ref{fig:dht22} illustrates the measuring device.
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=0.4\textwidth]{articles/pics/journal_paper/DHT22.png}
+	\caption{
+		Arduino Uno board with attached DHT22 temperature and humidity sensor.
+		When it was not cloudy the sun light shined directly on the sensor through the window in the noon causing temperature peaks.
+	}
+	\label{fig:dht22}
+\end{figure}
+Temperature measurements were taken 1 time per 60 seconds using DHT22 temperature and humidity sensor connected to the Arduino board.
+Figure~\ref{fig:temperature_signal} illustrates temperature signal.
+Figure~\ref{fig:performance_temperature_signal} illustrates results.
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.9\textwidth]{articles/pics/journal_paper/temperature_signal}
+	\caption{
+    Temperature signal and Pccf.
+    Changes are depicted by vertical solid lines on both plots.
+    Prediction intervals are enumerated and marked by grey vertical regions on the bottom plot. First 7 changes are predicted with a good accuracy, further change points are not within prediction intervals.
+  }
+	\label{fig:temperature_signal}
+\end{figure}
+\begin{figure}[!htb]
+		\centering
+  \begin{tikzpicture}[scale=0.9]
+		\draw(0, 0) node{\includegraphics[width=0.8\textwidth]{articles/pics/journal_paper/performance_temperature_seven}};
+		\draw(0, -4.8) node{\includegraphics[width=0.8\textwidth]{articles/pics/journal_paper/performance_temperature}};
+		\draw(3, 2.0) node {When predicting 7 changes};
+		\draw(3, -2.7) node {When predicting all changes};
+	\end{tikzpicture}
+  \caption{Detection delay (left side) and $F_1$ score (right side) for the temperature signal when predicting first 7 change points (top) and when trying to predict all changes (bottom). 
+  When predicting all changes $F_1$ decreases since Pccf predictions accuracy degrades with the number of change points we are trying to predict. 
+  }
+	\label{fig:performance_temperature_signal}
+\end{figure}
+
