@@ -1,5 +1,11 @@
 \chapter{Introduction}
 
+Change point detection is an important practical problem across many domains and applications.
+And it is tightly connected to the Concept drift (CD) problem in machine learning area.
+Change point detection is mainly for time series data (one- or multi-dimensional).
+While CD is more general problem to detect changes in high-dimensional data streams feeded into ML predictive models.
+
+
 % 1. Motivation
 
 In batch, or, offline training settings, models are trained using a fixed training data set and then used to make predictions on incoming data. 
@@ -9,24 +15,21 @@ In order to detect concept drifts, change detectors are used to monitor changes 
 Once change is alarmed the model can be re-trained using the most relevant data between last change and current time moment.
 In this scenario model will be trained using only most recent relevant data batch and will have a better performance than sliding window or growing window updated model.
 We propose to use recurrency information to skip false alarms and possibly detect changes with smaller delays.
-%Questions.
-%If there is outlier and we make a prediction, then what is the correct prediction?
-%If there is outlier and change is alarmed then it is considered as a change and situation is the same as depicted on Figure..
-%If we change is not alarmed by having outlier, ...
 
 % 2. Research goals
+Our research goal is to develop a mathematical model and its software implementation for improving change detection performance in case if CD or change event is predictable with the aim to i) reduce FA rate and ii) decrease the detection delay. 
 
 % 3. Thesis outline
 
 In Chapter 2 (Background) we review relevant information regarding Concept drift phenomenon, concept drift adaptation techniques, change detection problem, recurrency.
-% sections
-There are various types of change detectors. 
-Section X describes concept drift phenomenon.
-Sections X,Y,Z describe Adwin, Cusum, Bayesian, etc.detectors.
-Section X describes recurrency property.
-Section X describes Pccf and its applications.
-Section XXX describes how recurrency helps to reduce FA rate and decrease detection delay for CFB signal.
 
 In Chapter 3 we discuss research questions and methodology.
+In the Chapter 3 we formulate research questions and methodological approach for conducted research. 
 
-In Chapters X,Y,Z, we describe results obtained in published papers relevant for concept drift.
+In Chapter 4 we describe the developed mathematical model and implementation for Predictive Confidence Change Function (Pccf).
+
+Chapter 5 describes how Pccf can be integrated with various change detectors (Cusum, Bayesian, Naive). 
+
+Chapter 6 highlights Pccf application for predictive model adaptation for concept drift. 
+
+Chapter 7 describes conclusions and future work.

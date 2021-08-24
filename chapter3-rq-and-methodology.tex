@@ -2,9 +2,19 @@
 % Methodology:
 % - How do we answer RQs: simulation, controlled experiments, etc.
 
-\section{?Formalization of recurrent change detection}
-% Formalization of recurrent change detection
-% Nikolai: likely current 2.9 (Recurrency) and some 2.10 (Pccf) goes here
+\section{Formalization of recurrent change detection}
+Recurrent events reoccur over time with a pattern.
+Pattern means the known or estimated distribution of waiting, or, inter-arrival time between successive events.
+For example in the Bernoulli trials the waiting time between events has a geometric distribution.
+The waiting time up to $k$-th event is a sum of $k$ independent variables.
+
+With regard to change point detection and CD anticipation and adaptation it means that we perform an action if we expect change or CD event soon.
+
+The main RQ is not to predict occurence, but to adapt detector or CD handling mechanism.
+If sensitivity of the detector is increased than according to ARL properties, FA probability increases.
+In case of model adaptation FA might
+How do we adapt detector 
+
 
 
 \section{Research questions}
@@ -12,7 +22,6 @@
 % Nikolai: - Questions about integration with detectors
 % Nikolai: - Questions about impact of better detection of recurrent changes on model adaptation / adaptive learning
 % Nikolai: - From the SDM, BLPA and the submitted journal paper please extract /formulate the main research questions they answer and add them here to Section 3.2
-
 
 \begin{enumerate}
   \item How to formalize recurrency phenomena?
@@ -23,6 +32,8 @@
   \end{itemize}
   \item What is an effect on model adaptation?
 \end{enumerate}
+
+How FA affect performance?
 
 Change point detection in time series data and change point detection as drift detection method (DDM) as a control unit in adaptive ML system~\ref{fig:fig3_gama_survey_cd}.
 Concept drifts are usually assumed to be not predictable.
@@ -82,17 +93,20 @@ It can be used for concept drift handling in on-line learning under certain assu
 %Nikolai:  
 %Nikolai:  Simulation with synthetic data: (recurrent) change detection performance
 %Nikolai:  Please put as much info into Chapter 3 as you can during tomorrow. 
-Figure~\ref{fig:methodology}.
+
+Figure~\ref{fig:methodology} depicts life cycle: Mathematical model; Computer simulation; Experimentation with real data sets; Field study / Deployment.
 According to~\cite{nunamaker1990systems} developed system is a proof-of-concept for the research life cycle and provides an artifacts that become a subject for expanded and continuing research.
 In our case Pccf construction is part of "Theory Building" and integration of Pccf with existing detectors is "Experimentation" block.
 A pivotal in our work role plays computer simulations investigate detectors behavior (e.g. ARL) and effects of integration of Pccf with detectors.
 Analytical - Pccf construction.
 Computer simulation and experimentation - integration of Pccf with detectors.
+Computer simulation is very important in this work as even, e.g. ARL estimation is quite challenging task (cite).
+And often the easiest approach to answer the question , e.g. what would the expected detection delay given statistical properties of the input data, is to run a computer simulation. 
 
 \begin{figure}[htb!]
 \centering
-\includestandalone[width=0.90\textwidth]{images/tikz/methodology}
-  \caption{Adaptation of the diagram from~\cite{nunamaker1990systems}. Field and case studies are part of the future work.}
+\includestandalone[width=0.99\textwidth]{images/tikz/methodology}
+  \caption{Adaptation of the diagram from~\cite{nunamaker1990systems}. Field and case studies, and deployment are parts of the future work. The first step in the }
   ~\label{fig:methodology}
 \end{figure}
 
