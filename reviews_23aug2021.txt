@@ -1,0 +1,163 @@
+Decision on your Manuscript #MACH-D-21-00366 - [EMID:2eb808bf5057e2a6] 
+
+Sergio Escalera <em@editorialmanager.com>
+
+Dear Mr. Maslov,
+
+The reports from the reviewers of your manuscript, "Improving CUSUM performance in presence of prediction intervals", which you submitted to Machine Learning, have now been received.
+
+With regret, I must inform you that your manuscript cannot be accepted for publication in Machine Learning.
+
+Attached, please find the reviewers' comments. 
+
+Thank you for considering Machine Learning and I wish you every success in finding an alternative place of publication.
+
+Sincerely,
+
+     Sergio Escalera, Jose A. Gamez, Annalisa Appice, Heike Trautmann
+     2021 ECML-PKDD Journal Track
+     Machine Learning
+
+
+Comments for the Author:
+
+Reviewer #2: The authors proposed an approach for improving change detection performance of the CuSum algorithm by identification of a prediction interval for case where changes (concept drifts) are predictable. They claim that the change detection can be improved in comparison to the static settings of Cusum if the average run length corresponding to the dynamic threshold value is smaller than the width of prediction interval. Opposite to the other research efforts that are based on online change detection mechanisms for handling concept drift they claim that there are various application settings in which concept drifts are expected to reoccur with a pattern and try to show that by experiments on artificially generated data.
+
+They identified three main contributions of their work:
+Experimental demonstration that the prediction intervals capturing change points locations can decrease the detection delay by lowering detection threshold without increasing false alarm rate.
+They explain theoretically the decrease of the detection delay without increasing the FA rate.
+Concise description of the Pccf algorithm.
+
+The paper is interesting and well written. The authors give a good overview of the related work. They clearly presented the novelty and the past research efforts and the application of pccf algorithm for improving the performance of the Cusum approach. They clearly stated that the applicability of this approach is limited and it is based on the assumption that the concept drifts are expected to reoccur with some pattern (otherwise the applicability of the proposed approach is not feasible). They presented the advantages of the proposed approach on an artificially generated dataset. But, I expect this to be showed on larger range of datasets and experiments. Introducing some real case scenarios (real world dataset) as part of this paper will be very beneficial. Some efforts on this point are made using the temperature dataset, but I think that it should be covered better. Taking into account that the pccf algorithm is already proposed by the authors in their previous work, my
+opinion is that the contribution should be larger to accept the paper. I suggest more extensive experiments to prove the hypothesis and more extensive research about the problems that has reoccurring concept drifts.
+
+
+Reviewer #3: Please see my formal report, if the PDF file with it is available. In plain text:
+
+Referee report on the article
+"Improving CUSUM performance in presence of prediction intervals"
+
+The article focuses on the change-point detection methods that take into account a
+certain prior information about the location of change points. The authors propose the
+PCCF algorithm from their earlier work and show that because of this additional data,
+both the mean detection delay and the rate of false alarms can be simultaneously reduced.
+In my evaluation, the paper is not ready for publication for the following reasons:
+1. First, it uses a non-Bayesian (frequentist) CUSUM method for the situation that
+seems to perfectly align with Bayesian change-point detection because of the use
+of a prior information about the location of change-points. The optimal detection
+procedure in this case should be the Bayesian algorithm (for example, [2],[6] for
+classical off-line and [1], [4], [5], and of course, chapter 7 of [7], for more recent
+sequential procedures). It is not clear why the authors don't use Bayesian procedures
+to solve Bayesian problems.
+2. Second, the prior information in the form of prior probabilities (4)-(5) is only used to
+determine the intervals where changes may occur. Unlike Bayesian procedures, the
+proposed algorithm does not utilize the rest of the prior, for example, the more likely
+and the less likely locations of change-points. Also, by ignoring the intervals where
+changes are not likely, the authors increase the probability of missing a change-point
+without detecting it.
+3. Third, for all practical purposes, too much seems to be assumed. That is, the
+proposed algorithm assumes a whole matrix of estimated change-point probabilities.
+A lot of data needs to be observed and processed, and many change-points have to
+be detected very accurately, in order to have good estimates of such a probability
+matrix. The estimation error in thee probabilities does not seem to be taken into
+account in the analysis of the detection delays and false alarm rates.
+4. And lastly, if we assume such an accurate estimation of the prior distribution of
+change-points, improved performance under all this additional information is not
+a major accomplishment. Of course, the more we know the better our statistical
+analysis should be.
+The CUSUM algorithm defined by (2) only targets changes in the mean. It should be
+clarified in the article that it is focusing on these changes only (as opposed to changes in
+variance and other changes in distribution).
+The characterization of the CUSUM statistic as a random walk is wrong. CUSUM is
+not a random walk because of the maximum in equation (2). It is correct to say that it
+is a random walk with an absorbing screen (or barrier) at 0.
+The terms "static" and "dynamic" detectors are misleading. There are "retrospective"
+or "off-line" and "sequential" or "on-line" change-point detection procedures, but the
+authors mean a different situation. The article is focused on the prior information about
+intervals where changes can occur. Perhaps, call them "informed" methods, in view of
+additional information?
+A Normal distribution between change-points is an unfortunate choice. Naturally,
+interarrival times should rather be modeled by a positive random variable such as Expo-
+nential, Gamma, or Weibull. The authors' remark to use a Normal distribution with a
+sufficiently small  is an attempt to fix this, but the requirement of a small  is a huge lim-
+itation saying essentially that a lot is known a'priori about the location of change-points.
+Also, no  will guarantee that a Normal variable is positive. Finally in this regard, given
+the Normal distribution, one does not need Chebychev's inequality in (6) to estimate the
+probability that is known exactly from the Normal distribution.
+Derivation (7)-(10) is not needed. The distribution of a sum of Normal random vari-
+ables is textbook common knowledge.
+Minor suggestions and corrections:
+* p.2, line 12... In sequential analysis, ARL typically refers to both the mean delay
+and the mean time between false alarms, depending on the true parameter. That's
+why it's usually written as ARL(0) or ARL(1). Perhaps, it can be clarified in the
+article by just replacing "which is also referred as" with "which are also referred to
+as".
+* p.2, line 15... Insert a comma after "detector".
+* p.2, line 24... "We refer to this type"
+* Next line... "The first research question..."
+* p.2 and later, in multiple places... please correct the reference to [3]. It should be
+Basseville and Nikiforov (1993) instead of Basseville Michelle et al, because Michelle
+is the first name of Basseville.
+* p.3, line 5... The "Bayesian learn predict adjust method" should better be called
+the "Bayesian learn-predict-adjust method" or the "Bayesian learning, prediction,
+and adjustment method", to be grammatically correct.
+* p.3, line 20... abbreviation ROI should be explained. It would also be recommended
+to write abbreviations DDM and EDDM in he top of p.4 explicitly.
+* p.4, line 6... delete an extra "and"
+* p.5, lines 7-8... "As an input, CuSum detector receives a time series of observations
+[1], usually taken at constant sampling rate,"
+* p.5, bottom line... "ARL refers to the FA rate before the change". This is not
+correct. In the literature, the FA rate is the reciprocal of the expected time (ARL)
+until the false alarm. That is, E(td | tc = 1) is the expected time until FA; then
+FA rate = 1/E(td | tc = 1)
+* p.7, line 40... "Plots ... illustrate" (instead of "illustrates")
+There are many errors in the grammar and style throughout the manuscript, most
+commonly, missed commas and prepositions. I only listed a few suggestions above, and
+the list is certainly incomplete. If the authors decide to revise and resubmit their paper,
+I would recommend to use services of a professional proofreader.
+
+References
+
+[1] M. Baron. Bayes stopping rules in a change-point model with a random hazard rate.
+Sequential Analysis, 20(3):147-163, 2001.
+[2] D. Barry and J. A. Hartigan. A Bayesian analysis for change point problems. Journal
+of Amer. Statist. Assoc., 88 (421):309-319, 1993.
+[3] M. Basseville and I. V. Nikiforov. Detection of Abrupt Changes: Theory and Application
+. PTR Prentice-Hall, Inc., Englewood Cliffs, NJ, 1993.
+[4] S. Dayanik, H. V. Poor, and S. O. Sezer. Multisource Bayesian sequential change
+detection. Annals Appl. Prob., 18(2):552-590, 2008.
+[5] Cheng-Der Fuh and Alexander G Tartakovsky. Asymptotic Bayesian theory of quick-
+est change detection for hidden Markov models. IEEE Transactions on Information
+Theory, 65(1):511-529, 2018.
+[6] A. F. M. Smith. A Bayesian approach to inference about a change-point in a sequence
+of random variables. Biometrika, 62:407-416, 1975.
+[7] A. G. Tartakovsky, I. V. Nikiforov, and M. Basseville. Sequential Analysis: Hypothesis
+Testing and Change-Point Detection. Chapman & Hall/CRC, 2014.
+
+
+There is additional documentation related to this decision letter. To access the file(s), please click the link below. You may also login to the system and click the 'View Attachments' link in the Action column.
+
+https://www.editorialmanager.com/mach/l.asp?i=199093&l=S0IWEH3L
+
+---
+Message from Springer Nature, publisher of Machine Learning:
+
+
+
+Although your manuscript was not suitable for Machine Learning,
+Springer Nature is keen to help you find a suitable journal to publish your manuscript from our portfolio of over 2,600 journals. 
+
+One of our Submission Editorial Advisors will be in touch shortly to help you find the most relevant journal for your manuscript.
+---
+
+
+**Our flexible approach during the COVID-19 pandemic**
+
+If you need more time at any stage of the peer-review process, please do let us know. While our systems will continue to remind you of the original timelines, we aim to be as flexible as possible during the current pandemic.
+
+This letter contains confidential information, is for your own use, and should not be forwarded to third parties.
+
+Recipients of this email are registered users within the Editorial Manager database for this journal. We will keep your information on file to use in the process of submitting, evaluating and publishing a manuscript. For more information on how we use your personal details please see our privacy policy at https://www.springernature.com/production-privacy-policy. If you no longer wish to receive messages from this journal or you have questions regarding database management, please contact the Publication Office at the link below.
+
+__________________________________________________
+In compliance with data protection regulations, you may request that we remove your personal registration details at any time.  (Use the following URL: https://www.editorialmanager.com/mach/login.asp?a=r). Please contact the publication office if you have any questions.
