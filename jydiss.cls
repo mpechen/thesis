@@ -1016,7 +1016,7 @@ summary!}
 \newcommand{\acronym}[2]{\item[#1]#2}
 
 
-\def\diss@notations{Notation}
+\def\diss@notations{Notations}
 \newcommand{\setnotations}[1]{\gdef\diss@notations{#1}}
 
 \newenvironment{notations}{\chapter*{\diss@notations}%
