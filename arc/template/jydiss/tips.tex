@@ -1,0 +1,172 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage{url}
+
+\newenvironment{cmds}
+  {\begin{description}\renewcommand{\makelabel}[1]{\texttt{\textbackslash##1}\hfill}}
+  {\end{description}}
+
+\newenvironment{opts}
+  {\begin{description}\renewcommand{\makelabel}[1]{\texttt{##1}\hfill}}
+  {\end{description}}
+
+\newenvironment{envs}
+  {\begin{description}\renewcommand{\makelabel}[1]{\texttt{##1}\hfill}}
+  {\end{description}}
+
+\newcommand{\cmd}[1]{\texttt{\textbackslash#1}}
+\newcommand{\opt}[1]{\texttt{#1}}
+\newcommand{\env}[1]{\texttt{#1}}
+\newcommand{\pack}[1]{\textit{#1}}
+\newcommand{\argu}[1]{\textit{#1}}
+\newcommand{\cls}[1]{\textsc{#1}}
+\newcommand{\prog}[1]{\textbf{\textsf{#1}}}
+
+\author{Matthieu Weber\\ \texttt{mweber@mit.jyu.fi} \and Antti-Juhani Kaijanaho\\ \texttt{antkaij@mit.jyu.fi}}
+\title{Tips and Tricks for using \LaTeX\ with \cls{JYdiss}}
+
+\begin{document}
+\maketitle
+
+
+\begin{abstract}
+This short document provides some tips and tricks which are not directly
+related to the \cls{jydiss} class, but which may be useful for the users of
+that class.
+\end{abstract}
+
+\tableofcontents
+
+\section{The \pack{hyperref} package}
+
+Hyperref is a very powerful package, but it is also the source of loads of
+troubles\dots
+
+One rule to remember is to load \pack{hyperref} \emph{after} all other
+packages, unless explained otherwise.
+
+\subsection{\pack{algorithm} and Other \pack{float}-Based Packages}
+
+\pack{algorithm} (and all packages based on \pack{float}) interact badly with
+\pack{hyperref}, since they both redefine \cmd{caption}, producing a lot of
+warnings when used with \prog{pdflatex}. You must therefore load these packages
+\emph{after} loading \pack{hyperref}. The following piece of black magic will
+prevent the warnings.
+
+\begin{verbatim}
+% patch of float's \caption to avoid double anchor setting by \refstepcounter
+% of float's \caption and in hyperref's \@caption. 
+ \begingroup
+ \makeatletter
+ \def\x#1\refstepcounter#2\@nil{%
+ \endgroup
+ \def\caption{#1\H@refstepcounter#2}%  
+}%
+\expandafter\x\caption\@nil
+\end{verbatim}
+
+\subsection{Colored links in PDF}
+
+By default, when producing PDF output, \pack{hyperref} marks the hyperlinks by
+framing the text of the links. This is particularly ugly when the document is
+meant to be viewd on a computer monitor (the frames do not appear when the
+document is printed). The following command will make the text of the
+hyperlink be colored instead of begin framed in color:
+
+\begin{verbatim}
+\usepackage[pdftex]{hyperref}
+\hypersetup{colorlinks,citecolor=blue}
+\end{verbatim}
+
+Note that the \verb"citecolor=blue" is because the default color is IMHO very
+ugly on screen, and is completely optional.
+
+There is one drawback, though: when such a document is printed, the colored
+text appears in gray on the paper. The best solution is therefore to prepare
+two PDF versions of the document, one meant to be printed, with the
+\cmd{hypersetup} command from above being commented out (or even without hyperref
+at all), and one meant to be used on screen, with the above command activated.
+
+If one chooses to deactivate \pack{hyperref} when producing the printed
+version, the \cmd{hypersetup} can be combined with \cmd{usepackage} as
+follows:
+
+\begin{verbatim}
+\usepackage[pdftex,colorlinks,citecolor=blue]{hyperref}
+\end{verbatim}
+
+\section{Centering the item in a \env{figure} or a \env{table}}
+
+Do not use the \env{center} environment in a float (typically \env{figure} or
+\env{table}), because \env{center} produces extra vertical space, which is
+usually unwanted. Here is a better practice, using the \cmd{centering} command:
+
+\begin{verbatim}
+\begin{figure}
+\centering
+``whatever item goes into the figure''
+\caption{My figure}
+\end{figure}
+\end{verbatim}
+
+\section{Finnish Hyphenation}
+
+If you write your thesis in Finnish, it is useful to have Finnish hyphenation
+enabled. You can check if it is enabled by looking for the words
+``hyphenation'' and ''finnish'' in the output of \prog{latex}. If it is
+similar to the following example, it is already enabled.
+
+\begin{verbatim}
+This is e-TeX, Version 3.14159-2.1 (Web2C 7.4.5)
+entering extended mode
+(./thesis.tex
+LaTeX2e <2001/06/01>
+Babel <v3.7h> and hyphenation patterns for american, french,
+ german, ngerman, finnish, nohyphenation, loaded.
+\end{verbatim}
+
+Otherwise, you can enable it by following these instructions (for the
+\prog{tetex} distribution in Linux; if you use another distribution, contact
+your administrator):
+
+\noindent Edit \url{/etc/texmf/language.dat}, uncomment the line
+\smallskip
+
+\verb"%finnish  fi8hyph.tex"
+\smallskip
+
+\noindent by removing the \verb"%", and then run
+\smallskip
+
+\verb"fmtutil --all"
+\smallskip
+
+\noindent if it is in your distribution (it may be a Debian script, I'm not
+sure) or if you dont have \prog{fmtutil} go to the directory containing the
+tex format files (\url{/var/lib/texmf/web2c} in Debian, otherwise search for a
+file called \url{latex.fmt} and go into the directory containing that file)
+and run
+
+\begin{verbatim}
+tex -ini -jobname=tex -progname=tex tex.ini
+tex -ini -jobname=latex -progname=latex latex.ini
+etex -ini -jobname=latex -progname=latex *latex.ini
+etex -ini -jobname=etex -progname=etex *etex.ini
+etex -ini -jobname=elatex -progname=elatex *elatex.ini
+pdftex -ini -jobname=pdftex -progname=pdftex pdftex.ini
+pdftex -ini -jobname=pdflatex -progname=pdflatex pdflatex.ini
+pdfetex -ini -jobname=pdflatex -progname=pdflatex *pdflatex.ini
+pdfetex -ini -jobname=pdfetex -progname=pdfetex *pdfetex.ini
+pdfetex -ini -jobname=pdfelatex -progname=pdfelatex *pdfelatex.ini
+\end{verbatim}
+
+\section{Weird \LaTeX\ Bugs}
+
+\subsection{\cmd{label} and \cmd{caption} in a Float}
+When defining a float (figure, table\dots), always put the \cmd{label} command
+\emph{just after} the caption (i.e., with no command between the \cmd{caption}
+and the \cmd{label} commands). Otherwise, a reference to that label will be
+incorrect (it will refer to the current sectioning number instead of the float
+number).
+\end{document}
