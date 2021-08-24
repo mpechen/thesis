@@ -298,7 +298,8 @@ PCCF is calculated in line 15 by summing up probabilities in the columns of matr
 \end{algorithm}
 
 
-\section{From BLPA}
+\section{Pccf in Bayesian settings}
+% From BLPA
 Here we consider uncertainty factors.
 Not too much to add. 
 Mostly integration.
@@ -307,15 +308,10 @@ Pccf related section (to be merged):
 \subsection{PCCF function}
 \label{subsec:pccf}
 In this section we show how to compute PCCF function used to predict time locations of the recurrent changes in the future.
-We consider a discrete case when observations are obtained at the
-discrete time moments $\langle t \rangle_{t=1}^T$ with a constant sampling rate.
-Probability distribution for the discrete sets is defined using
-Probability mass function (\textbf{Pmf}).
-As mentioned earlier we assume that changes \textit{re-}occur after
-`approximately' equal time intervals.
-To model time intervals between consecutive changes
-$\langle c_i - c_{i-1} \rangle$
-we use the Gaussian distribution assuming that standard deviation is small enough so that probability to observe the change $c_i$ before $c_{i-1}$ is extremely small.
+We consider a discrete case when observations are obtained at the discrete time moments $\langle t \rangle_{t=1}^T$ with a constant sampling rate.
+Probability distribution for the discrete sets is defined using Probability mass function (\textbf{Pmf}).
+As mentioned earlier we assume that changes \textit{re-}occur after `approximately' equal time intervals.
+To model time intervals between consecutive changes $\langle c_i - c_{i-1} \rangle$ we use the Gaussian distribution assuming that standard deviation is small enough so that probability to observe the change $c_i$ before $c_{i-1}$ is extremely small.
 \begin{definition}
     \label{def:recurrentdefinition}
     \textit{

@@ -1,4 +1,5 @@
 *.bbx
+example.pdf
 methodology.pdf
 debug/
 target/
