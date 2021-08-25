@@ -9,7 +9,10 @@ While CD is more general problem to detect changes in high-dimensional data stre
 Time series data are widespread as it is a natural form to store information about any evolving phenomenon.
 Even if the data set used to train a predictive model is assumed to be temporary static, underlying assumption is that in the future the data distribution will change and the model will be re-trained. Snapshots used to trained the model over time are indexed by time moment when they were relevant and form a high dimensional data stream containing data snapshots indexed by time.
 
-On-line change detection in time series data is an old practical problem with the roots in the problem of statistical quality control~\cite{basseville1993detection}, ~\cite{NISTbook}. Walter A. Shewhart invented control charts in 1924 while working on the problem of statistical quality control to improve reliability of telephone transmission systems.
+Historically, on-line change detection in time series data is an old practical problem with the roots in the problem of statistical quality control~\cite{basseville1993detection}, ~\cite{NISTbook}. Walter A. Shewhart invented control charts in 1924 while working on the problem of statistical quality control to improve reliability of telephone transmission systems.
+
+Quality control itself is even more old and dates back to Middle Ages when manufacturing using machines began.
+In the modern time quality control is transferred to the area of Machine Learning with the aim to control and maintain quality of predictive models.
 
 In the era of Machine Learning the problem of change detection in time series data is transferred to the area of predictive models as Concept drift problem.
 
@@ -44,15 +47,13 @@ A continuously operating power production plant needs to be regularly refueled.
 Change detection software is deployed for detecting refueling events from sensor data, and providing this information to the operation and control system.
 If, for instance, historical data suggests that refueling usually happens between 7pm and 10pm every day, this information can be learned from data, and the sensitivity of the detector can be increased within this time range expecting to improve detection speed, and lowered otherwise expecting to reduce the rate of false alarms.
 
-(BLPA):
-Online changepoint detection is an important task for machine learning in changing environments.
+Online change point detection is an important task for machine learning in changing environments.
 Presence of noise that can be mistaken for real changes makes it difficult to develop an effective approach that would have a low false alarm rate and being able to detect all the changes with a minimal delay.
-
 Online change detection is practically relevant in many domains, such as medicine, energy production, industrial processes monitoring~\cite{Nikiforov}.
 In machine learning and data mining research areas change detection is often studied in the context of problem of concept drift happening due to changes in the underlying data distribution over time~\cite{Widmer96}. A popular approach for handling concept drift is to monitor data or model performance for changes and to adapt model using most recent data collected after the last detected change~\cite{GamaACMCS2014}.
 
-(JOURNAL):
 In the real world, the data tends to change over time.
+In fact, it is almost never static.
 Machine learning systems need to have mechanisms for monitoring changes in data distributions, for continuous diagnostics of their models performance, and for model adaptations that can handle concept drifts, i.e.\ sudden or gradual changes in underlying data distributions.
 The so-called informed methods for handling concept drift are based on online change detection mechanisms. Most of the existing mechanisms assume that changes are not predictable.
 However, there are various application settings in which concept drifts are expected to reoccur with a pattern.
@@ -60,10 +61,6 @@ Intuitively, contextual information about past and future change points location
 We show how this performance gain can be achieved for Cusum detector as one of the most popular detection methods based on sequential analysis, in presence of prediction intervals capturing change points locations.
 
 Machine learning under concept drift has been an actively studied research area. \cite{gama2014survey} and \cite{zliobaite2016overview} provide comprehensive overviews of methods and studied application scenarios. As the data distributions change over time, machine learning models need to adapt to these changes in a timely manner. The so-called informed adaptation methods rely on on-line change detectors that trigger an adaptation mechanism. 
-
-
-
-(END)
 
 Most of the existing change detection methods assume that changes are independent from each other and occur at random in time.
 
