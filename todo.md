@@ -1,6 +1,25 @@
 
+## 25 Aug 2021
 
-## Meeting 18 aug 2021
+- Introduction
+  4 subsections
+  Motivation for CD and change detection separately for now 
+  Add about time series in general, evolving data, sensor data, drifts, recurrency
+  1.1 Motivation 1.2 RQ 1.3 Contributions 1.4 Content overview 
+  Describe which articles we include and map to chapters 
+
+- Methodology 
+  datasets 
+  evaluation framework
+  performance metrics
+
+- Ch 7: Effect on model adaptation - add from summary
+
+- Ch 8: Conclusions 
+  8.1 Contributions (from papers)
+  8.2 Limitations 
+
+## Meeting 18 Aug 2021
 
 <img src='./www/meeteing_18aug2021.jpg' width=540px>
 

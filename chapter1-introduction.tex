@@ -16,10 +16,49 @@ Once change is alarmed the model can be re-trained using the most relevant data 
 In this scenario model will be trained using only most recent relevant data batch and will have a better performance than sliding window or growing window updated model.
 We propose to use recurrency information to skip false alarms and possibly detect changes with smaller delays.
 
-% 2. Research goals
+% 2. Research goals / questions
 Our research goal is to develop a mathematical model and its software implementation for improving change detection performance in case if CD or change event is predictable with the aim to i) reduce FA rate and ii) decrease the detection delay. 
 
-% 3. Thesis outline
+% 3. Contributions 
+
+The core is articles 1), 2) and 3)
+
+% All articles and which we include
+In the paper 1) we introduced Pccf and integrated it with the naive threshold based detector.
+In the paper 2) we address uncertainty in Pccf parameters estimation and integrate Pccf with the Bayesian detector.
+In 3) we improve Pccf definition and calculation procedure and integrate it with the Cusum detector, address detection delay decrease and particular statistical properties of the Cusum output statistic.
+
+\begin{enumerate}[leftmargin=0.2cm]
+
+  \item \textbf{Alexandr Maslov}, Mykola Pechenizkiy, Indr\.e~\v{Z}liobait\.e, Tommi K\"{a}rkk\"{a}inen \textbf{``Modelling Recurrent Events for Improving Online Change Detection''} (SDM 2016, SIAM International Conference on Data Mining)
+
+  \item \textbf{Alexandr Maslov}, Mykola Pechenizkiy, Yulong Pei, Indr\.e~\v{Z}liobait\.e, Alexander Shklyaev, Tommi K\"{a}rkk\"{a}inen, Jaakko Hollm{\'e}n \textbf{``BLPA: Bayesian Learn-Predict-Adjust Method for Online  Detection of Recurrent Changepoints''} (IJCNN 2017, The 2017 International Joint Conference on Neural Networks, Anchorage, Alaska, USA, May 14-19)
+
+  \item \textbf{Alexandr Maslov}, Mykola Pechenizkiy, Tommi K\"{a}rkk\"{a}inen \textbf{``Improving CUSUM performance in presence of prediction intervals''} (Submitted)
+
+\end{enumerate}
+
+\begin{enumerate}[leftmargin=0.2cm]
+  \item \textbf{Alexandr Maslov}, Hoang Thanh Lam, Mykola Pechenizkiy, Eric Bouillet, Tommi K\"{a}rkk\"{a}inen \textbf{``DOBRO: A Prediction Error Correcting Robot Under Drifts''} (SAC 2016, The 31st ACM/SIGAPP Symposium on Applied Computing)
+
+  \item Tommi K\"{a}rkk\"{a}inen, \textbf{Alexandr Maslov}, Pekka Wartiainen
+\textbf{``Region of interest detection using MLP''} (ESANN 2014, European Symposium on Artificial Neural Networks: Bruges, Belgium)
+
+  \item Ayoze Marrero, Juan Mendez, \textbf{Alexandr Maslov}, Mykola Pechenizkiy \textbf{``ACLAC: An adaptive closed-loop anesthesia control''} (CBMS 2013: Porto, Portugal)
+
+  \item Hindra Kurniawan, \textbf{Alexandr Maslov}, Mykola Pechenizkiy \textbf{``Stress Detection from Speech and Galvanic Skin Response Signals''} (CBMS 2013, The 26th IEEE International Symposium on Computer-Based Medical Systems: Porto, Portugal)
+
+  \item \textbf{Alexandr Maslov}, Mykola Pechenizkiy, Tommi K\"{a}rkk\"{a}inen, Matti T\"{a}htinen
+%\href{http://dl.acm.org/citation.cfm?id=2350185}{}
+\textbf{``Quantile Index for Gradual and Abrupt Change Detection from CFB Boiler Sensor Data in Online Settings''}
+(Proceedings of the Sixth International Workshop on Knowledge Discovery from Sensor Data (ACM SIGKDD), Beijing, 2012)
+
+  \item Denis Kotkov, \textbf{Alexandr Maslov}, Mats Neovius. 2021. \textbf{``Revisiting the Tag Relevance Prediction Problem''}. In Proceedings of the 44th International ACM SIGIR Conference on Research and Development in Information Retrieval, (SIGIR 2021). Association for Computing Machinery, New York, NY, USA, 1768–1772. %DOI:\href{https://doi.org/10.1145/3404835.3463019}
+\end{enumerate}
+
+% 4. Thesis outline
+
+
 
 In Chapter 2 (Background) we review relevant information regarding Concept drift phenomenon, concept drift adaptation techniques, change detection problem, recurrency.
 
