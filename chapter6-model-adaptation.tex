@@ -42,12 +42,11 @@ If FA is not due to the noise than it doesn't affect model's performance.
 One of the main problems with real data sets used for benchmarking concept drift detection methods is an uncertainty about the presence of concept drifts~\cite{SouzaRMB20}.
 If there is false alarm triggering re-training then model will be re-trained using the data between detection and current moment of time instead of the whole sliding window.
 And if it is FA then model's performance will be, most likely, nearly the same.
-
-\begin{figure}[!htb]
-	\centering
-	\includegraphics[width=0.7\textwidth]{images/proof_of_concept_linreg_cfb_sig}
-	\caption{CFB signal example.  Linear regression applied in a sliding window.  Prediction error with drift detection using Cusum is lower.  FA is not an issue since it doesn't cause any performance decrease.}\label{fig:cfb_sig_linreg_proof_of_concept}
-\end{figure}
+% replaced by better fig: \begin{figure}[!htb]
+% replaced by better fig: 	\centering
+% replaced by better fig: 	\includegraphics[width=0.7\textwidth]{images/proof_of_concept_linreg_cfb_sig}
+% replaced by better fig: 	\caption{CFB signal example.  Linear regression applied in a sliding window.  Prediction error with drift detection using Cusum is lower.  FA is not an issue since it doesn't cause any performance decrease.}\label{fig:cfb_sig_linreg_proof_of_concept}
+% replaced by better fig: \end{figure}
 
 \begin{figure}[htb!]
 	\centering

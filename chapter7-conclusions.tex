@@ -2,9 +2,34 @@
 % - Main contributions.
 % - Limitations & Future work
 
-\section{From SDM}
-\section{From BLPA}
-\section{From Journal}
+(SDM) We studied how performance of detectors can be improved in case of recurrent changes.
+We analytically demonstrate under which conditions and for how long recurrence information is useful for improving the detection accuracy.
+We propose a simple computationally efficient message passing procedure for calculating a predictive probability distribution of change occurrence in the future. We demonstrate two straightforward ways to apply the proposed procedure to existing change detection algorithms.
+Our experimental analysis illustrates the effectiveness of these approaches in improving the performance of a baseline online change detector by incorporating recurrence information.
 
-\section{Future work}
-Aclac?
+We analyze how and under which conditions the performance of online change detectors can be improved for detecting recurrent changes:
+\begin{itemize}	\setlength\itemsep{0pt}
+    \item We define a predictive change confidence function (PCCF) for modelling recurrent changes and predicting times of changes in the future. We derive the exact analytical expression for PCCF under Gaussian data distribution.
+    \item We demonstrate under which conditions taking into account recurrence information improves detection accuracy by analytically relating PCCF and time passed from the most recent confirmed change.
+    \item We demonstrate how to improve the accuracy of an online change detector of user's choice by utilizing recurrence information with two simple yet generic approaches: (1)~a post-filtering of change detection output can substantially reduce the number of false alarms while preserving the same detection rate; (2)~an adaptation mechanism can be used to adjust the sensitivity of the detector online based on the change recurrence expectations.
+    \item Our experimental study provides evidence that it is indeed feasible to improve performance of online change detection by utilizing recurrence information even with such simple approaches.
+\end{itemize}
+
+(BLPA): 
+We proposes BLPA, an efficient approach for inducing and integrating recurrence information in the streaming settings, and demonstrate its effectiveness in the experimental study on synthetic and real-world datasets.
+We study how performance of popular Bayesian online detectors can be improved in case of recurrent changes. Modeling recurrence allows us to anticipate future changepoints and predict their time locations.
+
+We proposed the method to improve performance of the Bayesian Online Changepoint detector (BD) for the data streams with recurrent changes by embedding into it the Predictive Confidence Change Function (PCCF).
+While observing a new data both BD detector's and PCCF's parameters are adjusted in a uniform way to the changing conditions using the same Bayesian update procedures constituting a two-layer adaptive change detection/prediction method BLPA.
+In the experiments with real and artificial data sets we demonstrated that Bayesian detector equipped with PCCF performs better in terms of TP/FP rates than the detector without PCCF.
+
+(JOURNAL): 
+
+\textbf{Limitations}:
+(JOURNAL)
+The main limitation of the proposed methodology is a number of additional parameters the user should define.
+Specifically, expected time interval between changes should be estimated, number of change points to be predicted, and width of the prediction interval $\text{ROI}_{\text{Width}}$.
+Additionally, position of ROI relatively to change point location might play an important role. In this work we considered only symmetrical positioning for simplicity.
+Another limitation is that incorrect prediction intervals may lead to false alarms being considered as true positives if happened within ROI. IF then new predictions intervals are calculated based on the latest detection it may lead to severely degraded performance. 
+
+\textbf{Future work}:
