@@ -24,6 +24,14 @@ While observing a new data both BD detector's and PCCF's parameters are adjusted
 In the experiments with real and artificial data sets we demonstrated that Bayesian detector equipped with PCCF performs better in terms of TP/FP rates than the detector without PCCF.
 
 (JOURNAL): 
+We demonstrated that both detection delay and $F_1$ score can be decreased when using prediction intervals (ROIs) capturing change points locations (Figures~\ref{fig:artificial_signal_perf_results} and ~\ref{fig:performance_temperature_signal}).
+Prediction interval width effectively imposes constraints on the maximum detection delay controlled by the detection delay $h$ which, in turn, regulates ARL value (Figure~\ref{fig:arl}, Equation~\ref{eq:arl_approximation}).
+If change points are predicted correctly using prediction intervals, then
+\begin{enumerate}
+    \item At the least, FA rate can be decreased safely just by ignoring all detections outside ROIs
+    \item As the next step, detection delay can be decreased too by decreasing detection threshold value $h$ 
+    \item When applying lower threshold value within ROI, performance improvement is not guaranteed and is defined by the trade off between outcomes depicted on Figure~\ref{fig:possible_outcomes}.
+\end{enumerate}
 
 \textbf{Limitations}:
 (JOURNAL)
